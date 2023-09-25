@@ -4,15 +4,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { HttpClientModule } from '@angular/common/http';
+import { TablenamelistComponent } from './tablenamelist/tablenamelist.component';
+import { EntityListServiceService } from './entity-list-service.service';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TablenamelistComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [EntityListServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

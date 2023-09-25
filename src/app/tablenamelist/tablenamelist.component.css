@@ -1,0 +1,50 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 69px auto;
+  }
+  
+  .custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .custom-table th, .custom-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ccc;
+  }
+  
+  .custom-table th {
+    background-color: #f0f0f0;
+  }
+  
+  .btn {
+    margin-bottom: 10px;
+    margin-left: auto;
+  }
+  
+  .btn i {
+    margin-right: 5px;
+  }
+
+  body {
+    background-color: #f9f9f9; /* Add a background color */
+  }
+  
+  .container {
+    background-color: white; /* Set a white background for the container */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a slight box shadow */
+  }
+  

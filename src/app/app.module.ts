@@ -5,20 +5,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { HttpClientModule } from '@angular/common/http';
-import { TablenamelistComponent } from './tablenamelist/tablenamelist.component';
-import { EntityListServiceService } from './entity-list-service.service';
+import { EntitylistService } from './Services/entitylist.service';
+import { DisplaytableNameComponent } from './displaytable-name/displaytable-name.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    TablenamelistComponent
+    DisplaytableNameComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [EntityListServiceService],
+  providers: [EntitylistService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

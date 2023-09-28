@@ -1,4 +1,4 @@
-export interface TableColumn {
+export interface TableColumnDTO {
   id: number;
   entityColumnName: string;
   datatype: string;

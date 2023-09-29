@@ -9,22 +9,25 @@ import { EntitylistService } from './Services/entitylist.service';
 import { DisplaytableNameComponent } from './displaytable-name/displaytable-name.component';
 import { EntityDetailsComponent } from './entity-details/entity-details.component';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertService } from './Services/AlertService';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { InputcolumnsComponent } from './ColumnInputs/inputcolumns/inputcolumns.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     DisplaytableNameComponent,
-    EntityDetailsComponent
+    EntityDetailsComponent,
+    InputcolumnsComponent,
   ],
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,RouterModule,
+    ReactiveFormsModule,
     FormsModule,
     ToastrModule.forRoot()
   ],

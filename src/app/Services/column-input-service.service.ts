@@ -18,7 +18,7 @@ export class ColumnInputServiceService {
 
     // console.log("testing")
 
-    const url = 'http://localhost:7245/api/dynamic/create-table';
+    const url = 'https://localhost:7245/api/dynamic/create-table';
     console.log("testing")
     return this.http.post(url, formData);
 

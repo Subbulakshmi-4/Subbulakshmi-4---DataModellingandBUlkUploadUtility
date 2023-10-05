@@ -3,7 +3,7 @@ export interface TableColumnDTO {
   entityColumnName: string;
   datatype: string;
   length: number;
-  isNullable: boolean; // Add this property
+  isNullable: boolean;
   defaultValue: string;
-  isPrimaryKey: boolean; // Add this property
+  isPrimaryKey: boolean; // This represents if the column is a primary key locally
 }

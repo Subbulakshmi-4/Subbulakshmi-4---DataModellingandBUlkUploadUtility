@@ -8,7 +8,7 @@
   </button>
   &nbsp;
   <!-- Button to create a template -->
-  <button class="btn btn-primary"  (click)="generateExcelTemplate()" [disabled]="!hasColumns()">
+  <button class="btn btn-primary" [routerLink]="['/entity', entityName]" (click)="generateExcelTemplate()" [disabled]="!hasColumns()">
     <i class="fa-solid fa-download"></i>
     Create Template
   </button>
@@ -21,7 +21,7 @@
 
   <div style="text-align: center;">
     <table class="custom-table">
-      <!-- Table header  sample-->
+      <!-- Table header -->
       <thead>
         <tr>
           <th>ID</th>
@@ -41,8 +41,9 @@
           <td>
             <select [(ngModel)]="column.datatype" [disabled]="true">
               <option value="string">string</option>
-              <option value="number">number</option>
+              <option value="integer">number</option>
               <option value="date">date</option>
+              <option value="boolean">boolean</option>
               <!-- Add more options as needed -->
             </select>
           </td>
@@ -54,6 +55,7 @@
           <td>
             <input type="checkbox" [(ngModel)]="column.isPrimaryKey" [disabled]="true" (change)="togglePrimaryKey(column)" />
           </td>
+          
         </tr>
       </tbody>
       <!-- No data found message -->

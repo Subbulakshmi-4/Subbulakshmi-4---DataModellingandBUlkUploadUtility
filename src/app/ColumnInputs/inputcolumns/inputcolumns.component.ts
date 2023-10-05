@@ -197,7 +197,7 @@ export class InputcolumnsComponent {
   }
 
   createTable() {
-    debugger
+    console.log("th")
     if (this.tableForm.valid) {
       const formData = this.tableForm.value;
       const backendRequest = {

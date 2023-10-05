@@ -1,0 +1,69 @@
+<div class="container">
+  <h3 class="entity-name">{{ entityName }}</h3>
+  <br>
+  <!-- Button to go back to the entity list -->
+  <button class="btn btn-primary" routerLink="/entity-list" (click)="goBackToList()">
+    <i class="fa-solid fa-arrow-left"></i>
+    Back to Entity List
+  </button>
+  &nbsp;
+  <!-- Button to create a template -->
+  <button class="btn btn-primary" [routerLink]="['/entity', entityName]" (click)="generateExcelTemplate()" [disabled]="!hasColumns()">
+    <i class="fa-solid fa-download"></i>
+    Create Template
+  </button>
+  &nbsp;
+  <button class="btn btn-primary" [disabled]="!hasColumns()" (click)="openFileInput()">
+    <i class="fa-solid fa-upload"></i>
+    Upload Template
+  </button>
+  <input type="file" #fileInput style="display: none" (change)="uploadTemplate($event)" accept=".xlsx">
+
+  <div style="text-align: center;">
+    <table class="custom-table">
+      <!-- Table header -->
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Column Name</th>
+          <th>Data Type</th>
+          <th>Length</th>
+          <th>Nullable</th>
+          <th>Default Value</th>
+          <th>Primary Key</th>
+        </tr>
+      </thead>
+      <!-- Table body -->
+      <tbody>
+        <tr *ngFor="let column of columns">
+          <td>{{ column.id }}</td>
+          <td>{{ column.entityColumnName }}</td>
+          <td>
+            <select [(ngModel)]="column.datatype" [disabled]="true">
+              <option value="string">string</option>
+              <option value="integer">number</option>
+              <option value="date">date</option>
+              <option value="boolean">boolean</option>
+              <!-- Add more options as needed -->
+            </select>
+          </td>
+          <td>{{ column.length }}</td>
+          <td>
+            <input type="checkbox" [(ngModel)]="column.isNullable" [disabled]="true" (change)="toggleNullable(column)" />
+          </td>
+          <td>{{ column.defaultValue }}</td>
+          <td>
+            <input type="checkbox" [(ngModel)]="column.isPrimaryKey" [disabled]="true" (change)="togglePrimaryKey(column)" />
+          </td>
+          
+        </tr>
+      </tbody>
+      <!-- No data found message -->
+      <tbody *ngIf="columns.length === 0">
+        <tr>
+          <td colspan="7" style="color: red;">No data found.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

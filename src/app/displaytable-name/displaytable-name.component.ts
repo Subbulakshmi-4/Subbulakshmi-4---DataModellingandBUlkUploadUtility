@@ -1,31 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EntityListDto } from '../Models/EntitylistDto.model';
 import { EntitylistService } from '../Services/entitylist.service';
+import { Router } from '@angular/router'; // Import Router
 
 @Component({
   selector: 'app-displaytable-name',
   templateUrl: './displaytable-name.component.html',
   styleUrls: ['./displaytable-name.component.css']
 })
-export class DisplaytableNameComponent {
-  tableNames: EntityListDto[] = [];
-  errorMessage:string = '';
 
-  constructor(private entitylistService: EntitylistService ) { }
+export class DisplaytableNameComponent implements OnInit {
+  tableNames: EntityListDto[] = [];
+  errorMessage: string = '';
+
+  constructor(private entitylistService: EntitylistService, private router: Router) {} // Inject Router
 
   ngOnInit(): void {
-    console.log('ngOnInit called'); 
     this.entitylistService.getEntityList().subscribe(
       (data: any) => {
-        console.log('Received data:', data);
         this.tableNames = data.result;
       },
       (error) => {
         console.error('Error fetching table names:', error);
         this.errorMessage = 'No Data Available';  // Update error message
       }
-      
     );
-    
+  }
+  createTable() {
+    // ... Your existing createTable code ...
+  
+    // Navigate to the "createtable" route when the button is clicked
+    console.log("forchecking")
+    this.router.navigate(['/createtable']);
+  }
+  
+  onEntityClicked(entityName: string): void {
+    this.router.navigate(['/entity', entityName]); // Navigate to EntityDetailsComponent with entityName parameter
   }
 }

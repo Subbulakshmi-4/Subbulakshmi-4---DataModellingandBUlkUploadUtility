@@ -40,10 +40,19 @@
           <td>{{ column.entityColumnName }}</td>
           <td>
             <select [(ngModel)]="column.datatype" [disabled]="true">
-              <option value="string">string</option>
-              <option value="integer">number</option>
-              <option value="date">date</option>
-              <option value="boolean">boolean</option>
+              <option value="string" default>String</option>
+
+              <option value="int">Number</option>
+
+              <option value="boolean">Boolean</option>
+
+              <option value="char">char</option>
+
+              <option value="date">Date</option>
+
+              <option value="timestamp">timestamp</option>
+
+              <option value="timestamp with time zone">timestamp with time zone</option>
               <!-- Add more options as needed -->
             </select>
           </td>

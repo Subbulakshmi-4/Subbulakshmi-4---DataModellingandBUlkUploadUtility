@@ -13,6 +13,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertService } from './Services/AlertService';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InputcolumnsComponent } from './ColumnInputs/inputcolumns/inputcolumns.component';
+import { ServerConfigurationComponent } from './server-configuration/server-configuration.component';
+import { ColumnInputServiceService } from './Services/column-input-service.service';
 
 
 @NgModule({
@@ -21,6 +23,7 @@ import { InputcolumnsComponent } from './ColumnInputs/inputcolumns/inputcolumns.
     DisplaytableNameComponent,
     EntityDetailsComponent,
     InputcolumnsComponent,
+    ServerConfigurationComponent,
   ],
   imports: [
     BrowserAnimationsModule,

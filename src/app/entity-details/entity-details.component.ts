@@ -55,35 +55,29 @@ export class EntityDetailsComponent implements OnInit {
 
   // Make the API request with the updated function
   this.columnsService.uploadTemplate(formData, tableName).subscribe(
-    (response: any) => {
-      console.log('Template uploaded successfully:', response);
-
+    (res: any) => {
+      const response = JSON.parse(res);
       if (response.isSuccess) {
-        if (response.successMessage) {
-          this.toastrService.showSuccess(response.successMessage);
-        } else {
-          this.toastrService.showSuccess('Data saved to the database.');
-        }
+          this.toastrService.showSuccess(response.errorMessage[0]);
       } else {
-        const errorMessage = response.errorMessage?.[0] || 'An error occurred while uploading the template.';
-        console.log('Extracted error message:', errorMessage);
-        this.toastrService.showError(errorMessage);
+        this.toastrService.showError(response.errorMessage[0]);
       }
     },
     (error: any) => {
-      console.error('Error uploading template:', error);
-
-      if (error.error && error.error.errorMessage && error.error.errorMessage.length > 0) {
-        const errorMessage = error.error.errorMessage[0] || 'An error occurred while uploading the template.';
-        this.toastrService.showError(errorMessage);
-      } else {
-        this.toastrService.showError('An error occurred while uploading the template.');
-      }
+      const errorResponse = JSON.parse(error.error);
+      if(errorResponse != null){
+        if(errorResponse.errorMessage[0] != null){
+          this.toastrService.showError(errorResponse.errorMessage[0])
+       }else{
+         this.toastrService.showError('An error occurred while uploading the template.');
+       }
+      }else{
+         this.toastrService.showError('An error occurred while uploading the template.');
+       }
     }
   );
 }
 
-  
   
   
   
@@ -155,6 +149,7 @@ export class EntityDetailsComponent implements OnInit {
 
   // Function to toggle the value of isPrimaryKey property
   togglePrimaryKey(column: TableColumnDTO): void {
+
     column.isPrimaryKey = !column.isPrimaryKey;
   }
 }

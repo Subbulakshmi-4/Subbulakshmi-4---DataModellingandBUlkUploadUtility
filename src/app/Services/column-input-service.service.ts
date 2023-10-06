@@ -12,15 +12,15 @@ import { Observable } from 'rxjs';
 
 export class ColumnInputServiceService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient ) {}
 
   createTable(formData: any): Observable<any> {
 
-    // console.log("testing")
-
     const url = 'https://localhost:7245/api/dynamic/create-table';
-    console.log("testing")
+
     return this.http.post(url, formData);
+
+   
 
   }
 

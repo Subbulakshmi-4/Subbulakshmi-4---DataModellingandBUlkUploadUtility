@@ -158,7 +158,7 @@ submit() {
       error => {
         // Handle error response if needed
         console.error('Error creating table:', error);
-        this.toastrService.showError('Error creating table.');
+        this.toastrService.showError('Error creating table. Table name already exists.');
       }
     );
   }

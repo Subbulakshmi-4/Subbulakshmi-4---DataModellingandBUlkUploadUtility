@@ -139,7 +139,7 @@ submit() {
               entityColumnName: columns.columnName,
               dataType: columns.datatype,
               length: columns.length || 0,
-              isNullable: !columns.isNullable,
+              isNullable: columns.isNullable,
               defaultValue: columns.defaultValue,
               columnPrimaryKey: columns.primaryKey,
               Description:columns.description

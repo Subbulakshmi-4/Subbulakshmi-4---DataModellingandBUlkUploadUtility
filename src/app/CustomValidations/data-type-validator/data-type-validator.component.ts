@@ -12,6 +12,8 @@ export function dataTypeValidator(dataType: string): ValidatorFn {
 
     if (dataType === 'Number' && value && isNaN(Number(value))) {
 
+      console.log(dataType)
+
       return { invalidNumber: true };
 
     }

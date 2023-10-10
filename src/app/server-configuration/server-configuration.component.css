@@ -1,0 +1,48 @@
+.card {
+    width: 83%;
+    height: 450px;
+    background-color: #E2EEFF;
+  }
+  
+  .container {
+    padding-left: 75px;
+  }
+  
+  .main {
+    padding-top: 52px;
+    padding-left: 100px;
+  }
+  
+  /* Apply spacing to labels and inputs */
+  label {
+    margin-bottom: 5px; /* Adds space below each label */
+    display: block; /* Puts each label on a new line */
+  }
+  
+  input[type="text"] {
+    margin-bottom: 10px; /* Adds space below each input field */
+    width: 100%; /* Makes the input fields stretch to the container width */
+    padding: 5px; /* Adds padding inside each input field */
+    border: 1px solid #ccc; /* Adds a border for input fields */
+    border-radius: 4px; /* Rounds the corners of input fields */
+  }
+  
+  .image-container {
+    padding-top: 42px;
+    width: 130%;
+  }
+  
+  .btn {
+    margin-left: 140px;
+    margin-top: -18px;
+  }
+  
+  .imgClass {
+    width: 85%;
+  }
+  
+  .btn-success {
+    margin-left: 10px;
+    margin-top: -18px; /* Adjust this value to control the vertical alignment */
+  }
+  

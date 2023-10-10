@@ -15,6 +15,7 @@ import { ToastrService } from '../Services/ToastrService';
   styleUrls: ['./entity-details.component.css']
 })
 export class EntityDetailsComponent implements OnInit {
+  
   @ViewChild('fileInput') fileInput!: ElementRef; // Add this line
   entityName!: string;
   columns: TableColumnDTO[] = [];
@@ -48,11 +49,9 @@ export class EntityDetailsComponent implements OnInit {
  uploadTemplate(event: any) {
   const file = event.target.files[0];
   const tableName = this.entityName; // Replace with the actual table name
-
   // Create a FormData object to send the file and table name
   const formData = new FormData();
   formData.append('file', file);
-
   // Make the API request with the updated function
   this.columnsService.uploadTemplate(formData, tableName).subscribe(
     (res: any) => {
@@ -86,6 +85,8 @@ export class EntityDetailsComponent implements OnInit {
   }
 
   generateExcelTemplate() {
+    // Log the content of this.columns for debugging
+    console.log('Columns data before sending to the backend:', this.columns); 
     if (this.columns.length === 0) {
       return; // Do nothing if there are no columns
     }
@@ -114,20 +115,52 @@ export class EntityDetailsComponent implements OnInit {
     );
   }
 
+  // generateExcelTemplate() {
+  //   console.log('Columns data:', this.columns); 
+  //   if (this.columns.length === 0) {
+  //     return; // Do nothing if there are no columns
+  //   }
+  // debugger
+  //   // Make a request to your backend to generate the Excel file
+  //   this.columnsService.generateExcelFile(this.columns).subscribe(
+  //     (data: Blob) => {
+  //       // Create a blob from the response data
+  //       const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        
+  //       // Create a temporary URL and trigger the download
+  //       const url = window.URL.createObjectURL(blob);
+  //       const a = document.createElement('a');
+  //       a.href = url;
+  //       a.download = `${this.entityName}_template.xlsx`;
+  //       document.body.appendChild(a);
+  //       a.click();
+  
+  //       // Clean up the temporary URL
+  //       window.URL.revokeObjectURL(url);
+  //     },
+  //     (error: any) => {
+  //       console.error('Error generating Excel template:', error);
+  //       // Handle the error as needed
+  //     }
+  //   );
+  // }
+
   
   fetchColumnsData(): void {
     this.columnsService.getColumnsForEntity(this.entityName).subscribe(
       (data: any) => {
         if (data.isSuccess) {
           this.columns = data.result.map((columnData: any) => {
+            console.log('API Response - isPrimaryKey:', columnData.columnPrimaryKey);
             const column: TableColumnDTO = {
               id: columnData.id,
               entityColumnName: columnData.entityColumnName,
               datatype: columnData.datatype,
               length: columnData.length,
+              description:columnData.description,
               isNullable: columnData.isNullable,
               defaultValue: columnData.defaultValue,
-              isPrimaryKey: columnData.columnPrimaryKey, // Set isPrimaryKey based on columnPrimaryKey from the server
+              ColumnPrimaryKey: columnData.columnPrimaryKey, // Set isPrimaryKey based on columnPrimaryKey from the server
             };
             return column;
           });
@@ -150,6 +183,6 @@ export class EntityDetailsComponent implements OnInit {
   // Function to toggle the value of isPrimaryKey property
   togglePrimaryKey(column: TableColumnDTO): void {
 
-    column.isPrimaryKey = !column.isPrimaryKey;
+    column.ColumnPrimaryKey = !column.ColumnPrimaryKey;
   }
 }

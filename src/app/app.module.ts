@@ -15,7 +15,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InputcolumnsComponent } from './ColumnInputs/inputcolumns/inputcolumns.component';
 import { ServerConfigurationComponent } from './server-configuration/server-configuration.component';
 import { ColumnInputServiceService } from './Services/column-input-service.service';
-
+import { TableListComponent } from './table-list/table-list.component';
+import { ServerConfigService } from '../app/Services/server-config.service';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ColumnInputServiceService } from './Services/column-input-service.servi
     EntityDetailsComponent,
     InputcolumnsComponent,
     ServerConfigurationComponent,
+    TableListComponent,
   ],
   imports: [
     BrowserAnimationsModule,

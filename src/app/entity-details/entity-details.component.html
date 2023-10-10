@@ -28,6 +28,7 @@
           <th>Column Name</th>
           <th>Data Type</th>
           <th>Length</th>
+          <th>Description</th>
           <th>Nullable</th>
           <th>Default Value</th>
           <th>Primary Key</th>
@@ -57,12 +58,17 @@
             </select>
           </td>
           <td>{{ column.length }}</td>
-          <td>
+          <td>{{column.description}}</td>
+          <!-- <td>
             <input type="checkbox" [(ngModel)]="column.isNullable" [disabled]="true" (change)="toggleNullable(column)" />
+          </td> -->
+          <td>
+            <input type="checkbox" [checked]="column.isNullable" [disabled]="true" />
           </td>
+          
           <td>{{ column.defaultValue }}</td>
           <td>
-            <input type="checkbox" [(ngModel)]="column.isPrimaryKey" [disabled]="true" (change)="togglePrimaryKey(column)" />
+            <input type="checkbox" [(ngModel)]="column.ColumnPrimaryKey" [disabled]="true" (change)="togglePrimaryKey(column)" />
           </td>
           
         </tr>

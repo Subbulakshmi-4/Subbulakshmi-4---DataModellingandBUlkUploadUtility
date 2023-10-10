@@ -17,6 +17,7 @@ import { ServerConfigurationComponent } from './server-configuration/server-conf
 import { ColumnInputServiceService } from './Services/column-input-service.service';
 import { TableListComponent } from './table-list/table-list.component';
 import { ServerConfigService } from '../app/Services/server-config.service';
+import { CreateEntityComponent } from './create-entity/create-entity.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ServerConfigService } from '../app/Services/server-config.service';
     InputcolumnsComponent,
     ServerConfigurationComponent,
     TableListComponent,
+    CreateEntityComponent,
   ],
   imports: [
     BrowserAnimationsModule,

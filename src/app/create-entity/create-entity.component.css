@@ -1,0 +1,240 @@
+.container{
+    margin-block-start: 3%;
+  }
+
+  .header {
+    font-family: 'Poppins', sans-serif; /* Use 'Poppins' as the font name */
+    font-weight: bold;
+    font-size: 32px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-block-start: 1%;
+    padding: 10px;
+  }
+
+  .name-div,
+  .back-div {
+    overflow: hidden;
+    display: inline-block;
+  }
+
+  .name-div{
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 23px;
+  }
+  
+  .name-div label{
+    margin-inline-end: 40px;
+  }
+
+  .name-div input{
+    inline-size: 265px;
+    block-size: 42px;
+    border: 1px solid #AEAEAE;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    border-radius: 7px;
+  }
+
+  .back-button {
+    background-color: #00419C;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 5px 18px;
+    inline-size: 172px;
+    block-size: 45px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 23px;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Add transition */
+  }
+
+  .back-button:hover {
+  background-color: white; /* Change background color on hover */
+  color: #00419C; /* Change font color on hover */
+  border: 2px solid #00419C; /* Add border on hover */
+  }
+
+  .icon{
+    margin-inline-end: 13px;
+    font-size: 22px;
+  }
+
+    /* Center the header text */
+.center-header {
+    text-align: center;
+  }
+  
+  /* Center the table name and button content */
+  .center-content {
+    text-align: center;
+  }
+  
+  /* Table Styles */
+  .table {
+    inline-size: 100%;
+    border-collapse: collapse;
+  }
+  
+  /* Header Styles */
+  th {
+    background-color: #00419C;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 10px;
+  }
+
+  /* Toggle Switch Styles */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    inline-size: 50px; /* Adjust the width as needed */
+    block-size: 24px; /* Adjust the height as needed */
+    background-color: #ffffff;
+    border-radius: 12px;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
+    inset-block-end: 0;
+    background-color: #7D7C7C;
+    border-radius: 25px;
+    transition: 0.4s;
+  }
+  
+  .toggle-switch input {
+    display: none;
+  }
+  
+  /* Change background color when checked */
+  .toggle-switch input:checked + .slider {
+    background-color: #00419C; /* Toggle switch color when checked */
+  }
+  
+  /* Move the slider to the right when checked */
+  .toggle-switch input:checked + .slider:before {
+    transform: translateX(26px); /* Adjust as needed */
+  }
+  
+  /* Styling for the slider circle */
+  .toggle-switch .slider:before {
+    position: absolute;
+    content: "";
+    block-size: 20px; /* Adjust the height as needed */
+    inline-size: 20px; /* Adjust the width as needed */
+    inset-inline-start: 2px; /* Adjust the position as needed */
+    inset-block-end: 2px; /* Adjust the position as needed */
+    background-color: #ffffff;
+    border-radius: 50%;
+    transition: 0.4s;
+  }
+  
+  td input, td select{
+    inline-size: 150px;
+    block-size: 30px;
+    border: 1px solid #AEAEAE;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    border-radius: 7px;
+  }
+
+
+  .delete-button{
+    background-color: #ff1c03;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    inline-size: 62px;
+    block-size: 30px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Add transition */
+  }
+
+  .delete-button:hover {
+  background-color: white; /* Change background color on hover */
+  color: #00419C; /* Change font color on hover */
+  border: 2px solid #00419C; /* Add border on hover */
+  }
+
+  .delete-button i{
+    font-size: 20px;
+  }
+
+  .add-button{
+    background-color: #00419C;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    inline-size: 170px;
+    height: 45px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 23px;
+    float: right; /* Align to the right */
+    margin-left: 10px; /* Optional margin for spacing */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Add transition */
+  }
+
+  .add-button:hover {
+  background-color: white; /* Change background color on hover */
+  color: #00419C; /* Change font color on hover */
+  border: 2px solid #00419C; /* Add border on hover */
+  }
+
+  .sub-button{
+    background-color: #69fd34;
+    color: #ffffff;
+    border: none;
+    border-radius: 20px;
+    width: 170px;
+    height: 45px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 23px;
+    float: inline-end; /* Align to the right */
+    margin-inline-start: 10px; /* Optional margin for spacing */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Add transition */
+  }
+
+  .sub-button:hover {
+  background-color: white; /* Change background color on hover */
+  color: #00419C; /* Change font color on hover */
+  border: 2px solid #00419C; /* Add border on hover */
+  }
+
+  .error{
+    color: red;
+    font-size: x-small;
+    float: inline-end;
+  }
+
+  .disabled-input {
+    background-color: #f4f4f4; /* Set your desired background color */
+    color: #888; /* Set your desired text color */
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}

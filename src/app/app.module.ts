@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertService } from './Services/AlertService';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { InputcolumnsComponent } from './ColumnInputs/inputcolumns/inputcolumns.component';
+import { CreateEntityComponent } from './create-entity/create-entity.component';
 
 
 @NgModule({
@@ -20,7 +20,7 @@ import { InputcolumnsComponent } from './ColumnInputs/inputcolumns/inputcolumns.
     AppComponent,
     DisplaytableNameComponent,
     EntityDetailsComponent,
-    InputcolumnsComponent,
+    CreateEntityComponent,
   ],
   imports: [
     BrowserAnimationsModule,

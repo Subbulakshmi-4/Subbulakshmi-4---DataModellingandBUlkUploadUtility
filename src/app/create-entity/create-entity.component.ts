@@ -79,6 +79,18 @@ onDataTypeChange(row: any) {
     }
     return false; // No duplicate column names
   }
+     onInput(event: Event): void {
+        const inputElement = event.target as HTMLInputElement;
+        const inputValue = inputElement.value;
+
+        // Parse the input value as a number
+        const numericValue = parseInt(inputValue, 10);
+
+        // Check if the numeric value is negative, if so, set the input value to empty
+        if (numericValue < 0) {
+            inputElement.value = '';
+        }
+    }
 
   // Function to check if there's exactly one primary key
   hasExactlyOnePrimaryKey(): boolean {

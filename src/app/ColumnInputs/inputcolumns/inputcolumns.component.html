@@ -1,126 +1,347 @@
-<!-- <div class="container">
+<div class="container">
+
   <form [formGroup]="tableForm" (ngSubmit)="onSubmit()">
-    <h3 class="mt-4">Table Details</h3>
-    <p class="mb-3">
-      <label for="name" class="form-label">Table Name:</label>
-      <input
-        type="text"
-        id="name"
-        name="name"
-        formControlName="name"
-        class="form-control"
-      />
-      <span
-        *ngIf="
-          tableForm.get('name')?.hasError('intermediateSpace') &&
-          tableForm.get('name')?.touched
-        "
-        class="text-danger"
-      >
-        Spaces are not allowed.
-      </span>
-    </p>
-    <h3 class="mt-4">Columns</h3>
-    <table class="table table-bordered" formArrayName="TableName">
-      <thead class="table-light">
-        <tr>
-          <th class="column-header">Column Name</th>
-          <th class="column-header">Data Type</th>
-          <th class="column-header">Length</th>
-          <th class="column-header">Not Null?</th>
-          <th class="column-header">Default</th>
-          <th class="column-header">Primary Key</th>
-          <th class="column-header">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          *ngFor="let TableName of TableName().controls; let i = index"
-          [formGroupName]="i"
-        >
-          <td>
-            <input
-              type="text"
-              formControlName="ColumnName"
-              class="form-control"
-            />
-            <span
-              *ngIf="
-                TableName.get('ColumnName')?.hasError('intermediateSpace') &&
-                TableName.get('ColumnName')?.touched
-              "
-              class="text-danger"
-            >
-              spaces are not allowed.
-            </span>
-          </td>
-          <td>
-            <select
-              [(ngModel)]="dataTypeValues[i]"
-              (change)="onDropdownChange($event, 'dataType', i)"
-              formControlName="DataType"
-            >
-              <option value="string" default>String</option>
-              <option value="int">Number</option>
-              <option value="boolean">Boolean</option>
-              <option value="char">char</option>
-              <option value="Date">Date</option>
-              <option value="timestamp">timestamp</option>
-            </select>
-          </td>
-          <td>
-            <input
-              type="number"
-              formControlName="Length"
-              class="form-control"
-              (change)="onLengthChange($event, i)"
-            />
-          </td>
-          <td>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                (change)="onCheckboxChange($event, i)"
-                id="defaultCheck{{ i }}"
-              />
-              <label class="form-check-label" for="defaultCheck1"> </label>
-            </div>
-          </td>
-          <td>
-            <input
-              type="text"
-              formControlName="Default"
-              class="form-control"
-            />
-            <div *ngIf="tableNameControls[i]?.get('Default')?.hasError('invalidNumber')" class="text-danger">
-              Please enter a valid number.
-            </div>
-            <div *ngIf="tableNameControls[i]?.get('Default')?.hasError('invalidLength')" class="text-danger">
-              Default value exceeds the maximum length.
-            </div>
-          </td>
-          <td>
-            <input
-              class="form-check-input-radio"
-              type="radio"
-              name="primaryKeyRadio"
-              [value]="i"
-              [(ngModel)]="selectedRadioValue"
-              id="exampleRadios{{ i }}"
-              (change)="onRadioChange(i)"
-            />
-          </td>
-          <td>
-            <button (click)="removeQuantity(i)" class="btn btn-danger">Remove</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="d-flex justify-content-between">
-      <button type="button" (click)="addQuantity()" class="btn btn-primary">Add Column</button>
-      <button type="submit" class="btn btn-success" [disabled]="!tableForm.valid" (click)="createTable()">Submit</button>
+
+    <div class="row">
+      <div class="col-9">
+        <h3 class="mt-4">Table Details</h3>
+      </div>
+
+      <div class="col-3" style="margin-top: 25px;">
+        <button class="btn btn-primary" routerLink="/entity-list" (click)="goBackToList()">
+          <i class="fa-solid fa-arrow-left"></i>
+          Back to Entity List
+        </button>
+      </div>
     </div>
+   
+    <!-- <div class="row">
+    <h3 class="mt-4">Table Details</h3>
+    <div class="container">
+    <div class="row">
+       <div class="col-8">
+       </div>
+       <div class="col-4">
+        
+      </div>
+    </div>
+  </div>
+    
+  </div> -->
+
+    <p class="mb-3">
+
+      <label for="name" class="form-label">Table Name:</label>
+
+      <input
+
+        type="text"
+
+        id="name"
+
+        name="name"
+
+        formControlName="name"
+
+        class="form-control"
+
+      />
+
+      <span
+
+        *ngIf="
+
+          tableForm.get('name')?.hasError('intermediateSpace') &&
+
+          tableForm.get('name')?.touched
+
+        "
+
+        class="text-danger"
+
+      >
+
+        Spaces are not allowed.
+
+      </span>
+
+      <span
+
+      *ngIf="
+
+      tableForm.get('name')?.hasError('invalidColumnName') &&
+
+      tableForm.get('name')?.touched
+
+      "
+
+      class="text-danger"
+
+    >
+
+      Table name cannot start with a number or cannot accept special characters
+
+    </span>
+
+    </p>
+
+ 
+
+    <h3 class="mt-4">Columns</h3>
+
+    <table class="table table-bordered" formArrayName="TableName">
+
+      <thead class="table-light">
+
+        <tr>
+
+          <th class="column-header">Column Name</th>
+
+          <th class="column-header">Data Type</th>
+
+          <th class="column-header">Length</th>
+
+          <th class="column-header">Not Null?</th>
+
+          <th class="column-header">Default</th>
+
+          <th class="column-header">Primary Key</th>
+
+          <th class="column-header">Action</th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <tr
+
+          *ngFor="let TableName of TableName().controls; let i = index"
+
+          [formGroupName]="i"
+
+        >
+
+          <td>
+
+            <input
+
+            type="text"
+
+            formControlName="ColumnName"
+
+            class="form-control"
+
+          />
+
+          <span
+
+            *ngIf="
+
+              TableName.get('ColumnName')?.hasError('intermediateSpace') &&
+
+              TableName.get('ColumnName')?.touched
+
+            "
+
+            class="text-danger"
+
+          >
+
+            Spaces are not allowed.
+
+          </span>
+
+          <span
+
+            *ngIf="
+
+              TableName.get('ColumnName')?.hasError('invalidColumnName') &&
+
+              TableName.get('ColumnName')?.touched
+
+            "
+
+            class="text-danger"
+
+          >
+
+          Column name cannot start with a number or cannot accept special characters
+
+          </span>
+
+ 
+
+          </td>
+
+          <td>
+
+            <select
+
+              [(ngModel)]="dataTypeValues[i]"
+
+              (change)="onDropdownChange($event, 'dataType', i)"
+
+              formControlName="DataType"
+
+            >
+
+              <option value="string" default>String</option>
+
+              <option value="int">Number</option>
+
+              <option value="boolean">Boolean</option>
+
+              <option value="char">char</option>
+
+              <option value="date">Date</option>
+
+              <option value="timestamp">timestamp</option>
+
+              <option value="timestamp with time zone">timestamp with time zone</option>
+
+            </select>
+
+          </td>
+
+          <td>
+
+            <input
+
+            type="number"
+
+            formControlName="Length"
+
+            class="form-control"
+
+            min="0"
+
+
+          />          
+
+          <div *ngIf="tableNameControls[i]?.get('Length')?.hasError('maxLengthExceeded') && tableNameControls[i]?.get('Length')?.touched" class="text-danger">
+
+            Maximum length exceeded (2147483647).
+
+          </div>
+
+          </td>
+
+          <td>
+
+            <div class="form-check">
+
+              <input
+
+                class="form-check-input"
+
+                formControlName="Default"
+
+                type="checkbox"
+
+                (change)="onCheckboxChange($event, i)"
+
+                id="defaultCheck{{ i }}"
+
+              />
+
+              <label class="form-check-label" for="defaultCheck1"> </label>
+
+            </div>
+
+          </td>
+
+          <td>
+
+            <ng-container *ngIf="dataTypeValues[i] !== 'boolean'; else booleanInput">
+
+              <input type="text" formControlName="Default" class="form-control" />
+
+            </ng-container>
+
+            <ng-template #booleanInput>
+
+              <select formControlName="Default" class="form-control">
+
+                <option value="true">true</option>
+
+                <option value="false">false</option>
+
+              </select>
+
+            </ng-template>  
+
+            <!-- Display an error message if validation fails -->
+
+            <div *ngIf="tableNameControls[i]?.get('Default')?.hasError('invalidNumber') && tableNameControls[i]?.get('Default')?.touched" class="text-danger">
+
+              Please enter a valid number.
+
+            </div>
+
+            <div *ngIf="tableNameControls[i]?.get('Default')?.hasError('invalidLength') && tableNameControls[i]?.get('Default')?.touched" class="text-danger">
+
+              Default value exceeds the maximum length.
+
+            </div>
+
+          </td>    
+
+          <!-- Inside the *ngFor loop for columns -->
+
+          <td>
+
+            <input
+
+              class="form-check-input-radio"
+
+              type="radio"
+
+              name="primaryKeyRadio"
+
+              [value]="i"
+
+              [(ngModel)]="selectedRadioValue"
+
+              id="exampleRadios{{ i }}"
+
+              (change)="onRadioChange(i)"
+
+            />
+
+          </td>
+
+          <td>
+
+            <button (click)="removeQuantity(i)" class="btn btn-danger">
+
+              Remove
+
+            </button>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+ 
+
+    <div class="d-flex justify-content-between">
+
+      <button type="button" (click)="addQuantity()" class="btn btn-primary">
+
+        Add Column
+
+      </button>
+
+      <button type="submit"  class="btn btn-success" [disabled]="!tableForm.valid" (click)="createTable()" >Submit</button>
+
+    </div>
+
   </form>
-  <br />
-</div> -->
+
+</div>

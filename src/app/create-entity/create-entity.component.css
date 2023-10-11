@@ -184,12 +184,12 @@
     border: none;
     border-radius: 20px;
     inline-size: 170px;
-    height: 45px;
+    block-size: 45px;
     font-family: 'Poppins', sans-serif;
     font-weight: bold;
     font-size: 23px;
-    float: right; /* Align to the right */
-    margin-left: 10px; /* Optional margin for spacing */
+    float: inline-end; /* Align to the right */
+    margin-inline-start: 10px; /* Optional margin for spacing */
     transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Add transition */
   }
 
@@ -204,8 +204,8 @@
     color: #ffffff;
     border: none;
     border-radius: 20px;
-    width: 170px;
-    height: 45px;
+    inline-size: 170px;
+    block-size: 45px;
     font-family: 'Poppins', sans-serif;
     font-weight: bold;
     font-size: 23px;

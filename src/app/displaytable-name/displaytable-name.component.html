@@ -21,11 +21,16 @@
         </td>
       </tr>        
     </tbody>
+    <tbody *ngIf="tableNames.length === 0">
+      <tr>
+        <td colspan="7" style="color: red;">No data found.</td>
+      </tr>
+    </tbody>
   </table>
 </div>
-<div *ngIf="tableNames.length === 0">
+<!-- <div *ngIf="tableNames.length === 0">
   No Data Available.
-</div>
+</div> -->
 <!-- <div *ngIf="errorMessage" class="error-message">
 
   {{ errorMessage }}

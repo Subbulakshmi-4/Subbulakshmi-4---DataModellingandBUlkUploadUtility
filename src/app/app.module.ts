@@ -18,6 +18,7 @@ import { ColumnInputServiceService } from './Services/column-input-service.servi
 import { TableListComponent } from './table-list/table-list.component';
 import { ServerConfigService } from '../app/Services/server-config.service';
 import { CreateEntityComponent } from './create-entity/create-entity.component';
+import { LogDetailsComponent } from './log-details/log-details.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { CreateEntityComponent } from './create-entity/create-entity.component';
     ServerConfigurationComponent,
     TableListComponent,
     CreateEntityComponent,
+    LogDetailsComponent,
   ],
   imports: [
     BrowserAnimationsModule,

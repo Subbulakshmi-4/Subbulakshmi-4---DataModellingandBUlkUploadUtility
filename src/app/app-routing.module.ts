@@ -5,6 +5,7 @@ import { DisplaytableNameComponent } from './displaytable-name/displaytable-name
 import { InputcolumnsComponent } from './ColumnInputs/inputcolumns/inputcolumns.component';
 import { ServerConfigurationComponent } from './server-configuration/server-configuration.component';
 import { CreateEntityComponent } from './create-entity/create-entity.component';
+import { LogDetailsComponent } from './log-details/log-details.component';
 
 
 
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: '', component: ServerConfigurationComponent},
   { path: 'entity-list', component: DisplaytableNameComponent }, // Add this line
   { path: 'entity/:entityName', component: EntityDetailsComponent },
-  {path:'createentity',component:CreateEntityComponent}
+  {path:'createentity',component:CreateEntityComponent},
+  {path:'Log-details',component:LogDetailsComponent}
   // ... other routes
 ];
 

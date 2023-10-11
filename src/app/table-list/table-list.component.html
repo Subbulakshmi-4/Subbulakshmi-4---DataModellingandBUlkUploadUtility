@@ -1,0 +1,26 @@
+<div class="container">
+    <h3 class="entity-name">Entity List</h3>
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>Entity Name</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tableName of tableNames">
+          <td>{{ tableName.entityName }}</td>
+          <td>
+            <button class="btn btn-primary" [routerLink]="['/entity', tableName.entityName]">
+              <i class="fa fa-eye"></i>
+              View
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="tableNames.length === 0">
+    No Data Available.
+  </div>
+  

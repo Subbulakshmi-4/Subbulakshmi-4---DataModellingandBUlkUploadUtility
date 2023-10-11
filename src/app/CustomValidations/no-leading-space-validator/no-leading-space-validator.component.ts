@@ -8,7 +8,7 @@ export function NoIntermediateSpaceValidator(): ValidatorFn {
 
     if (control.value && /\s/.test(control.value)) {
 
-      return { intermediateSpace: true };
+      return { intermediateSpace: 'Spaces are not allowed.' };
 
     }
 

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ColumnInputServiceService } from 'src/app/Services/column-input-service.service';
 import { ToastrService } from 'src/app/Services/ToastrService';
 import { Router } from '@angular/router';
+import { EntityModel } from '../Models/EntityModel';
 @Component({
   selector: 'app-create-entity',
   templateUrl: './create-entity.component.html',
@@ -95,13 +96,30 @@ onDataTypeChange(row: any) {
     return !!(entityNameInput && !/[^a-zA-Z][^a-zA-Z0-9]*/.test(entityNameInput));
   }
 
+   reservedKeywords: string[] = [
+    // Add your reserved keywords here
+    'select','insert','update','delete','from','where','and','or','innerjoin','leftjoin','rightjoin',
+    'orderby','groupby','having','create','alter','drop','primarykey','foreignkey','between'
+    // ...other keywords
+  ]; 
+  isReservedKeyword(name: string): boolean {
+    return this.reservedKeywords.includes(name.toLowerCase());
+  }
+  
 submit() {
   const errorMessages: string[] = [];
+  const reservedKeywordFound = this.isReservedKeyword(this.newEntity.entityname) || this.newEntity.columns.some((column: { columnName: string; }) => this.isReservedKeyword(column.columnName));
+
+  if (reservedKeywordFound) {
+    this.toastrService.showError('Table or column name cannot be a reserved keyword.');
+    return; // Stop form submission
+  }
 
   if(!this.isEntityNameValid()){
     errorMessages.push('Table Name patern is invalid');
     this.toastrService.showError('Table Name patern is invalid');
   }
+
   // Check if the table name is empty
   if (!this.newEntity.entityname) {
     errorMessages.push('Table Name is required.');
@@ -139,7 +157,7 @@ submit() {
               entityColumnName: columns.columnName,
               dataType: columns.datatype,
               length: columns.length || 0,
-              isNullable: !columns.isNullable,
+              isNullable: columns.isNullable,
               defaultValue: columns.defaultValue,
               columnPrimaryKey: columns.primaryKey,
               Description:columns.description
@@ -147,21 +165,34 @@ submit() {
           }),
         }
         console.log(backendRequest);
-    // Call the service method to send the form data
-    this.columnInputService.createTable(backendRequest).subscribe(
-      response => {
-        // Handle success response if needed
-        console.log('Table created successfully:', response);
-        this.toastrService.showSuccess('Table created successfully.');
-        this.router.navigate(['/entity-list']);
-      },
-      error => {
-        // Handle error response if needed
-        console.error('Error creating table:', error);
-        this.toastrService.showError('Error creating table. Table name already exists.');
-      }
-    );
+    // // Call the service method to send the form data
+    // this.columnInputService.createTable(backendRequest).subscribe(
+    //   response => {
+    //     // Handle success response if needed
+    //     console.log('Table created successfully:', response.success);
+    //     this.toastrService.showSuccess('Table created successfully.');
+    //     this.router.navigate(['/entity-list']);
+    //   },
+    //   error => {
+    //     // Handle error response if needed
+    //     console.error('Error creating table:', error.messages);
+    //     this.toastrService.showError('Error creating table. Table name already exists.',error.messages);
+    //   }
+    // );
+      // Call the service method to send the form data
+  this.columnInputService.createTable(backendRequest).subscribe(
+    response => {
+      // Handle success response if needed
+      console.log('Table created successfully:', response.success);
+      this.toastrService.showSuccess('Table created successfully.');
+      this.router.navigate(['/entity-list']);
+    },
+    error => {
+      // Handle error response and display error message
+      console.error('Error creating table:', error);
+      this.toastrService.showError('Error creating table: ' + error);
+    }
+  );
   }
 }
-
 }

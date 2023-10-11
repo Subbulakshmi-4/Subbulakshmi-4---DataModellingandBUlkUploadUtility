@@ -38,6 +38,7 @@ export class EntityDetailsComponent implements OnInit {
     a.click();
     window.URL.revokeObjectURL(url);
   }
+
   hasColumns(): boolean {
     return this.columns.length > 0;
   }

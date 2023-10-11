@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertService } from './Services/AlertService';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateEntityComponent } from './create-entity/create-entity.component';
+import { LogDetailsComponent } from './log-details/log-details.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { CreateEntityComponent } from './create-entity/create-entity.component';
     DisplaytableNameComponent,
     EntityDetailsComponent,
     CreateEntityComponent,
+    LogDetailsComponent,
   ],
   imports: [
     BrowserAnimationsModule,

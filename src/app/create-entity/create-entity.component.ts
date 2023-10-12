@@ -109,10 +109,10 @@ onDataTypeChange(row: any) {
   }
 
    reservedKeywords: string[] = [
-    // Add your reserved keywords here
-    'select','insert','update','delete','from','where','and','or','innerjoin','leftjoin','rightjoin',
-    'orderby','groupby','having','create','alter','drop','primarykey','foreignkey','between'
-    // ...other keywords
+    'abort','asc','between','case','create','database','delete','desc','drop','false','from','full',
+    'group','having','insert','into','is','join','left','like','limit','not','null','on','order','primary',
+    'references','right','select','set','table','then','true','update','values','where','and','or','innerjoin',
+    'leftjoin','rightjoin','orderby','groupby','create','alter','primarykey','foreignkey'
   ]; 
   isReservedKeyword(name: string): boolean {
     return this.reservedKeywords.includes(name.toLowerCase());
@@ -177,26 +177,11 @@ submit() {
           }),
         }
         console.log(backendRequest);
-    // // Call the service method to send the form data
-    // this.columnInputService.createTable(backendRequest).subscribe(
-    //   response => {
-    //     // Handle success response if needed
-    //     console.log('Table created successfully:', response.success);
-    //     this.toastrService.showSuccess('Table created successfully.');
-    //     this.router.navigate(['/entity-list']);
-    //   },
-    //   error => {
-    //     // Handle error response if needed
-    //     console.error('Error creating table:', error.messages);
-    //     this.toastrService.showError('Error creating table. Table name already exists.',error.messages);
-    //   }
-    // );
-      // Call the service method to send the form data
   this.columnInputService.createTable(backendRequest).subscribe(
     response => {
       // Handle success response if needed
       console.log('Table created successfully:', response.success);
-      this.toastrService.showSuccess('Table created successfully.');
+      this.toastrService.showSuccess('Table created successfully');
       this.router.navigate(['/entity-list']);
     },
     error => {

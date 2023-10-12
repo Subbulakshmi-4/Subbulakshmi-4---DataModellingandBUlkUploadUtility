@@ -14,7 +14,10 @@ export class ColumnInputServiceService {
   private apiUrl = 'https://localhost:7245'; // Replace with your actual API endpoint URL
 
   constructor(private http: HttpClient) { }
-
+  
+  getDataFromBackend(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/your-endpoint`);
+  }
   createTable(request: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/api/dynamic/create-table`, request)
       .pipe(
@@ -27,5 +30,5 @@ export class ColumnInputServiceService {
           return throwError(errorMessage);
         })
       );
-}
+  }
 }

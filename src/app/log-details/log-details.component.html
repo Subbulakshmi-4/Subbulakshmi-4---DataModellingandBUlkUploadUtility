@@ -8,7 +8,7 @@
         >
           <div class="card-body">
             <h5 class="card-title">EntityName</h5>
-            <h6>StaffTable</h6>
+            <h6>{{ entityName }}</h6>
           </div>
         </div>
       </div>
@@ -19,7 +19,7 @@
         >
           <div class="card-body">
             <h5 class="card-title">TotalCounts</h5>
-            <h6>1000</h6>
+            <h6>{{ totalCounts }}</h6>
           </div>
         </div>
       </div>
@@ -30,7 +30,7 @@
         >
           <div class="card-body">
             <h5 class="card-title">SuccessCounts</h5>
-            <h6>750</h6>
+            <h6>{{ successCounts }}</h6>
           </div>
         </div>
       </div>
@@ -41,7 +41,7 @@
         >
           <div class="card-body">
             <h5 class="card-title">ErrorCounts</h5>
-            <h6>250</h6>
+            <h6>{{ errorCounts }}</h6>
           </div>
         </div>
       </div>
@@ -70,9 +70,9 @@
           <tbody>
             <tr *ngFor="let item of tableData; let i = index">
               <th scope="row">{{ i + 1 }}</th>
-              <td>{{ item.parentId }}</td>
-              <td>{{ item.childId }}</td>
-              <td>{{ item.userId }}</td>
+              <td>{{ item.logChildId }}</td>
+              <td>{{ item.logParentId }}</td>
+              <td>{{ item.userID }}</td>
               <td>{{ item.errorMessage }}</td>
               <td>{{ item.timestamp }}</td>
             </tr>

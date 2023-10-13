@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import * as XLSX from 'xlsx'; // Import the xlsx library
 import { AlertService } from '../Services/AlertService'; 
 import { ToastrService } from '../Services/ToastrService';
+import { EntityModel } from '../Models/EntityModel';
 
 @Component({
   selector: 'app-entity-details',
@@ -27,8 +28,82 @@ export class EntityDetailsComponent implements OnInit {
       this.entityName = params['entityName'];
       this.fetchColumnsData();
     });
+
+    this.columnsService.getColumnsForEntity(this.entityName).subscribe(
+      (data: any) => {
+        if (data.isSuccess) {
+          this.columns = data.result.map((columnData: any) => {
+            console.log('API Response - isPrimaryKey:', columnData.columnPrimaryKey);
+            const column: TableColumnDTO = {
+              id: columnData.id,
+              entityColumnName: columnData.entityColumnName,
+              datatype: columnData.datatype,
+              length: columnData.length,
+              description:columnData.description,
+              isNullable: columnData.isNullable,
+              defaultValue: columnData.defaultValue,
+              ColumnPrimaryKey: columnData.columnPrimaryKey, // Set isPrimaryKey based on columnPrimaryKey from the server
+            };
+            return column;
+          });
+        } else {
+          console.error('Error fetching columns data:', data.errorMessage);
+          // Handle the error as needed
+        }
+      },
+      (error) => {
+        console.error('Error fetching columns data:', error);
+        // Handle the error as needed
+      }
+    );
+
+    console.log(this.columns)
+
+    this.setPage(this.currentPage); // Initialize the first page
   }
   
+  pagedData: TableColumnDTO[] = [];
+  currentPage = 1;
+  itemsPerPage = 5; // Number of items per page
+
+  searchText = ''; // Variable to store user input for search
+
+  setPage(page: number) {
+    const startIndex = (page - 1) * this.itemsPerPage;
+    const endIndex = Math.min(startIndex + this.itemsPerPage, this.columns.length);
+    this.pagedData = this.columns.slice(startIndex, endIndex);
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.setPage(this.currentPage);
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.setPage(this.currentPage);
+    }
+  }
+
+  onSearch() {
+    // Filter the data based on the searchText
+    if (this.searchText) {
+      this.pagedData = this.columns.filter( (item : TableColumnDTO) =>
+        item.entityColumnName.toLowerCase().includes(this.searchText.toLowerCase())
+      );
+    } else {
+      // If search text is empty, reset to the original data
+      this.setPage(this.currentPage);
+    }
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.columns.length / this.itemsPerPage);
+  }
+
   private downloadExcelFile(data: string) {
     const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
     const url = window.URL.createObjectURL(blob);
@@ -77,9 +152,6 @@ export class EntityDetailsComponent implements OnInit {
     }
   );
 }
-
-  
-  
   
   goBackToList(){
     this.router.navigate(['/entity-list']);
@@ -115,37 +187,6 @@ export class EntityDetailsComponent implements OnInit {
       }
     );
   }
-
-  // generateExcelTemplate() {
-  //   console.log('Columns data:', this.columns); 
-  //   if (this.columns.length === 0) {
-  //     return; // Do nothing if there are no columns
-  //   }
-  // debugger
-  //   // Make a request to your backend to generate the Excel file
-  //   this.columnsService.generateExcelFile(this.columns).subscribe(
-  //     (data: Blob) => {
-  //       // Create a blob from the response data
-  //       const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-        
-  //       // Create a temporary URL and trigger the download
-  //       const url = window.URL.createObjectURL(blob);
-  //       const a = document.createElement('a');
-  //       a.href = url;
-  //       a.download = `${this.entityName}_template.xlsx`;
-  //       document.body.appendChild(a);
-  //       a.click();
-  
-  //       // Clean up the temporary URL
-  //       window.URL.revokeObjectURL(url);
-  //     },
-  //     (error: any) => {
-  //       console.error('Error generating Excel template:', error);
-  //       // Handle the error as needed
-  //     }
-  //   );
-  // }
-
   
   fetchColumnsData(): void {
     this.columnsService.getColumnsForEntity(this.entityName).subscribe(

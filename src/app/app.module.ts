@@ -19,6 +19,7 @@ import { TableListComponent } from './table-list/table-list.component';
 import { ServerConfigService } from '../app/Services/server-config.service';
 import { CreateEntityComponent } from './create-entity/create-entity.component';
 import { LogDetailsComponent } from './log-details/log-details.component';
+import { ToastrService } from './Services/ToastrService';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,6 @@ import { LogDetailsComponent } from './log-details/log-details.component';
       preventDuplicates: true, // Prevent duplicate notifications
     })
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent,ToastrService,ColumnInputServiceService]
 })
 export class AppModule { }

@@ -8,15 +8,16 @@
                 <div class="name-div">
                     <label for="entityName">Entity Name</label>
                     <input
-                        type="text"
-                        id="entityName"
-                        name="entityName"
-                        placeholder="Enter your entity name here"
-                        [(ngModel)]="newEntity.entityname"
-                        required
-                        pattern="^[a-zA-Z][a-zA-Z0-9]*$"
-                        #entityNameInput="ngModel"
-                    />
+                    type="text"
+                    id="entityName"
+                    name="entityName"
+                    placeholder="Enter your entity name here"
+                    [(ngModel)]="newEntity.entityname"
+                    required
+                    pattern="^[a-zA-Z][a-zA-Z0-9]*$"
+                    #entityNameInput="ngModel"
+                />
+                
                     <!-- Validation error messages -->
                     <div *ngIf="entityNameInput.invalid && (entityNameInput.dirty || entityNameInput.touched)">
                         <div class="error" *ngIf="entityNameInput?.errors?.['required']">Entity Name is required.</div>
@@ -79,6 +80,7 @@
                                 <td class="center-content">
                                     <input
                                         type="number"
+                                        min="0"
                                         [(ngModel)]="row.length"
                                         placeholder="Length"
                                         name="length{{ i }}"
@@ -87,6 +89,7 @@
                                         [class.disabled-input]="row.datatype === 'int' || row.datatype === 'boolean' || row.datatype === 'char' ||
                                                                 row.datatype === 'date' || row.datatype === 'bytea'"
                                         pattern="[0-9]{1,5}"
+                                        (input)="onInput($event)"
                                     />
                                 </td>
                                 
@@ -134,7 +137,7 @@
                     </table>
                     <div class="header">
                         <div class="buttons">
-                            <button class="sub-button" type="submit">Submit</button>
+                            <button class="sub-button" [disabled]="entityForm.invalid" type="submit">Submit</button>
                         </div>
                         <div class="buttons">
                             <button class="add-button" (click)="addNewRow()"><i style="margin-inline-end: 10px;" class="fa-solid fa-plus"></i>Add Row</button>

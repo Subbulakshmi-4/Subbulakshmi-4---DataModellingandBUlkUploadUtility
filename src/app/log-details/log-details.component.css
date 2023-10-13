@@ -1,6 +1,44 @@
 .header{
     margin-block-start: 100px;
 }
-.card{
-    margin-block-start: 10px;
-}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Set your desired background color */
+  }
+  
+  header {
+    background-color: #00419C; /* Set your header background color */
+    color: #fff;
+    padding: 10px 0;
+  }
+  
+
+  
+  .container {
+    margin-block-start: 20px;
+    margin-block-end: 20px;
+  }
+  
+  .card {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-block-end: 20px;
+  }
+  
+  .btn-info {
+    background-color: #007bff; /* Set your button background color */
+    color: #fff;
+  }
+  
+  /* Center the content within the table */
+  .table {
+    text-align: center;
+  }
+  
+  /* Align the button to the right */
+  .text-right {
+    text-align: end;
+  }
+  

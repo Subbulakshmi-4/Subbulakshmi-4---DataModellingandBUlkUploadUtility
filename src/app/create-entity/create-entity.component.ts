@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { ColumnInputServiceService } from 'src/app/Services/column-input-service.service';
-import { ToastrService } from 'src/app/Services/ToastrService';
 import { Router } from '@angular/router';
-import { EntityModel } from '../Models/EntityModel';
+import { ColumnInputServiceService } from '../Services/column-input-service.service';
+import { ToastrService } from '../Services/ToastrService';
 @Component({
   selector: 'app-create-entity',
   templateUrl: './create-entity.component.html',
@@ -79,6 +78,18 @@ onDataTypeChange(row: any) {
     }
     return false; // No duplicate column names
   }
+     onInput(event: Event): void {
+        const inputElement = event.target as HTMLInputElement;
+        const inputValue = inputElement.value;
+
+        // Parse the input value as a number
+        const numericValue = parseInt(inputValue, 10);
+
+        // Check if the numeric value is negative, if so, set the input value to empty
+        if (numericValue < 0) {
+            inputElement.value = '';
+        }
+    }
 
   // Function to check if there's exactly one primary key
   hasExactlyOnePrimaryKey(): boolean {
@@ -91,16 +102,21 @@ onDataTypeChange(row: any) {
     return primaryKeyCount === 1;
   }
 
-  isEntityNameValid() {
+  // isEntityNameValid() {
+  //   const entityNameInput = this.newEntity.entityname;
+  //   return !!(entityNameInput && !/[^a-zA-Z][^a-zA-Z0-9]*/.test(entityNameInput));
+  // }
+  isEntityNameValid(): boolean {
     const entityNameInput = this.newEntity.entityname;
-    return !!(entityNameInput && !/[^a-zA-Z][^a-zA-Z0-9]*/.test(entityNameInput));
+    return /^[a-zA-Z][a-zA-Z0-9]*$/.test(entityNameInput);
   }
+  
 
    reservedKeywords: string[] = [
-    // Add your reserved keywords here
-    'select','insert','update','delete','from','where','and','or','innerjoin','leftjoin','rightjoin',
-    'orderby','groupby','having','create','alter','drop','primarykey','foreignkey','between'
-    // ...other keywords
+    'abort','asc','between','case','create','database','delete','desc','drop','false','from','full',
+    'group','having','insert','into','is','join','left','like','limit','not','null','on','order','primary',
+    'references','right','select','set','table','then','true','update','values','where','and','or','innerjoin',
+    'leftjoin','rightjoin','orderby','groupby','create','alter','primarykey','foreignkey'
   ]; 
   isReservedKeyword(name: string): boolean {
     return this.reservedKeywords.includes(name.toLowerCase());
@@ -165,26 +181,11 @@ submit() {
           }),
         }
         console.log(backendRequest);
-    // // Call the service method to send the form data
-    // this.columnInputService.createTable(backendRequest).subscribe(
-    //   response => {
-    //     // Handle success response if needed
-    //     console.log('Table created successfully:', response.success);
-    //     this.toastrService.showSuccess('Table created successfully.');
-    //     this.router.navigate(['/entity-list']);
-    //   },
-    //   error => {
-    //     // Handle error response if needed
-    //     console.error('Error creating table:', error.messages);
-    //     this.toastrService.showError('Error creating table. Table name already exists.',error.messages);
-    //   }
-    // );
-      // Call the service method to send the form data
   this.columnInputService.createTable(backendRequest).subscribe(
     response => {
       // Handle success response if needed
       console.log('Table created successfully:', response.success);
-      this.toastrService.showSuccess('Table created successfully.');
+      this.toastrService.showSuccess('Table created successfully');
       this.router.navigate(['/entity-list']);
     },
     error => {

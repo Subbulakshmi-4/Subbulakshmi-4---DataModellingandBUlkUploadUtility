@@ -1,71 +1,174 @@
-body, html {
-    height: 100%;
-    margin: 0;
-    font-family: Arial, sans-serif;
-  }
-  .entity-name {
-    font-size: 24px; /* Set your desired font size */
-    font-weight: bold; /* Set your desired font weight */
-    color: black;
-    text-align: center;
-    /* background-color: lightgray;padding: 10px;
-    margin: 10px;
-    border: 1px solid #ccc; */
-    font-family: 'Arial', sans-serif;
-  }
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    width: 100%;
-    max-width: 1200px;
-    margin: 69px auto;
-  }
-  
-  .custom-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  .custom-table th, .custom-table td {
-    padding: 12px;
-    text-align: left;
-    border: 1px solid mediumseagreen;
-  }
-  
-  .custom-table th {
-    background-color:mediumseagreen;
-    color: #fff;
-    font-weight: bold;
-}
-  .btn-primary {
-    border: 2px solid #007bff;
-    background-color: transparent;
-    color: #007bff;
+.container{
+  margin-top: 3%;
 }
 
-.btn-primary:hover {
-    background-color: #007bff;
-    color: #fff;
+.header {
+  font-family: 'Poppins', sans-serif; /* Use 'Poppins' as the font name */
+  font-weight: bold;
+  font-size: 32px;
 }
 
-  .btn {
-    margin-bottom: 10px;
-    margin-left: auto;
-  }
-  
-  .btn i {
-    margin-right: 5px;
-  }
+.headerbuttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1%;
+  padding: 10px;
+}
 
-  body {
-    background-color: #f9f9f9; /* Add a background color */
-  }
+.btn-div,
+.search-div,
+.back-div {
+  border-radius: 20px;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.create-button,
+.back-button {
+  background-color: #00419C;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 18px;
+  width: 172px;
+  height: 45px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  font-size: 23px;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Add transition */
+}
+
+.create-button:hover,
+.back-button:hover {
+background-color: white; /* Change background color on hover */
+color: #00419C; /* Change font color on hover */
+border: 2px solid #00419C; /* Add border on hover */
+}
+
+.icon{
+  margin-right: 13px;
+  font-size: 22px;
+}
+
+.search-div input {
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 20px;
+  padding: 10px;
+  outline: none;
   
-  .container {
-    background-color: white; /* Set a white background for the container */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a slight box shadow */
-  }
-  
+  width: 365px;
+}
+
+.fa-magnifying-glass:before, .fa-search:before {
+  color: #00419C;
+  margin-left: -35px;
+  content: "\f002";
+}
+
+/* Center the header text */
+.center-header {
+text-align: center;
+}
+
+/* Center the table name and button content */
+.center-content {
+text-align: center;
+}
+
+/* Table Styles */
+.table {
+width: 100%;
+border-collapse: collapse;
+}
+
+/* Header Styles */
+th {
+background-color: #00419C;
+color: white;
+font-family: 'Poppins', sans-serif;
+font-weight: bold;
+font-size: 20px;
+padding: 10px;
+}
+
+/* Row Styles */
+.odd-row {
+background-color: white;
+color: black;
+padding: 5px 18px;
+width: 172px;
+height: 45px;
+font-family: 'Poppins', sans-serif;
+font-weight: bold;
+font-size: 20px;
+}
+
+.even-row {
+background-color: #E5E5E5;
+color: #00419C;
+padding: 5px 18px;
+width: 172px;
+height: 45px;
+font-family: 'Poppins', sans-serif;
+font-weight: bold;
+font-size: 20px;
+}
+
+/* Button Styles */
+.view-button {
+background-color: white;
+color: #00419C;
+border: 2px solid #00419C;
+cursor: pointer;
+border-radius: 20px;
+padding: 5px 18px;
+width: 172px;
+height: 45px;
+font-family: 'Poppins', sans-serif;
+font-weight: bold;
+font-size: 20px;
+}
+
+.odd-button {
+color: black;
+}
+
+.even-button {
+color: #00419C;
+}
+
+.view-button:hover {
+background-color: #00419C; /* Change background color on hover */
+color: white; /* Change font color on hover */
+}
+
+.pagination-controls{
+font-family: 'Poppins', sans-serif; /* Use 'Poppins' as the font name */
+font-weight: bold;
+font-size: 18px;
+margin-right: 2%;
+float: right
+}
+
+.page-button{
+background-color: #00419C;
+color: white;
+border: none;
+border-radius: 20px;
+padding: 5px 10px;
+width: 152px;
+height: 40px;
+font-family: 'Poppins', sans-serif;
+font-weight: bold;
+font-size: 18px;
+transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Add transition */
+}
+
+.page-button:active {
+background-color: white; /* Change background color on hover */
+color: #00419C; /* Change font color on hover */
+border: 2px solid #00419C; /* Add border on hover */
+}
+

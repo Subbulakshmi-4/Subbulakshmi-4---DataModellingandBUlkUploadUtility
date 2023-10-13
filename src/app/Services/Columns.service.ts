@@ -19,14 +19,13 @@ export class ColumnsService {
 
 
   generateExcelFile(columns: any[]): Observable<Blob> {
-    console.log('Data before serialization in service:', columns);
     // Make an HTTP POST request to generate the Excel file
     return this.http.post<Blob>(`${this.apiUrl}/Excel/generate`, columns, {
       
       responseType: 'blob' as 'json' // Set the response type to blob
       
     });
-    console.log('Data before serialization in service:', columns);
+
   }
   uploadTemplate(file: FormData, tableName: string): Observable<any> {
     const url = `${this.apiUrl}/excel/upload?tableName=${tableName}`;

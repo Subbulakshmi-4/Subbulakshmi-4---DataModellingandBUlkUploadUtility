@@ -1,38 +1,53 @@
 <div class="container">
 
-  <h3 class="entity-name">Entity List</h3>
+  <div class="header">
+    List of Entities
+  </div>
 
-  <button class="btn btn-primary" [routerLink]="['/createentity']">Create Entity</button>
-  <table class="custom-table">
-    <thead>
-      <tr>
-        <th>Entity Name</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let tableName of tableNames">
-        <td>{{ tableName.entityName }}</td>
-        <td>
-          <button class="btn btn-primary" [routerLink]="['/entity', tableName.entityName]">
-            <i class="fa fa-eye"></i>
-            View
-          </button>
-        </td>
-      </tr>        
-    </tbody>
-    <tbody *ngIf="tableNames.length === 0">
-      <tr>
-        <td colspan="7" style="color: red;">No data found.</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="headerbuttons">
+    <div class="btn-div">
+      <button class="create-button" routerLink="/createentity"><i class="fa-solid fa-plus icon"></i>Create</button>
+    </div>
+    <div class="search-div">
+      <input type="text" placeholder="Search" [(ngModel)]="searchText" (input)="onSearch()">
+      <i class="fas fa-search" style="margin-left: -34px;"></i>
+    </div>
+    <!-- <div class="back-div">
+      <button class="back-button"><i class="fa-solid fa-arrow-left icon"></i>Back</button>
+    </div> -->
+  </div>
+  
+  <div class="container">
+    <ng-container *ngIf="tableNames.length > 0; else emptyList">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="center-header">Entity Name</th>
+          <th class="center-header">View</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let table of tableNames; let odd = odd">
+          <td class="center-content" [ngClass]="{'odd-row': odd, 'even-row': !odd}" style="padding-top: 10px">{{ table.entityName }}</td>
+          <td class="center-content" [ngClass]="{'odd-row': odd, 'even-row': !odd}">
+            <button class="view-button" [ngClass]="{'odd-button': odd, 'even-button': !odd}" [routerLink]="['/entity', table.entityName]">
+              View
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+  <ng-template #emptyList>
+    <div class="empty-list-message">
+      List is empty
+    </div>
+  </ng-template>
+  </div>
+    <!-- Pagination Controls -->
+<div class="pagination-controls">
+  <button class="page-button" (click)="previousPage()" [disabled]="currentPage === 1"><i class="fa-solid fa-angles-left"></i>Previous</button>
+  <span style="margin-left: 25px;margin-right: 25px;">Page {{ currentPage }} of {{ totalPages }}</span>
+  <button class="page-button" (click)="nextPage()" [disabled]="currentPage === totalPages">Next <i class="fa-solid fa-angles-right"></i></button>
 </div>
-<!-- <div *ngIf="tableNames.length === 0">
-  No Data Available.
-</div> -->
-<!-- <div *ngIf="errorMessage" class="error-message">
-
-  {{ errorMessage }}
-
-</div> -->
+</div>

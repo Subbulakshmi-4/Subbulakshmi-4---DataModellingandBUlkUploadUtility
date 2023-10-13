@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { ColumnInputServiceService } from 'src/app/Services/column-input-service.service';
-import { ToastrService } from 'src/app/Services/ToastrService';
 import { Router } from '@angular/router';
-import { EntityModel } from '../Models/EntityModel';
+import { ColumnInputServiceService } from '../Services/column-input-service.service';
+import { ToastrService } from '../Services/ToastrService';
 @Component({
   selector: 'app-create-entity',
   templateUrl: './create-entity.component.html',
@@ -103,10 +102,15 @@ onDataTypeChange(row: any) {
     return primaryKeyCount === 1;
   }
 
-  isEntityNameValid() {
+  // isEntityNameValid() {
+  //   const entityNameInput = this.newEntity.entityname;
+  //   return !!(entityNameInput && !/[^a-zA-Z][^a-zA-Z0-9]*/.test(entityNameInput));
+  // }
+  isEntityNameValid(): boolean {
     const entityNameInput = this.newEntity.entityname;
-    return !!(entityNameInput && !/[^a-zA-Z][^a-zA-Z0-9]*/.test(entityNameInput));
+    return /^[a-zA-Z][a-zA-Z0-9]*$/.test(entityNameInput);
   }
+  
 
    reservedKeywords: string[] = [
     'abort','asc','between','case','create','database','delete','desc','drop','false','from','full',

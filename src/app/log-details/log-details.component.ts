@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ColumnInputServiceService } from '../Services/column-input-service.service';
+import { LogparentService } from '../Services/LogparentService'; 
 
 @Component({
   selector: 'app-log-details',
@@ -15,7 +16,7 @@ export class LogDetailsComponent {
   timestamp: string | undefined;
   logParentID: number | undefined;
   userID:number|undefined;
-  constructor() {}
+ 
 
   ngOnInit(): void {
     // Manually set mock data for testing
@@ -70,4 +71,40 @@ export class LogDetailsComponent {
       timestamp: logParent.timestamp 
     }));
   }
+  // response: any;
+  // entityName: string = "";
+  // totalCounts: number = 0;
+  // successCounts: number = 0;
+  // errorCounts: number = 0;
+  // tableData: any[] = [];
+
+  constructor(private excelService: LogparentService) { }
+
+  // ngOnInit(): void {
+  //   // Call your API service method here, for example:
+  //   this.excelService.generateExcelFile(yourColumnsData).subscribe(
+  //     (data: any) => {
+  //       this.response = data;
+  //       this.handleApiResponse(this.response);
+  //     },
+  //     error => {
+  //       console.error('Error generating Excel file:', error);
+  //       // Handle errors here
+  //     }
+  //   );
+  // }
+
+  // handleApiResponse(response: any): void {
+  //   if (response && response.isSuccess) {
+  //     this.entityName = response.result.logParent.fileName;
+  //     this.totalCounts = response.result.logParent.recordCount;
+  //     this.successCounts = response.result.logParent.passCount;
+  //     this.errorCounts = response.result.logParent.failCount;
+  //     this.tableData = response.result.logChildren;
+  //   } else {
+  //     // Handle error response
+  //     console.error('Error response from API:', response);
+  //     // You can set default values or display error messages as needed
+  //   }
+  // }
 }

@@ -8,15 +8,16 @@
                 <div class="name-div">
                     <label for="entityName">Entity Name</label>
                     <input
-                        type="text"
-                        id="entityName"
-                        name="entityName"
-                        placeholder="Enter your entity name here"
-                        [(ngModel)]="newEntity.entityname"
-                        required
-                        pattern="^[a-zA-Z][a-zA-Z0-9]*$"
-                        #entityNameInput="ngModel"
-                    />
+                    type="text"
+                    id="entityName"
+                    name="entityName"
+                    placeholder="Enter your entity name here"
+                    [(ngModel)]="newEntity.entityname"
+                    required
+                    pattern="^[a-zA-Z][a-zA-Z0-9]*$"
+                    #entityNameInput="ngModel"
+                />
+                
                     <!-- Validation error messages -->
                     <div *ngIf="entityNameInput.invalid && (entityNameInput.dirty || entityNameInput.touched)">
                         <div class="error" *ngIf="entityNameInput?.errors?.['required']">Entity Name is required.</div>

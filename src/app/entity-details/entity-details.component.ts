@@ -165,6 +165,7 @@ export class EntityDetailsComponent implements OnInit {
       }
     );
     this.router.navigate(['/Log-details']);
+    
   }
   
   goBackToList(){

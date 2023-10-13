@@ -9,6 +9,11 @@ import * as XLSX from 'xlsx'; // Import the xlsx library
 import { AlertService } from '../Services/AlertService'; 
 import { ToastrService } from '../Services/ToastrService';
 import { EntityModel } from '../Models/EntityModel';
+import { SharedDataService } from '../Services/SharedData.service';
+import { LogDetailsComponent } from '../log-details/log-details.component';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { LogDetailsDTO } from '../Models/LogDetailsDTO';
 
 @Component({
   selector: 'app-entity-details',
@@ -20,8 +25,9 @@ export class EntityDetailsComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef; // Add this line
   entityName!: string;
   columns: TableColumnDTO[] = [];
+  // logDetails: LogDetailsDTO = new LogDetailsDTO();
 
-  constructor(private route: ActivatedRoute, private columnsService: ColumnsService, private router: Router, private toastrService: ToastrService   ) {}
+  constructor(private route: ActivatedRoute, private columnsService: ColumnsService, private router: Router, private toastrService: ToastrService,  private sharedDataService: SharedDataService   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -122,36 +128,43 @@ export class EntityDetailsComponent implements OnInit {
     const fileInput = this.fileInput.nativeElement;
     fileInput.click();
   }
- uploadTemplate(event: any) {
-  const file = event.target.files[0];
-  const tableName = this.entityName; // Replace with the actual table name
-  // Create a FormData object to send the file and table name
-  const formData = new FormData();
-  formData.append('file', file);
-  // Make the API request with the updated function
-  this.columnsService.uploadTemplate(formData, tableName).subscribe(
-    (res: any) => {
-      const response = JSON.parse(res);
-      if (response.isSuccess) {
+  uploadTemplate(event: any) {
+    const file = event.target.files[0];
+    const tableName = this.entityName; // Replace with the actual table name
+    const formData = new FormData();
+    formData.append('file', file);
+  
+    // Create an instance of LogDetailsDTO and populate it
+    const logDetails: LogDetailsDTO = new LogDetailsDTO();
+    logDetails.entityName = this.entityName; // Set other properties as needed
+  
+    this.sharedDataService.setLogDetails(logDetails);
+  
+    this.columnsService.uploadTemplate(formData, tableName).subscribe(
+      (res: any) => {
+        const response = JSON.parse(res);
+        if (response.isSuccess) {
           this.toastrService.showSuccess(response.errorMessage[0]);
-      } else {
-        this.toastrService.showError(response.errorMessage[0]);
+          // Navigate to LogDetailsComponent
+          this.router.navigate(['/log-details']);
+        } else {
+          this.toastrService.showError(response.errorMessage[0]);
+        }
+      },
+      (error: any) => {
+        const errorResponse = JSON.parse(error.error);
+        if (errorResponse != null) {
+          if (errorResponse.errorMessage[0] != null) {
+            this.toastrService.showError(errorResponse.errorMessage[0]);
+          } else {
+            this.toastrService.showError('An error occurred while uploading the template.');
+          }
+        } else {
+          this.toastrService.showError('An error occurred while uploading the template.');
+        }
       }
-    },
-    (error: any) => {
-      const errorResponse = JSON.parse(error.error);
-      if(errorResponse != null){
-        if(errorResponse.errorMessage[0] != null){
-          this.toastrService.showError(errorResponse.errorMessage[0])
-       }else{
-         this.toastrService.showError('An error occurred while uploading the template.');
-       }
-      }else{
-         this.toastrService.showError('An error occurred while uploading the template.');
-       }
-    }
-  );
-}
+    );
+  }
   
   goBackToList(){
     this.router.navigate(['/entity-list']);

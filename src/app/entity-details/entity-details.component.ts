@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
 import * as XLSX from 'xlsx'; // Import the xlsx library
 import { AlertService } from '../Services/AlertService'; 
 import { ToastrService } from '../Services/ToastrService';
-import { EntityModel } from '../Models/EntityModel';
 import { SharedDataService } from '../Services/SharedData.service';
 import { LogDetailsComponent } from '../log-details/log-details.component';
 import { Injectable } from '@angular/core';
@@ -41,8 +40,10 @@ export class EntityDetailsComponent implements OnInit {
           this.columns = data.result.map((columnData: any) => {
             console.log('API Response - isPrimaryKey:', columnData.columnPrimaryKey);
             const column: TableColumnDTO = {
+              entityname: this.entityName,
               id: columnData.id,
               entityColumnName: columnData.entityColumnName,
+              entityId:columnData.entityid,
               datatype: columnData.datatype,
               length: columnData.length,
               description:columnData.description,
@@ -50,6 +51,7 @@ export class EntityDetailsComponent implements OnInit {
               defaultValue: columnData.defaultValue,
               ColumnPrimaryKey: columnData.columnPrimaryKey, // Set isPrimaryKey based on columnPrimaryKey from the server
             };
+           
             return column;
           });
         } else {
@@ -133,20 +135,21 @@ export class EntityDetailsComponent implements OnInit {
     const tableName = this.entityName; // Replace with the actual table name
     const formData = new FormData();
     formData.append('file', file);
-  
-    // Create an instance of LogDetailsDTO and populate it
-    const logDetails: LogDetailsDTO = new LogDetailsDTO();
-    logDetails.entityName = this.entityName; // Set other properties as needed
-  
-    this.sharedDataService.setLogDetails(logDetails);
+
+    
+     // Create an instance of LogDetailsDTO and populate it
+    
   
     this.columnsService.uploadTemplate(formData, tableName).subscribe(
       (res: any) => {
+        
         const response = JSON.parse(res);
         if (response.isSuccess) {
+          const logDetails: LogDetailsDTO = JSON.parse(res);;
+          console.log ("loggggg",logDetails);
+        this.sharedDataService.setLogDetails(logDetails);
           this.toastrService.showSuccess(response.errorMessage[0]);
           // Navigate to LogDetailsComponent
-          this.router.navigate(['/log-details']);
         } else {
           this.toastrService.showError(response.errorMessage[0]);
         }
@@ -209,8 +212,10 @@ export class EntityDetailsComponent implements OnInit {
           this.columns = data.result.map((columnData: any) => {
             console.log('API Response - isPrimaryKey:', columnData.columnPrimaryKey);
             const column: TableColumnDTO = {
+              entityname: this.entityName,
               id: columnData.id,
               entityColumnName: columnData.entityColumnName,
+              entityId: columnData.entityid,
               datatype: columnData.datatype,
               length: columnData.length,
               description:columnData.description,

@@ -1,85 +1,195 @@
+<!-- <div>
+  <h2>Log Parent Details</h2>
+  <p>Timestamp: {{ logParent.timestamp }}</p>
+  <p>Record Count: {{ logParent.recordCount }}</p>
+  <p>Pass Count: {{ logParent.passCount }}</p>
+  <p>Fail Count: {{ logParent.failCount }}</p>
+  <p>User ID: {{ logParent.user_Id }}</p>
+  <p>File Name: {{ logParent.fileName }}</p>
+  <p>Entity ID: {{ logParent.entity_Id }}</p>
+</div>
+
+<div>
+  <h2>Log Children Details</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Parent ID</th>
+        <th>Error Message</th>
+        <th>File Data</th>
+        <th>Parent Log ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let child of logChildren">
+        <td>{{ child.id }}</td>
+        <td>{{ child.parentID }}</td>
+        <td>{{ child.errorMessage }}</td>
+        <td>{{ child.filedata }}</td>
+        <td>{{ child.parentLogID }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div> -->
 <header>
+
   <div class="container">
+
     <div class="row">
+
       <div class="col-3">
+
         <div
+
           class="card"
+
           style="inline-size: 15rem; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1)"
+
         >
+
           <div class="card-body">
-            <h5 class="card-title">EntityName</h5>
-            <h6>{{ entityName }}</h6>
+
+            <h5 class="card-title">EntityId</h5>
+
+            <h6>{{ logParent.entity_Id }}</h6>
+
           </div>
+
         </div>
+
       </div>
+
       <div class="col-3">
+
         <div
+
           class="card"
+
           style="inline-size: 15rem; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1)"
+
         >
+
           <div class="card-body">
+
             <h5 class="card-title">TotalCounts</h5>
-            <h6>{{ totalCounts }}</h6>
+
+            <h6>{{ logParent.recordCount }}</h6>
+
           </div>
+
         </div>
+
       </div>
+
       <div class="col-3">
+
         <div
+
           class="card"
+
           style="inline-size: 15rem; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1)"
+
         >
+
           <div class="card-body">
+
             <h5 class="card-title">SuccessCounts</h5>
-            <h6>{{ successCounts }}</h6>
+
+            <h6>{{ logParent.passCount }}</h6>
+
           </div>
+
         </div>
+
       </div>
+
       <div class="col-3">
+
         <div
+
           class="card"
+
           style="inline-size: 15rem; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1)"
+
         >
+
           <div class="card-body">
+
             <h5 class="card-title">ErrorCounts</h5>
-            <h6>{{ errorCounts }}</h6>
+
+            <h6>{{ logParent.failCount }}</h6>
+
           </div>
+
         </div>
+
       </div>
+
     </div>
+
   </div>
+
 </header>
+
 <body style="margin-block-start: -20px;">
+
   <div class="container">
+
     <div class="row">
+
       <div class="col-12">
+
         <div style="text-align: end;margin-block-start:15px;">
+
           <button class="btn btn-info">Export</button>
+
         </div>
+
         <br />
+
         <table class="table table-striped table-hover" style="margin-block-start: -5px;">
+
           <thead>
+
             <tr>
+
               <th scope="col">S.No</th>
-              <th scope="col">ParentId</th>
+
+             
+
               <th scope="col">ChildId</th>
-              <th scope="col">UserId</th>
+
+              <th scope="col">ParentId</th>
+
               <th scope="col">ErrorMessage</th>
-              <th scope="col">Timestamp</th>
+
+              <th scope="col">filedata</th>
+
             </tr>
+
           </thead>
+
           <tbody>
-            <tr *ngFor="let item of tableData; let i = index">
+
+            <tr *ngFor="let child of logChildren;let i = index">
               <th scope="row">{{ i + 1 }}</th>
-              <td>{{ item.logChildId }}</td>
-              <td>{{ item.logParentId }}</td>
-              <td>{{ item.userID }}</td>
-              <td>{{ item.errorMessage }}</td>
-              <td>{{ item.timestamp }}</td>
-            </tr>
+              <td>{{ child.id }}</td>
+              <td>{{ child.parentID }}</td>
+              <td>{{ child.errorMessage }}</td>
+              <td>{{ child.filedata }}</td>
+              
+
           </tbody>
+
         </table>
+
       </div>
+
     </div>
+
   </div>
+
 </body>
+
 <footer></footer>

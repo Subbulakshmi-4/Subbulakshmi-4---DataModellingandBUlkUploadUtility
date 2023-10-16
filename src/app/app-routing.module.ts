@@ -10,7 +10,7 @@ import { LogDetailsComponent } from './log-details/log-details.component';
 
 
 const routes: Routes = [
-  { path: '', component: ServerConfigurationComponent},
+  { path: '', component: DisplaytableNameComponent},
   { path: 'entity-list', component: DisplaytableNameComponent }, // Add this line
   { path: 'entity/:entityName', component: EntityDetailsComponent },
   {path:'createentity',component:CreateEntityComponent},

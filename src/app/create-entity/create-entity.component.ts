@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColumnInputServiceService } from '../Services/column-input-service.service';
 import { ToastrService } from '../Services/ToastrService';
+import { NgForm } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-create-entity',
   templateUrl: './create-entity.component.html',
@@ -9,13 +12,17 @@ import { ToastrService } from '../Services/ToastrService';
 })
 export class CreateEntityComponent {
   entityForm: any;
+  showModal: boolean = false;
+  showAdditionalInputs: boolean = false;
+  additionalInput1: string = '';
+  additionalInput2: string = '';
 
   constructor( private toastrService : ToastrService,
               private router: Router,
-              private  columnInputService: ColumnInputServiceService
+              private  columnInputService: ColumnInputServiceService,
+              private modalService: NgbModal
     ){}
   selectedDataType: string = 'string'; // Default data type
-
   newEntity: any = {
     entityname: '',
     columns: [
@@ -24,6 +31,8 @@ export class CreateEntityComponent {
         datatype: 'string',
         length: 0,
         isNullable: false,
+        true:'',
+        false:'',
         primaryKey: false,
         defaultValue: '',
         description: ''
@@ -38,21 +47,32 @@ export class CreateEntityComponent {
       datatype: 'string',
       length: 0,
       isNullable: false,
+      true:'',
+      false:'',
       primaryKey: false,
       defaultValue: '',
       description: ''
     });
     this.entityForm.form.updateValueAndValidity();
   }
-
+  showBooleanPopup: boolean = false;
   // Function to handle data type change
 onDataTypeChange(row: any) {
   if (row.datatype === 'int' || row.datatype === 'boolean' || row.datatype === 'char' ||
       row.datatype === 'date' || row.datatype === 'bytea') {
       row.length = "";
-  }
+    }
+    if(row.datatype === 'boolean' ){
+      this.showModal = true;
+      this.showAdditionalInputs = true;
+    } else {
+      this.showModal = false;
+      this.showAdditionalInputs = false;
+    }
 }
-
+closeModal() {
+  this.showModal = false;
+}
 
   // Function to delete a row
   deleteRow(index: number) {
@@ -101,11 +121,19 @@ onDataTypeChange(row: any) {
     }
     return primaryKeyCount === 1;
   }
-
-  // isEntityNameValid() {
-  //   const entityNameInput = this.newEntity.entityname;
-  //   return !!(entityNameInput && !/[^a-zA-Z][^a-zA-Z0-9]*/.test(entityNameInput));
-  // }
+  preventSubmitOnEnter(event: KeyboardEvent, form: NgForm): void {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+    }
+  }
+  
+  onDefaultValueInputChange(event: Event, row: any): void {
+    const inputElement = event.target as HTMLInputElement;
+    if (row.datatype === 'int') {
+      inputElement.value = inputElement.value.replace(/[^0-9]/g, ''); // Allow only numeric characters
+    }
+  }
+  
   isEntityNameValid(): boolean {
     const entityNameInput = this.newEntity.entityname;
     return /^[a-zA-Z][a-zA-Z0-9]*$/.test(entityNameInput);
@@ -128,7 +156,7 @@ submit() {
 
   if (reservedKeywordFound) {
     this.toastrService.showError('Table or column name cannot be a reserved keyword.');
-    return; // Stop form submission
+    return; 
   }
 
   if(!this.isEntityNameValid()){
@@ -136,32 +164,27 @@ submit() {
     this.toastrService.showError('Table Name patern is invalid');
   }
 
-  // Check if the table name is empty
   if (!this.newEntity.entityname) {
     errorMessages.push('Table Name is required.');
     this.toastrService.showError('Table Name is required.');
   }
 
-  // Check for duplicate column names
   if (this.hasDuplicateColumnNames()) {
     errorMessages.push('Duplicate column names are not allowed.');
     this.toastrService.showError('Duplicate column names are not allowed.');
   }
 
-  // Check if there's exactly one primary key
   if (!this.hasExactlyOnePrimaryKey()) {
     errorMessages.push('Exactly one Primary Key is required.');
     this.toastrService.showError('Exactly one Primary Key is required.');
   }
 
-  // Display error messages in the console
   if (errorMessages.length > 0) {
     console.log('Form validation failed:');
     for (const errorMessage of errorMessages) {
       console.log(errorMessage);
     }
   } else {
-    // Form data is valid, create and send the JSON object as needed
     const formData = {
       entityname: this.newEntity.entityname,
       columns: this.newEntity.columns
@@ -173,6 +196,8 @@ submit() {
               entityColumnName: columns.columnName,
               dataType: columns.datatype,
               length: columns.length || 0,
+              true:columns.true,
+              false:columns.false,
               isNullable: columns.isNullable,
               defaultValue: columns.defaultValue,
               columnPrimaryKey: columns.primaryKey,

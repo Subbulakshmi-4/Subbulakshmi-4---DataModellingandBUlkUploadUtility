@@ -20,6 +20,8 @@ import { ServerConfigService } from '../app/Services/server-config.service';
 import { CreateEntityComponent } from './create-entity/create-entity.component';
 import { LogDetailsComponent } from './log-details/log-details.component';
 import { ToastrService } from './Services/ToastrService';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { ToastrService } from './Services/ToastrService';
     AppRoutingModule,
     HttpClientModule,RouterModule,
     ReactiveFormsModule,
+    NgbModule,
     FormsModule,
     ToastrModule.forRoot({
       timeOut: 5000, // Duration of the toastr notification (in milliseconds)

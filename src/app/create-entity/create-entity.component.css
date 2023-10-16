@@ -238,3 +238,24 @@ input[type=number]::-webkit-outer-spin-button {
     appearance: none;
     margin: 0; 
 }
+.additional-inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-group {
+  margin-block-end: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.input-group label {
+  margin-inline-end: 10px;
+}
+
+/* Limit the width of the inputs */
+.input-group input {
+  max-inline-size: 150px; /* Adjust the value as needed */
+}
+

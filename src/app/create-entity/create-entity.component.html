@@ -134,22 +134,7 @@
                                         [(ngModel)]="row.defaultValue"
                                         name="defaultValue{{ i }}"
                                       />
-                                    </ng-template>
-                                    <!-- <div *ngIf="showAdditionalInputs" class="additional-inputs">
-                                        <div class="input-group">
-                                            <label for="input1">True</label>
-                                            <input type="text" [(ngModel)]="row.true" id="input1" name="true{{i}}" />
-                                        </div>
-                                        <div class="input-group">
-                                            <label for="input2">False</label>
-                                            <input type="text" [(ngModel)]="row.false" id="input2" name="false{{i}}" />
-                                        </div>
-                                    </div> -->
-                                  </td>
-                                <td class="center-content"><input type="text" [(ngModel)]="row.description" placeholder="Description" name="description{{ i }}" />
-                                </td>
-                                <td class="center-content">
-                                    <div *ngIf="showAdditionalInputs" class="additional-inputs">
+                                      <div *ngIf="row.datatype === 'boolean'" class="additional-inputs">
                                         <div class="input-group">
                                             <label for="input1">True</label>
                                             <input type="text" [(ngModel)]="row.true" id="input1" name="true{{i}}" />
@@ -159,6 +144,9 @@
                                             <input type="text" [(ngModel)]="row.false" id="input2" name="false{{i}}" />
                                         </div>
                                     </div>
+                                    </ng-template>
+                                  </td>
+                                <td class="center-content"><input type="text" [(ngModel)]="row.description" placeholder="Description" name="description{{ i }}" />
                                 </td>
                                 <td class="center-content">
                                     <!-- Delete Row Button -->

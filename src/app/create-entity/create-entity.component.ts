@@ -197,7 +197,7 @@ submit() {
               dataType: columns.datatype,
               length: columns.length || 0,
               true:columns.true,
-              false:columns.false,
+              false:columns.false ,
               isNullable: columns.isNullable,
               defaultValue: columns.defaultValue,
               columnPrimaryKey: columns.primaryKey,
@@ -205,6 +205,7 @@ submit() {
             };
           }),
         }
+        
         console.log(backendRequest);
   this.columnInputService.createTable(backendRequest).subscribe(
     response => {

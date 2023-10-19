@@ -6,6 +6,9 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SharedDataService {
     private logDetailsData = new BehaviorSubject<any>(null);
+    data:any[]=[
+      
+    ];
   
     getLogDetailsData() {
       return this.logDetailsData.asObservable();

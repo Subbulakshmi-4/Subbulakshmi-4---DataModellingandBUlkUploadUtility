@@ -16,9 +16,14 @@ export class LogDetailsComponent {
     // Subscribe to the shared service to get log details data
     this.sharedDataService.getLogDetailsData().subscribe((data: any) => {
       if (data) {
+        console.log(data)
         this.logParent = data.result.logParentDTOs; // Access the logParent object
         this.logChildren = data.result.childrenDTOs; // Access the childrenDTOs array
       }
     });
+  }
+
+  generateErrorExcelTemplate(){
+
   }
 }

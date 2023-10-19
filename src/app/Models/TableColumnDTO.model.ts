@@ -9,4 +9,6 @@ export interface TableColumnDTO {
   isNullable: boolean;
   defaultValue: string;
   ColumnPrimaryKey: boolean; 
+  True: string; 
+  False: string; 
 }

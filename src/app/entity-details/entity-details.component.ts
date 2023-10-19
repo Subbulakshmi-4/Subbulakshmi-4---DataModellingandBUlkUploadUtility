@@ -49,7 +49,9 @@ export class EntityDetailsComponent implements OnInit {
               description:columnData.description,
               isNullable: columnData.isNullable,
               defaultValue: columnData.defaultValue,
-              ColumnPrimaryKey: columnData.columnPrimaryKey, // Set isPrimaryKey based on columnPrimaryKey from the server
+              ColumnPrimaryKey: columnData.columnPrimaryKey, 
+              True: columnData.true, 
+              False: columnData.false, 
             };
            
             return column;
@@ -221,7 +223,9 @@ export class EntityDetailsComponent implements OnInit {
               description:columnData.description,
               isNullable: columnData.isNullable,
               defaultValue: columnData.defaultValue,
-              ColumnPrimaryKey: columnData.columnPrimaryKey, // Set isPrimaryKey based on columnPrimaryKey from the server
+              ColumnPrimaryKey: columnData.columnPrimaryKey, 
+              True: columnData.true, 
+              False: columnData.false,
             };
             return column;
           });

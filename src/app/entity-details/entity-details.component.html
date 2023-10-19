@@ -36,7 +36,7 @@
       </div>
     </div>
 
-  <div class="container table-container">
+  <div class="container table-container" style="margin-left: -143px;">
       <table class="table">
           <thead>
               <tr>
@@ -47,6 +47,8 @@
                   <th class="center-header">PrimaryKey</th>
                   <th class="center-header">Default Value</th>
                   <th class="center-header">Description</th>
+                  <th class="center-header">True</th>
+                  <th class="center-header">False</th>
               </tr>
           </thead>
           <tbody>
@@ -108,6 +110,20 @@
                           disabled
                       />
                   </td>
+                  <td class="center-content">
+                    <input
+                        type="text"
+                        [(ngModel)]="row.True"
+                        disabled
+                    />
+                </td>
+                <td class="center-content">
+                    <input
+                        type="text"
+                        [(ngModel)]="row.False"
+                        disabled
+                    />
+                </td>
               </tr>
           </tbody>
       </table>

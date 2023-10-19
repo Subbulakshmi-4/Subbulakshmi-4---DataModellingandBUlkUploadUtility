@@ -205,6 +205,7 @@ submit() {
             };
           }),
         }
+        
         console.log(backendRequest);
   this.columnInputService.createTable(backendRequest).subscribe(
     response => {

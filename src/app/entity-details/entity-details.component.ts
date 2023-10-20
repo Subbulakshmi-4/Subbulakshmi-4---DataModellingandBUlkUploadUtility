@@ -152,6 +152,7 @@ export class EntityDetailsComponent implements OnInit {
         this.sharedDataService.setLogDetails(logDetails);
           this.toastrService.showSuccess(response.errorMessage[0]);
           // Navigate to LogDetailsComponent
+          this.router.navigate(['/Log-details']);
         } else {
           this.toastrService.showError(response.errorMessage[0]);
         }
@@ -169,7 +170,6 @@ export class EntityDetailsComponent implements OnInit {
         }
       }
     );
-    this.router.navigate(['/Log-details']);
   }
   
   goBackToList(){

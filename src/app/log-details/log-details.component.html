@@ -159,7 +159,13 @@
               <th scope="row">{{ i + 1 }}</th>
               <td>{{ logParent.user_Id }}</td>
               <td>{{ child.errorMessage }}</td>
-              <td>{{ child.filedata }}</td>
+              <!-- <td>{{ child.filedata }}</td> -->
+              <td>
+                {{ child.filedata.split(';')[0] }}<br>{{ child.filedata.split(';')[1] }}
+                <span *ngIf="child.filedata.split(';').length > 2"><br> etc.</span>
+              </td>
+              
+            </tr>
           </tbody>
         </table>
       </div>

@@ -150,7 +150,7 @@ export class EntityDetailsComponent implements OnInit {
           const logDetails: LogDetailsDTO = JSON.parse(res);;
           console.log ("loggggg",logDetails);
         this.sharedDataService.setLogDetails(logDetails);
-          this.toastrService.showSuccess(response.errorMessage[0]);
+          this.toastrService.showError(response.errorMessage[0]);
           // Navigate to LogDetailsComponent
           this.router.navigate(['/Log-details']);
         } else {

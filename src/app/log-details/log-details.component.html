@@ -50,9 +50,9 @@
 
           <div class="card-body">
 
-            <h5 class="card-title">EntityId</h5>
+            <h5 class="card-title">EntityName</h5>
 
-            <h6>{{ logParent.entity_Id }}</h6>
+            <h6>{{  entityName }}</h6>
 
           </div>
 
@@ -118,7 +118,7 @@
 
             <h5 class="card-title">ErrorCounts</h5>
 
-            <h6>{{ logParent.failCount }}</h6>
+            <h6>{{0  || logParent.failCount }}</h6>
 
           </div>
 
@@ -139,8 +139,11 @@
     <div class="row">
 
       <div class="col-12">
+        <div style="text-align:start;margin-block-start:15px;">
+          <button class="btn btn-info" routerLink="/entity-list" >Back</button>
+        </div>
         <div style="text-align: end;margin-block-start:15px;">
-          <button class="btn btn-info" (click)="generateErrorExcelTemplate()" >Export</button>
+          <button class="btn btn-info" (click)="getData(logParent.id)" >Export</button>
         </div>
 
         <br />
@@ -152,6 +155,7 @@
               <th scope="col">User Name</th>
               <th scope="col">ErrorMessage</th>
               <th scope="col">filedata</th>
+              <!-- <th scope="col">parentLogID</th> -->
             </tr>
           </thead>
           <tbody>
@@ -160,6 +164,7 @@
               <td>{{ logParent.user_Id }}</td>
               <td>{{ child.errorMessage }}</td>
               <td>{{ child.filedata }}</td>
+              <!-- <td>{{ child.parentID }}</td> -->
           </tbody>
         </table>
       </div>

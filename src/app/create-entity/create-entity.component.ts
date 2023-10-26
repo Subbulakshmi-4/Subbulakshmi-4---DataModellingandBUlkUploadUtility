@@ -35,7 +35,13 @@ export class CreateEntityComponent {
         false:'',
         primaryKey: false,
         defaultValue: '',
-        description: ''
+        description: '',
+        stringminLength:0,
+        stringmaxLength:0,
+        numberminValue:0,
+        numbermaxValue:0,
+        dateminValue:"",
+        datemaxValue:""
       }
     ]
   };
@@ -51,7 +57,13 @@ export class CreateEntityComponent {
       false:'',
       primaryKey: false,
       defaultValue: '',
-      description: ''
+      description: '',
+      stringminLength:0,
+      stringmaxLength:0,
+      numberminValue:0,
+      numbermaxValue:0,
+      dateminValue:"",
+      datemaxValue:""
     });
     this.entityForm.form.updateValueAndValidity();
   }

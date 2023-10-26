@@ -76,25 +76,57 @@
                                         <option value="timestamp">Timestamp</option>
                                         <option value="bytea">ByteA</option>
                                     </select>
-                                    
                                 </td>
-                                
-                                <td class="center-content">
+                                  <!-- String MinLenght and MaxLength input -->
+                                <td class="center-content" *ngIf="row.datatype === 'string'">
+                                    <div class="input-group">
+                                        <label for="minLength{{i}}">Min Length</label>
+                                        <input type="number" [(ngModel)]="row.stringminLength" id="minLength{{i}}" name="minLength{{i}}" />
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="maxLength{{i}}">Max Length</label>
+                                        <input type="number" [(ngModel)]="row.stringmaxLength" id="maxLength{{i}}" name="maxLength{{i}}" />
+                                    </div>
+                                </td>
+
+                               <!-- Number MinValue and MaxValue input -->
+                                <td class="center-content" *ngIf="row.datatype === 'int'">
+                                    <div class="input-group">
+                                        <label for="minValue{{i}}">Min Value</label>
+                                        <input type="number" [(ngModel)]="row.numberminValue" id="minValue{{i}}" name="minValue{{i}}" />
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="maxValue{{i}}">Max Value</label>
+                                        <input type="number" [(ngModel)]="row.numbermaxValue" id="maxValue{{i}}" name="maxValue{{i}}" />
+                                    </div>
+                                </td>
+                                 <!-- Number MinValue and MaxValue input -->
+                                 <td class="center-content" *ngIf="row.datatype === 'date'">
+                                    <div class="input-group">
+                                        <label for="minValue{{i}}">Min Date</label>
+                                        <input *ngIf="row.datatype === 'date'" type="date" [(ngModel)]="row.dateminValue" id="minValue{{i}}" name="minValue{{i}}" />
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="maxValue{{i}}">Max Date</label>
+                                        <input *ngIf="row.datatype === 'date'" type="date" [(ngModel)]="row.datemaxValue" id="maxValue{{i}}" name="maxValue{{i}}" />
+                                    </div>
+                                </td>
+                           
+                                <td class="center-content" *ngIf="row.datatype !== 'int' && row.datatype !== 'date' && row.datatype !== 'string'">
                                     <input
-                                        type="number"
-                                        min="0"
-                                        [(ngModel)]="row.length"
-                                        placeholder="Length"
-                                        name="length{{ i }}"
-                                        [disabled]="row.datatype === 'int' || row.datatype === 'boolean' || row.datatype === 'char' ||
-                                                    row.datatype === 'date' || row.datatype === 'bytea'"
-                                        [class.disabled-input]="row.datatype === 'int' || row.datatype === 'boolean' || row.datatype === 'char' ||
-                                                                row.datatype === 'date' || row.datatype === 'bytea'"
-                                        pattern="[0-9]{1,5}"
-                                        (input)="onInput($event)"
-                                    />
+                                    type="number"
+                                    min="0"
+                                    [(ngModel)]="row.length"
+                                    placeholder="Length"
+                                    name="length{{ i }}"
+                                    [disabled]="row.datatype === 'int' || row.datatype === 'boolean' || row.datatype === 'char' ||
+                                                row.datatype === 'date' || row.datatype === 'bytea'"
+                                    [class.disabled-input]="row.datatype === 'int' || row.datatype === 'boolean' || row.datatype === 'char' ||
+                                                            row.datatype === 'date' || row.datatype === 'bytea'"
+                                    pattern="[0-9]{1,5}"
+                                    (input)="onInput($event)"
+                                />
                                 </td>
-                                
                                 
                                 <td class="center-content">
                                     <!-- Toggle Switch for Not Null -->

@@ -36,10 +36,8 @@ export class CreateEntityComponent {
         primaryKey: false,
         defaultValue: '',
         description: '',
-        stringminLength:0,
-        stringmaxLength:0,
-        numberminValue:0,
-        numbermaxValue:0,
+        minLength:0,
+        maxLength:0,
         dateminValue:"",
         datemaxValue:""
       }
@@ -58,10 +56,8 @@ export class CreateEntityComponent {
       primaryKey: false,
       defaultValue: '',
       description: '',
-      stringminLength:0,
-      stringmaxLength:0,
-      numberminValue:0,
-      numbermaxValue:0,
+      minLength:0,
+      maxLength:0,
       dateminValue:"",
       datemaxValue:""
     });
@@ -71,7 +67,7 @@ export class CreateEntityComponent {
   // Function to handle data type change
 onDataTypeChange(row: any) {
   if (row.datatype === 'int' || row.datatype === 'boolean' || row.datatype === 'char' ||
-      row.datatype === 'date' || row.datatype === 'bytea') {
+      row.datatype === 'date' || row.datatype === 'bytea' || row.datatype === 'timestamp') {
       row.length = "";
     }
     if(row.datatype === 'boolean' ){
@@ -170,6 +166,26 @@ submit() {
     this.toastrService.showError('Table or column name cannot be a reserved keyword.');
     return; 
   }
+  for (const column of this.newEntity.columns) {
+    if (column.datatype === 'int' && column.numbermaxValue <= column.numberminValue) {
+      errorMessages.push('Max Value must be higher than Min Value.');
+      this.toastrService.showError('Max Value must be higher than Min Value.');
+    }
+  }
+  for (const column of this.newEntity.columns) {
+    if (column.datatype === 'string' && column.stringmaxLength <= column.stringminLength) {
+      errorMessages.push('Max Length must be higher than Min Value.');
+      this.toastrService.showError('Max Length must be higher than Min Length.');
+    }
+  }
+
+  // Validate datemaxValue and dateminValue
+  for (const column of this.newEntity.columns) {
+    if (column.datatype === 'date' && column.datemaxValue <= column.dateminValue) {
+      errorMessages.push('Max Date must be after Min Date.');
+      this.toastrService.showError('Max Date must be after Min Date.');
+    }
+  }
 
   if(!this.isEntityNameValid()){
     errorMessages.push('Table Name patern is invalid');
@@ -214,15 +230,14 @@ submit() {
               defaultValue: columns.defaultValue,
               columnPrimaryKey: columns.primaryKey,
               Description:columns.description,
-              stringminLength:columns.stringminLength,
-              stringmaxLength:columns.stringmaxLength,
-              numberminValue:columns.numberminValue,
-              numbermaxValue:columns.numbermaxValue,
+              minLength:columns.minLength,
+              maxLength:columns.maxLength,
               dateminValue:columns.dateminValue,
               datemaxValue:columns.datemaxValue
             };
           }),
         }
+
         console.log(backendRequest);
   this.columnInputService.createTable(backendRequest).subscribe(
     response => {

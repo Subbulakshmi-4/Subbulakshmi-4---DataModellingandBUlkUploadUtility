@@ -98,8 +98,8 @@
 .toggle-switch {
     position: relative;
     display: inline-block;
-    inline-size: 50px; /* Adjust the width as needed */
-    block-size: 24px; /* Adjust the height as needed */
+    inline-size: 50px; 
+    block-size: 24px; 
     background-color: #ffffff;
     border-radius: 12px;
   }
@@ -120,24 +120,24 @@
     display: none;
   }
   
-  /* Change background color when checked */
+
   .toggle-switch input:checked + .slider {
-    background-color: #00419C; /* Toggle switch color when checked */
+    background-color: #00419C;
   }
   
-  /* Move the slider to the right when checked */
+  
   .toggle-switch input:checked + .slider:before {
-    transform: translateX(26px); /* Adjust as needed */
+    transform: translateX(26px); 
   }
   
-  /* Styling for the slider circle */
+ 
   .toggle-switch .slider:before {
     position: absolute;
     content: "";
-    block-size: 20px; /* Adjust the height as needed */
-    inline-size: 20px; /* Adjust the width as needed */
-    inset-inline-start: 2px; /* Adjust the position as needed */
-    inset-block-end: 2px; /* Adjust the position as needed */
+    block-size: 20px; 
+    inline-size: 20px; 
+    inset-inline-start: 2px; 
+    inset-block-end: 2px; 
     background-color: #ffffff;
     border-radius: 50%;
     transition: 0.4s;
@@ -165,13 +165,13 @@
     font-family: 'Poppins', sans-serif;
     font-weight: bold;
     font-size: 20px;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Add transition */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; 
   }
 
   .delete-button:hover {
-  background-color: white; /* Change background color on hover */
-  color: #00419C; /* Change font color on hover */
-  border: 2px solid #00419C; /* Add border on hover */
+  background-color: white; 
+  color: #00419C; 
+  border: 2px solid #00419C; 
   }
 
   .delete-button i{
@@ -188,15 +188,15 @@
     font-family: 'Poppins', sans-serif;
     font-weight: bold;
     font-size: 23px;
-    float: inline-end; /* Align to the right */
-    margin-inline-start: 10px; /* Optional margin for spacing */
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Add transition */
+    float: inline-end; 
+    margin-inline-start: 10px; 
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; 
   }
 
   .add-button:hover {
-  background-color: white; /* Change background color on hover */
-  color: #00419C; /* Change font color on hover */
-  border: 2px solid #00419C; /* Add border on hover */
+  background-color: white; 
+  color: #00419C; 
+  border: 2px solid #00419C; 
   }
 
   .sub-button{
@@ -209,15 +209,15 @@
     font-family: 'Poppins', sans-serif;
     font-weight: bold;
     font-size: 23px;
-    float: inline-end; /* Align to the right */
-    margin-inline-start: 10px; /* Optional margin for spacing */
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Add transition */
+    float: inline-end; 
+    margin-inline-start: 10px; 
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
   }
 
   .sub-button:hover {
-  background-color: white; /* Change background color on hover */
-  color: #00419C; /* Change font color on hover */
-  border: 2px solid #00419C; /* Add border on hover */
+  background-color: white; 
+  color: #00419C; 
+  border: 2px solid #00419C; 
   }
 
   .error{
@@ -227,7 +227,7 @@
   }
 
   .disabled-input {
-    background-color: #f4f4f4; /* Set your desired background color */
+    background-color: #f4f4f4;
     color: #888; /* Set your desired text color */
 }
 
@@ -254,8 +254,7 @@ input[type=number]::-webkit-outer-spin-button {
   margin-inline-end: 10px;
 }
 
-/* Limit the width of the inputs */
 .input-group input {
-  max-inline-size: 150px; /* Adjust the value as needed */
+  max-inline-size: 150px;
 }
 

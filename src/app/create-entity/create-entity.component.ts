@@ -213,11 +213,16 @@ submit() {
               isNullable: columns.isNullable,
               defaultValue: columns.defaultValue,
               columnPrimaryKey: columns.primaryKey,
-              Description:columns.description
+              Description:columns.description,
+              stringminLength:columns.stringminLength,
+              stringmaxLength:columns.stringmaxLength,
+              numberminValue:columns.numberminValue,
+              numbermaxValue:columns.numbermaxValue,
+              dateminValue:columns.dateminValue,
+              datemaxValue:columns.datemaxValue
             };
           }),
         }
-        
         console.log(backendRequest);
   this.columnInputService.createTable(backendRequest).subscribe(
     response => {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, catchError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
@@ -18,11 +18,13 @@ export class SharedDataService {
     //   // Set responseType to 'blob' to handle binary data
     //   return this.http.get(url, { responseType: 'blob' });
     // }
-    getData(parentId: number, entityName: string): Observable<Blob> {
-      const url = `${this.apiUrl}/${parentId}?entityName=${entityName}`;
+    getData(parentId: number, entityId: number, entityName: string): Observable<Blob> {
+      const url = `${this.apiUrl}/${parentId}?entityId=${entityId}&entityName=${entityName}`;
       // Set responseType to 'blob' to handle binary data
       return this.http.get(url, { responseType: 'blob' });
     }
+    
+    
     
     setLogDetails(data: any) {
       this.logDetailsData.next(data);

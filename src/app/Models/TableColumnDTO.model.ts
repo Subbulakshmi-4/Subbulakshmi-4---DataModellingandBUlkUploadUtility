@@ -5,6 +5,10 @@ export interface TableColumnDTO {
   entityId:number;
   datatype: string;
   length: number;
+  minLength: number;
+  maxLength: number;
+  dateMinValue: string;
+  dateMaxValue:string;
   description:String;
   isNullable: boolean;
   defaultValue: string;

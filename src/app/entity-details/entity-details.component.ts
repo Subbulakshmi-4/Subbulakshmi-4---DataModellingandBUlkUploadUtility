@@ -46,6 +46,10 @@ export class EntityDetailsComponent implements OnInit {
               entityId:columnData.entityid,
               datatype: columnData.datatype,
               length: columnData.length,
+              minLength:columnData.minLength,
+              maxLength:columnData.maxLength,
+              dateMinValue:columnData.dateMinValue,
+              dateMaxValue:columnData.dateMaxValue,
               description:columnData.description,
               isNullable: columnData.isNullable,
               defaultValue: columnData.defaultValue,
@@ -53,7 +57,7 @@ export class EntityDetailsComponent implements OnInit {
               True: columnData.true, 
               False: columnData.false, 
             };
-           
+            console.log(column);
             return column;
           });
         } else {
@@ -220,6 +224,10 @@ export class EntityDetailsComponent implements OnInit {
               entityId: columnData.entityid,
               datatype: columnData.datatype,
               length: columnData.length,
+              minLength:columnData.minLength,
+              maxLength:columnData.maxLength,
+              dateMinValue:columnData.dateMinValue,
+              dateMaxValue:columnData.dateMaxValue,
               description:columnData.description,
               isNullable: columnData.isNullable,
               defaultValue: columnData.defaultValue,

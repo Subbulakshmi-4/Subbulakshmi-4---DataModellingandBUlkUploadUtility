@@ -22,7 +22,8 @@ export class CreateEntityComponent {
               private  columnInputService: ColumnInputServiceService,
               private modalService: NgbModal
     ){}
-  selectedDataType: string = 'string'; // Default data type
+    
+  selectedDataType: string = 'string'; 
   newEntity: any = {
     entityname: '',
     columns: [
@@ -64,7 +65,7 @@ export class CreateEntityComponent {
     this.entityForm.form.updateValueAndValidity();
   }
   showBooleanPopup: boolean = false;
-  // Function to handle data type change
+
 onDataTypeChange(row: any) {
   if (row.datatype === 'int' || row.datatype === 'boolean' || row.datatype === 'char' ||
       row.datatype === 'date' || row.datatype === 'bytea' || row.datatype === 'timestamp') {
@@ -78,6 +79,7 @@ onDataTypeChange(row: any) {
       this.showAdditionalInputs = false;
     }
 }
+
 closeModal() {
   this.showModal = false;
 }
@@ -95,25 +97,23 @@ closeModal() {
     return !!row.columnName && !!row.datatype;
   }
 
-  // Function to check for duplicate column names
   hasDuplicateColumnNames(): boolean {
     const columnNames = new Set<string>();
     for (const row of this.newEntity.columns) {
       if (row.columnName && columnNames.has(row.columnName)) {
-        return true; // Duplicate column name found
+        return true; 
       }
       columnNames.add(row.columnName);
     }
-    return false; // No duplicate column names
+    return false; 
   }
+
      onInput(event: Event): void {
         const inputElement = event.target as HTMLInputElement;
         const inputValue = inputElement.value;
 
-        // Parse the input value as a number
         const numericValue = parseInt(inputValue, 10);
 
-        // Check if the numeric value is negative, if so, set the input value to empty
         if (numericValue < 0) {
             inputElement.value = '';
         }
@@ -147,7 +147,6 @@ closeModal() {
     return /^[a-zA-Z][a-zA-Z0-9]*$/.test(entityNameInput);
   }
   
-
    reservedKeywords: string[] = [
     'abort','asc','between','case','create','database','delete','desc','drop','false','from','full',
     'group','having','insert','into','is','join','left','like','limit','not','null','on','order','primary',
@@ -166,20 +165,25 @@ submit() {
     this.toastrService.showError('Table or column name cannot be a reserved keyword.');
     return; 
   }
-  for (const column of this.newEntity.columns) {
-    if (column.datatype === 'int' && column.numbermaxValue <= column.numberminValue) {
-      errorMessages.push('Max Value must be higher than Min Value.');
-      this.toastrService.showError('Max Value must be higher than Min Value.');
-    }
-  }
-  for (const column of this.newEntity.columns) {
-    if (column.datatype === 'string' && column.stringmaxLength <= column.stringminLength) {
-      errorMessages.push('Max Length must be higher than Min Value.');
-      this.toastrService.showError('Max Length must be higher than Min Length.');
-    }
-  }
 
-  // Validate datemaxValue and dateminValue
+  for (const column of this.newEntity.columns) {
+    if (column.datatype === 'int' && column.maxLength !== null && column.minLength !== null) {
+        if (column.maxLength < column.minLength || (column.maxLength === column.minLength && column.maxLength !== 0)) {
+            errorMessages.push('Max Value must be higher than Min Value.');
+            this.toastrService.showError('Max Value must be higher than Min Value.');
+        }
+    }
+
+    if (column.datatype === 'string' && column.maxLength !== null && column.minLength !== null) {
+        if (column.maxLength < column.minLength || (column.maxLength === column.minLength && column.maxLength !== 0)) {
+            errorMessages.push('Max Length must be higher than Min Value.');
+            this.toastrService.showError('Max Length must be higher than Min Length.');
+        }
+    }
+}
+
+
+
   for (const column of this.newEntity.columns) {
     if (column.datatype === 'date' && column.datemaxValue <= column.dateminValue) {
       errorMessages.push('Max Date must be after Min Date.');

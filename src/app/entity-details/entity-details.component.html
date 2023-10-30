@@ -80,7 +80,7 @@
                         [(ngModel)]="row.minLength"
                         [disabled]="true"
                     />
-                </td>
+                    </td>
                 <td class="center-content">
                     <input
                         type="text"
@@ -88,7 +88,20 @@
                         [disabled]="true"
                     />
                 </td>
-                
+                <td class="center-content">
+                    <input
+                        type="number"
+                        [(ngModel)]="row.minRange"
+                        [disabled]="true"
+                    />
+                    </td>
+                <td class="center-content">
+                    <input
+                        type="text"
+                        [(ngModel)]="row.maxRange"
+                        [disabled]="true"
+                    />
+                </td>
                 <td class="center-content">
                     <input
                         type="text"

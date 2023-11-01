@@ -11,6 +11,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./create-entity.component.css']
 })
 export class CreateEntityComponent {
+  minDate: string = ''; // Initialize minDate variable
+  maxDate: string = ''; // I
   entityForm: any;
   showModal: boolean = false;
   showAdditionalInputs: boolean = false;
@@ -37,8 +39,10 @@ export class CreateEntityComponent {
         primaryKey: false,
         defaultValue: '',
         description: '',
-        minLength:0,
-        maxLength:0,
+        minLength:'',
+        maxLength:'',
+        MinRange:'',
+        MaxRange:'',
         dateminValue:"",
         datemaxValue:""
       }
@@ -57,8 +61,10 @@ export class CreateEntityComponent {
       primaryKey: false,
       defaultValue: '',
       description: '',
-      minLength:0,
-      maxLength:0,
+      minLength:'',
+      maxLength:'',
+      MinRange:'',
+      MaxRange:'',
       dateminValue:"",
       datemaxValue:""
     });
@@ -66,6 +72,17 @@ export class CreateEntityComponent {
   }
   showBooleanPopup: boolean = false;
 
+  onMinDateChange(event: Event, row: any): void {
+    const inputElement = event.target as HTMLInputElement;
+    this.minDate = inputElement.value;
+    // Update row.dateminValue if needed
+}
+
+onMaxDateChange(event: Event, row: any): void {
+    const inputElement = event.target as HTMLInputElement;
+    this.maxDate = inputElement.value;
+    // Update row.datemaxValue if needed
+}
 onDataTypeChange(row: any) {
   if (row.datatype === 'int' || row.datatype === 'boolean' || row.datatype === 'char' ||
       row.datatype === 'date' || row.datatype === 'bytea' || row.datatype === 'timestamp') {
@@ -83,7 +100,6 @@ onDataTypeChange(row: any) {
 closeModal() {
   this.showModal = false;
 }
-
   // Function to delete a row
   deleteRow(index: number) {
     if (this.newEntity.columns.length > 1) {
@@ -166,23 +182,27 @@ submit() {
     return; 
   }
 
-  for (const column of this.newEntity.columns) {
-    if (column.datatype === 'int' && column.maxLength !== null && column.minLength !== null) {
-        if (column.maxLength < column.minLength || (column.maxLength === column.minLength && column.maxLength !== 0)) {
-            errorMessages.push('Max Value must be higher than Min Value.');
-            this.toastrService.showError('Max Value must be higher than Min Value.');
-        }
-    }
+for (const column of this.newEntity.columns) {
+  if (column.datatype === 'int' && column.MaxRange !== null && column.MinRange !== null) {
+      if (column.MinRange === 0 || column.MaxRange === 0) {
+          errorMessages.push('Min Range and Max Range cannot both be 0.');
+          this.toastrService.showError('MinRange and MaxRangecannot both be 0.');
+      } else if (column.MaxRange <= column.MinRange) {
+          errorMessages.push('Max Range must be higher than MinRange.');
+          this.toastrService.showError('Max Range must be higher than MinRange.');
+      }
+  }
 
-    if (column.datatype === 'string' && column.maxLength !== null && column.minLength !== null) {
-        if (column.maxLength < column.minLength || (column.maxLength === column.minLength && column.maxLength !== 0)) {
-            errorMessages.push('Max Length must be higher than Min Value.');
-            this.toastrService.showError('Max Length must be higher than Min Length.');
-        }
+  if (column.datatype === 'string' && column.maxLength !== null && column.minLength !== null) {
+    if (column.minLength === 0 || column.maxLength === 0) {
+        errorMessages.push('MinLength and MaxLength cannot be 0.');
+        this.toastrService.showError('Min Length and Max Length cannot be 0.');
+    } else if (column.maxLength <= column.minLength) {
+        errorMessages.push('Max Length must be higher than Min Length.');
+        this.toastrService.showError('Max Length must be higher than Min Length.');
     }
 }
-
-
+}
 
   for (const column of this.newEntity.columns) {
     if (column.datatype === 'date' && column.datemaxValue <= column.dateminValue) {
@@ -234,8 +254,10 @@ submit() {
               defaultValue: columns.defaultValue,
               columnPrimaryKey: columns.primaryKey,
               Description:columns.description,
-              minLength:columns.minLength,
-              maxLength:columns.maxLength,
+              minLength: parseInt(columns.minLength), 
+              maxLength: parseInt(columns.maxLength),
+              MaxRange: parseInt(columns.MaxRange),
+              MinRange: parseInt(columns.MinRange),
               dateminValue:columns.dateminValue,
               datemaxValue:columns.datemaxValue
             };

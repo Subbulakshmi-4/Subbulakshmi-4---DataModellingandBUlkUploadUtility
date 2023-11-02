@@ -182,28 +182,31 @@ submit() {
     return; 
   }
 
-for (const column of this.newEntity.columns) {
-  if (column.datatype === 'int' && column.MaxRange !== null && column.MinRange !== null) {
-      if (column.MinRange === 0 || column.MaxRange === 0) {
-          errorMessages.push('Min Range and Max Range cannot both be 0.');
-          this.toastrService.showError('MinRange and MaxRangecannot both be 0.');
-      } else if (column.MaxRange <= column.MinRange) {
-          errorMessages.push('Max Range must be higher than MinRange.');
-          this.toastrService.showError('Max Range must be higher than MinRange.');
-      }
-  }
-
-  if (column.datatype === 'string' && column.maxLength !== null && column.minLength !== null) {
-    if (column.minLength === 0 || column.maxLength === 0) {
-        errorMessages.push('MinLength and MaxLength cannot be 0.');
-        this.toastrService.showError('Min Length and Max Length cannot be 0.');
-    } else if (column.maxLength <= column.minLength) {
-        errorMessages.push('Max Length must be higher than Min Length.');
-        this.toastrService.showError('Max Length must be higher than Min Length.');
+  for (const column of this.newEntity.columns) {
+    if (column.datatype === 'int' && column.MaxRange !== null && column.MinRange !== null && column.MinRange !== '' && column.MaxRange !== '') {
+        const minRange = parseInt(column.MinRange);
+        const maxRange = parseInt(column.MaxRange);
+        if (minRange === 0 || maxRange === 0) {
+            errorMessages.push('Min Range and Max Range cannot both be 0.');
+            this.toastrService.showError('Min Range and Max Range cannot both be 0.');
+        } else if (maxRange <= minRange) {
+            errorMessages.push('Max Range must be higher than Min Range.');
+            this.toastrService.showError('Max Range must be higher than Min Range.');
+        }
     }
-}
-}
-
+   
+    if (column.datatype === 'string' && column.maxLength !== null && column.minLength !== null && column.minLength !== '' && column.maxLength !== '') {
+        const minLength = parseInt(column.minLength);
+        const maxLength = parseInt(column.maxLength);
+        if (minLength === 0 || maxLength === 0) {
+            errorMessages.push('Min Length and Max Length cannot be 0.');
+            this.toastrService.showError('Min Length and Max Length cannot be 0.');
+        } else if (maxLength <= minLength) {
+            errorMessages.push('Max Length must be higher than Min Length.');
+            this.toastrService.showError('Max Length must be higher than Min Length.');
+        }
+    }
+  }
   for (const column of this.newEntity.columns) {
     if (column.datatype === 'date' && column.datemaxValue <= column.dateminValue) {
       errorMessages.push('Max Date must be after Min Date.');

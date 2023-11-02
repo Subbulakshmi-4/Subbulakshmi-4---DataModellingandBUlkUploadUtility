@@ -55,15 +55,21 @@ export class LogDetailsComponent {
               entityname: this.entityName,
               id: columnData.id,
               entityColumnName: columnData.entityColumnName,
-              entityId:columnData.entityid,
+              entityId: columnData.entityid,
               datatype: columnData.datatype,
               length: columnData.length,
-              description:columnData.description,
+              description: columnData.description,
               isNullable: columnData.isNullable,
               defaultValue: columnData.defaultValue,
-              ColumnPrimaryKey: columnData.columnPrimaryKey, 
-              True: columnData.true, 
-              False: columnData.false, 
+              ColumnPrimaryKey: columnData.columnPrimaryKey,
+              True: columnData.true,
+              False: columnData.false,
+              minLength:columnData.minLength,
+              maxLength:columnData.maxLength,
+              minRange: columnData.minRange,
+              maxRange:columnData.maxRange,
+              dateMinValue:columnData.dateMinValue,
+              dateMaxValue:columnData.dateMaxValue
             };
             console.log(column)
             return column;

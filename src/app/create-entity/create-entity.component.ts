@@ -150,6 +150,31 @@ closeModal() {
       event.preventDefault();
     }
   }
+  onPrimaryKeyChange(event: Event, row: any): void {
+    // Check if the primary key checkbox is checked
+    if (row.primaryKey) {
+        // Reset the defaultValue when primary key is checked
+        row.defaultValue = '';
+    }
+    if(row.minLength){
+      row.defaultValue = '';
+    }
+    if(row.maxLength){
+      row.defaultValue = '';
+    }
+    if(row.MinRange){
+      row.defaultValue = '';
+    }
+    if(row.MaxRange){
+      row.defaultValue = '';
+    }
+    if(row.dateminValue){
+      row.defaultValue = '';
+    }
+    if(row.datemaxValue){
+      row.defaultValue = '';
+    }
+}
   
   onDefaultValueInputChange(event: Event, row: any): void {
     const inputElement = event.target as HTMLInputElement;
@@ -181,6 +206,28 @@ submit() {
     this.toastrService.showError('Table or column name cannot be a reserved keyword.');
     return; 
   }
+
+// for (const column of this.newEntity.columns) {
+//   if (column.datatype === 'int' && column.MaxRange !== null && column.MinRange !== null) {
+//       if (column.MinRange === 0 || column.MaxRange === 0) {
+//           errorMessages.push('Min Range and Max Range cannot both be 0.');
+//           this.toastrService.showError('MinRange and MaxRangecannot both be 0.');
+//       } else if (column.MaxRange <= column.MinRange) {
+//           errorMessages.push('Max Range must be higher than MinRange.');
+//           this.toastrService.showError('Max Range must be higher than MinRange.');
+//       }
+//   }
+
+//   if (column.datatype === 'string' && column.maxLength !== null && column.minLength !== null) {
+//     if (column.minLength === 0 || column.maxLength === 0) {
+//         errorMessages.push('MinLength and MaxLength cannot be 0.');
+//         this.toastrService.showError('Min Length and Max Length cannot be 0.');
+//     } else if (column.maxLength <= column.minLength) {
+//         errorMessages.push('Max Length must be higher than Min Length.');
+//         this.toastrService.showError('Max Length must be higher than Min Length.');
+//     }
+// }
+// }
 
   for (const column of this.newEntity.columns) {
     if (column.datatype === 'int' && column.MaxRange !== null && column.MinRange !== null && column.MinRange !== '' && column.MaxRange !== '') {

@@ -17,7 +17,6 @@
                     pattern="^[a-zA-Z][a-zA-Z0-9]*$"
                     #entityNameInput="ngModel"
                 />
-                
                     <!-- Validation error messages -->
                     <div *ngIf="entityNameInput.invalid && (entityNameInput.dirty || entityNameInput.touched)">
                         <div class="error" *ngIf="entityNameInput?.errors?.['required']">Entity Name is required.</div>
@@ -80,32 +79,32 @@
                                   <!-- String MinLenght and MaxLength input -->
                                 <td class="center-content" *ngIf="row.datatype === 'string'">
                                     <div class="input-group">
-                                        <input type="number" [(ngModel)]="row.minLength" (input)="onInput($event)" placeholder="MinLength" id="minLength{{i}}" name="minLength{{i}}" />
+                                        <input type="number" [(ngModel)]="row.minLength" (input)="onInput($event)" placeholder="MinLength" id="minLength{{i}}" (change)="onPrimaryKeyChange($event, row)" name="minLength{{i}}" />
                                     </div>
                                     <div class="input-group">
-                                        <input type="number" [(ngModel)]="row.maxLength" (input)="onInput($event)"placeholder="MaxLength" id="maxLength{{i}}" name="maxLength{{i}}" />
+                                        <input type="number" [(ngModel)]="row.maxLength" (input)="onInput($event)"placeholder="MaxLength" id="maxLength{{i}}" (change)="onPrimaryKeyChange($event, row)" name="maxLength{{i}}" />
                                     </div>
                                 </td>
                                <!-- Number MinValue and MaxValue input -->
                                 <td class="center-content" *ngIf="row.datatype === 'int'">
                                     <div class="input-group">
-                                        <input type="number" [(ngModel)]="row.MinRange" id="MinRange{{i}}" placeholder="MinRange" (input)="onInput($event)" name="minValue{{i}}" />
+                                        <input type="number" [(ngModel)]="row.MinRange" id="MinRange{{i}}" placeholder="MinRange" (input)="onInput($event)" (change)="onPrimaryKeyChange($event, row)" name="minValue{{i}}" />
                                     </div>
                                     <div class="input-group">
-                                        <input type="number" [(ngModel)]="row.MaxRange" id="MaxRange{{i}}" placeholder="MaxRange" (input)="onInput($event)" name="maxValue{{i}}" />
+                                        <input type="number" [(ngModel)]="row.MaxRange" id="MaxRange{{i}}" placeholder="MaxRange" (input)="onInput($event)" (change)="onPrimaryKeyChange($event, row)" name="maxValue{{i}}" />
                                     </div>
                                 </td>
                                  <!-- Number MinValue and MaxValue input -->
                                  <td class="center-content" *ngIf="row.datatype === 'date'">
                                     <div class="input-group">
                                         <label for="minValue{{i}}">Min Date</label>
-                                        <input *ngIf="row.datatype === 'date'" type="date" [(ngModel)]="row.dateminValue" id="minValue{{i}}" name="minValue{{i}}" [min]="minDate" (change)="onMinDateChange($event, row)" />
+                                        <input *ngIf="row.datatype === 'date'" type="date" [(ngModel)]="row.dateminValue" id="minValue{{i}}" name="minValue{{i}}" [min]="minDate" (change)="onPrimaryKeyChange($event, row)" />
                                     </div>
                                     
                                     <!-- Max Date Input -->
                                     <div class="input-group">
                                         <label for="maxValue{{i}}">Max Date</label>
-                                        <input *ngIf="row.datatype === 'date'" type="date" [(ngModel)]="row.datemaxValue" id="maxValue{{i}}" name="maxValue{{i}}" [max]="maxDate" (change)="onMaxDateChange($event, row)" />
+                                        <input *ngIf="row.datatype === 'date'" type="date" [(ngModel)]="row.datemaxValue" id="maxValue{{i}}" name="maxValue{{i}}" [max]="maxDate" (change)="onPrimaryKeyChange($event, row)" />
                                     </div>
                                 </td>
                            
@@ -135,7 +134,7 @@
                                 <td class="center-content">
                                     <!-- Toggle Switch for Primary Key -->
                                     <label class="toggle-switch">
-                                        <input type="checkbox" [(ngModel)]="row.primaryKey" name="primaryKey{{ i }}" />
+                                        <input type="checkbox" [(ngModel)]="row.primaryKey" name="primaryKey{{ i }}" (change)="onPrimaryKeyChange($event, row)"/>
                                         <span class="slider"></span>
                                     </label>
                                 </td>
@@ -158,13 +157,6 @@
                                             <option value="true">True</option>
                                             <option value="false">False</option>
                                         </select>
-                                        <!-- <input
-                                            *ngIf="row.datatype === 'date' || row.datatype === 'timestamp'"
-                                            type="date"
-                                            [(ngModel)]="row.defaultValue"
-                                            name="defaultValue{{ i }}"
-                                            [disabled]="row.primaryKey" 
-                                        /> -->
                                         <div class="input-group">
                                             <input *ngIf="row.datatype === 'date'" type="date" [(ngModel)]="row.defaultValue" id="defaultValue{{i}}" name="defaultValue{{i}}" [min]="minDate" [max]="maxDate" />
                                         </div>

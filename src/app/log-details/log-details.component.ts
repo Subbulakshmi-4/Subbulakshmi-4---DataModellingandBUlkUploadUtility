@@ -71,6 +71,7 @@ export class LogDetailsComponent {
               dateMinValue:columnData.dateMinValue,
               dateMaxValue:columnData.dateMaxValue
             };
+            
             console.log(column)
             return column;
           });

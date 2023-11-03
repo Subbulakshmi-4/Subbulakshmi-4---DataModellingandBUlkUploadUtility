@@ -412,9 +412,9 @@ submit() {
               MinRange: parseInt(columns.MinRange),
               dateminValue:columns.dateminValue,
               datemaxValue:columns.datemaxValue,
-              ListEntityId:this.selectedEntity,
-              ListEntityKey:this.firstColumnId,
-              ListEntityValue:this.selectedKeyId
+              ListEntityId:parseInt(this.selectedEntity) ||0,
+              ListEntityKey:this.firstColumnId ||0,
+              ListEntityValue:this.selectedKeyId ||0
             };
           }),
         }

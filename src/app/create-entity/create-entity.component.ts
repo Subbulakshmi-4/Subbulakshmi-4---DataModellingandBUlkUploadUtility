@@ -1,9 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColumnInputServiceService } from '../Services/column-input-service.service';
 import { ToastrService } from '../Services/ToastrService';
 import { NgForm } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ColumnsService } from '../Services/Columns.service';
+import { TableColumnDTO } from '../Models/TableColumnDTO.model';
+import { EntityListDto } from '../Models/EntitylistDto.model';
+import { EntitylistService } from '../Services/entitylist.service';
+
 
 @Component({
   selector: 'app-create-entity',
@@ -18,12 +23,29 @@ export class CreateEntityComponent {
   showAdditionalInputs: boolean = false;
   additionalInput1: string = '';
   additionalInput2: string = '';
+  selectedEntity: string = '';
+  selectedEntitys: string = '';
+  @Input() selectedEntityColumns: any; // Assuming selectedEntityColumns is an input
+  listOfValues: EntityListDto[] = [];
+  entityColumnNames1: string[] = []; // Array for the first dropdown
+  entityColumnNames2: string[] = []; // Array for the second dropdown
+  selectedEntity2: string | null = null;
+  selectedEntity2Index: number | null = null;
+  selectedKeyId: number | null = null;
+  selectedColumnIds: any;
+  firstColumnId: number | null = null; // Initialize firstColumnId with a default value of null
+
+
 
   constructor( private toastrService : ToastrService,
               private router: Router,
               private  columnInputService: ColumnInputServiceService,
-              private modalService: NgbModal
-    ){}
+              private modalService: NgbModal,
+              private columnsService : ColumnsService,
+              private entitylistService :EntitylistService
+    ){
+      
+    }
     
   selectedDataType: string = 'string'; 
   newEntity: any = {
@@ -44,7 +66,11 @@ export class CreateEntityComponent {
         MinRange:'',
         MaxRange:'',
         dateminValue:"",
-        datemaxValue:""
+        datemaxValue:"",
+        ListEntityId:this.selectedEntity,
+        ListEntityKey:this.firstColumnId,
+        ListEntityValue:this.selectedKeyId
+
       }
     ]
   };
@@ -66,13 +92,111 @@ export class CreateEntityComponent {
       MinRange:'',
       MaxRange:'',
       dateminValue:"",
-      datemaxValue:""
+      datemaxValue:"",
+      ListEntityId:this.selectedEntity,
+      ListEntityKey:this.firstColumnId,
+      ListEntityValue:this.selectedKeyId
     });
     this.entityForm.form.updateValueAndValidity();
   }
-  showBooleanPopup: boolean = false;
+  ngOnInit(): void {
+    this.entitylistService.getEntityList().subscribe(
+      (data: any) => {
+        this.listOfValues = data.result;
+      },
+      (error) => {
+        console.error('Error fetching entity names:', error);
+      }
+    );
 
-  onMinDateChange(event: Event, row: any): void {
+  }
+
+  showBooleanPopup: boolean = false;
+  onListValueSelected(entityName: string, rowIndex: number) {
+    this.selectedEntity = entityName;
+  // Fetch the columns for the selected entity using your service
+    this.columnsService.getColumnsForEntity(this.selectedEntity).subscribe(columns => {
+      this.entityColumnNames1 = columns.map(column => column.entityColumnName);
+      this.entityColumnNames2 = columns.map(column => column.entityColumnName);
+    });
+    // Fetch columns for the selected entity
+    this.fetchSelectedEntityColumns(entityName);
+    
+    // Update the row's selectedEntity property if needed
+    this.newEntity.columns[rowIndex].selectedEntity = entityName;
+  }
+
+  // fetchSelectedEntityColumns(entityName: string) {
+  //   this.columnsService.getColumnsForEntity(entityName).subscribe(
+  //     (data: any) => {
+  //       if (data && data.result) {
+  //         console.log("data",data.result)
+  //         this.selectedEntityColumns = data.result.map((column: any) => column.entityColumnName);
+  //         // this.selectedEntity = data.result.map((column: any) => column.entityId);
+  //         // this.selectedKeyId = data.result.map((column: any) => column.id);
+  //         // this.selectedKeyId = data.result.map((column: any) => column.id);
+  //         this.entityColumnNames1 = this.selectedEntityColumns;
+  //         this.entityColumnNames2 = this.selectedEntityColumns;
+  //         console.log('selectedEntityColumns', this.selectedEntityColumns);
+  //       } else {
+  //         console.error('Invalid data structure in API response:', data);
+  //       }
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching entity columns:', error);
+  //     }
+  //   );
+  // }
+  // Define a property to hold the selected ID
+// Define a property to hold the selected index, initialize to -1
+// Define a property to hold the selected index
+selectedEntity2Indexs: number | null = null;
+
+// Update the selected ID when the index changes
+updateSelectedId(index: number) {
+  if (index !== null && index >= 0 && index < this.selectedColumnIds.length) {
+    this.selectedKeyId = this.selectedColumnIds[index];
+    console.log(this.selectedKeyId)
+  } else {
+    this.selectedKeyId = null; // Handle the case when the index is out of range
+  }
+}
+
+
+  fetchSelectedEntityColumns(entityName: string) {
+    this.columnsService.getColumnsForEntity(entityName).subscribe(
+      (data: any) => {
+        if (data && data.result) {
+          this.selectedEntityColumns = data.result.map((column: any) => column.entityColumnName);
+          // Store the selected entity ID
+          this.selectedEntity = data.result[0].entityId; // Assuming you want to store the ID of the first column
+          console.log("this.selectedEntity1",this.selectedEntity)
+          // Optionally, you can store the IDs of all columns
+          this.selectedColumnIds = data.result.map((column: any) => column.id);
+          console.log("this.selectedEntity2",this.selectedColumnIds)
+           this.firstColumnId = this.selectedColumnIds[0];
+          console.log('ID of the first column:', this.firstColumnId);
+          this.entityColumnNames1 = this.selectedEntityColumns;
+          console.log("this.selectedEntity3",this.entityColumnNames1)
+          this.entityColumnNames2 = this.selectedEntityColumns;
+          console.log("this.selectedEntity4",this.entityColumnNames2)
+        } else {
+          console.error('Invalid data structure in API response:', data);
+        }
+      },
+      (error) => {
+        console.error('Error fetching entity columns:', error);
+      }
+    );
+  }
+  
+  onValueSelected() {
+    if (this.selectedEntity2 !== null) {
+      this.selectedEntity2Index = this.entityColumnNames2.indexOf(this.selectedEntity2);
+      console.log(this.selectedEntity2Index)
+    }
+  }
+onMinDateChange(event: Event, row: any): void {
     const inputElement = event.target as HTMLInputElement;
     this.minDate = inputElement.value;
     // Update row.dateminValue if needed
@@ -207,28 +331,6 @@ submit() {
     return; 
   }
 
-// for (const column of this.newEntity.columns) {
-//   if (column.datatype === 'int' && column.MaxRange !== null && column.MinRange !== null) {
-//       if (column.MinRange === 0 || column.MaxRange === 0) {
-//           errorMessages.push('Min Range and Max Range cannot both be 0.');
-//           this.toastrService.showError('MinRange and MaxRangecannot both be 0.');
-//       } else if (column.MaxRange <= column.MinRange) {
-//           errorMessages.push('Max Range must be higher than MinRange.');
-//           this.toastrService.showError('Max Range must be higher than MinRange.');
-//       }
-//   }
-
-//   if (column.datatype === 'string' && column.maxLength !== null && column.minLength !== null) {
-//     if (column.minLength === 0 || column.maxLength === 0) {
-//         errorMessages.push('MinLength and MaxLength cannot be 0.');
-//         this.toastrService.showError('Min Length and Max Length cannot be 0.');
-//     } else if (column.maxLength <= column.minLength) {
-//         errorMessages.push('Max Length must be higher than Min Length.');
-//         this.toastrService.showError('Max Length must be higher than Min Length.');
-//     }
-// }
-// }
-
   for (const column of this.newEntity.columns) {
     if (column.datatype === 'int' && column.MaxRange !== null && column.MinRange !== null && column.MinRange !== '' && column.MaxRange !== '') {
         const minRange = parseInt(column.MinRange);
@@ -309,7 +411,10 @@ submit() {
               MaxRange: parseInt(columns.MaxRange),
               MinRange: parseInt(columns.MinRange),
               dateminValue:columns.dateminValue,
-              datemaxValue:columns.datemaxValue
+              datemaxValue:columns.datemaxValue,
+              ListEntityId:this.selectedEntity,
+              ListEntityKey:this.firstColumnId,
+              ListEntityValue:this.selectedKeyId
             };
           }),
         }

@@ -98,13 +98,13 @@
                                  <td class="center-content" *ngIf="row.datatype === 'date'">
                                     <div class="input-group">
                                         <label for="minValue{{i}}">Min Date</label>
-                                        <input *ngIf="row.datatype === 'date'" type="date" [(ngModel)]="row.dateminValue" id="minValue{{i}}" name="minValue{{i}}" [min]="minDate" (change)="onPrimaryKeyChange($event, row)" />
+                                        <input *ngIf="row.datatype === 'date'" type="date" [(ngModel)]="row.dateminValue" id="minValue{{i}}" name="minValue{{i}}" [min]="minDate" [max]="maxDate" (change)="onMinDateChange($event, row)" />
                                     </div>
                                     
                                     <!-- Max Date Input -->
                                     <div class="input-group">
                                         <label for="maxValue{{i}}">Max Date</label>
-                                        <input *ngIf="row.datatype === 'date'" type="date" [(ngModel)]="row.datemaxValue" id="maxValue{{i}}" name="maxValue{{i}}" [max]="maxDate" (change)="onPrimaryKeyChange($event, row)" />
+                                        <input *ngIf="row.datatype === 'date'" type="date" [(ngModel)]="row.datemaxValue" id="maxValue{{i}}" name="maxValue{{i}}" [min]="minDate" [max]="maxDate" (change)="onMaxDateChange($event, row)" />
                                     </div>
                                 </td>
                            

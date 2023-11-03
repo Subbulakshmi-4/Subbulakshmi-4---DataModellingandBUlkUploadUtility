@@ -35,6 +35,7 @@ export class LogDetailsComponent {
   }
  
   onButtonClick(): void {
+    console.log("checking")
     const entityName = this.entityName;
     const parentId = this.parentId;
 

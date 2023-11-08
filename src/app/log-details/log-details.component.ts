@@ -3,6 +3,8 @@ import { SharedDataService } from '../Services/SharedData.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ColumnsService } from '../Services/Columns.service';
 import { TableColumnDTO } from '../Models/TableColumnDTO.model';
+import { Renderer2 } from '@angular/core';
+
 @Component({
   selector: 'app-log-details',
   templateUrl: './log-details.component.html',
@@ -10,38 +12,57 @@ import { TableColumnDTO } from '../Models/TableColumnDTO.model';
 })
 export class LogDetailsComponent {
   logParent: any;
+  isExporting: boolean = false;
   parentId: number | undefined;
   logChildren!: any[];
+  logChildrenId: [] | undefined;
   columns: TableColumnDTO[] = [];
-  entityName: string = ''; // Initialize entityName variable
+  entityName: string = '';
   private apiUrl = 'https://localhost:7245/api/ExportExcel';
   
-  constructor(private sharedDataService: SharedDataService,private columnsService: ColumnsService) { }
-
+  constructor(private sharedDataService: SharedDataService,private columnsService: ColumnsService,private Renderer2:Renderer2) { }
+ 
   ngOnInit(): void {
-    // Subscribe to the shared service to get log details data
+    this.fetchColumnsData;
     this.sharedDataService.getLogDetailsData().subscribe((data: any) => {
       if (data) {
         console.log(data);
         this.logParent = data.result.logParentDTOs; 
         this.logChildren = data.result.childrenDTOs; 
+        console.log(this.logChildren)
         this.entityName = this.extractEntityName(this.logParent.fileName);
-        //  this.parentId =parseInt(this.extractEntityName(this.logParent.id));
         this.parentId = this.logParent.id
-        console.log(this.entityName)
-        // this.getData(this.logParent.parentId, this.logParent.entityId);
+        const ids = this.logChildren.map(item => item.id);
+        console.log(ids);
       }
     });
   }
- 
+
   onButtonClick(): void {
-    console.log("checking")
+    const entityName = this.entityName;
+    this.fetchColumnsData(entityName);
+    this.openExportModal();
+  }
+  
+  openExportModal() {
+    const modal = document.getElementById('exportModal');
+    this.Renderer2.addClass(modal, 'show');
+    this.Renderer2.setStyle(modal, 'display', 'block');
+  }
+
+  closeExportModal() {
+    const modal = document.getElementById('exportModal');
+    this.Renderer2.removeClass(modal, 'show');
+    this.Renderer2.setStyle(modal, 'display', 'none');
+  }
+
+  exportData() {
     const entityName = this.entityName;
     const parentId = this.parentId;
-
     if (parentId !== undefined) {
       this.fetchColumnsData(entityName);
       this.generateExcelTemplates(parentId);
+      this.closeExportModal();
     } else {
       console.error('parentId is undefined. Unable to generate Excel template.');
     }
@@ -85,51 +106,32 @@ export class LogDetailsComponent {
       }
     );
   }
-  // generateExcelTemplate() {
-  //   console.log('Columns data before sending to the backend:', this.columns); 
-  //   if (this.columns.length === 0) {
-  //     return; 
-  //   }
-  //   this.columnsService.generateExcelFile(this.columns).subscribe(
-  //     (data: Blob) => {
-  //       const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-  //       const url = window.URL.createObjectURL(blob);
-  //       const a = document.createElement('a');
-  //       a.href = url;
-  //       a.download = `${this.entityName}_Export.xlsx`;
-  //       document.body.appendChild(a);
-  //       a.click();
-  //       window.URL.revokeObjectURL(url);
-  //     },
-  //     (error: any) => {
-  //       console.error('Error generating Excel template:', error);
-  //     }
-  //   );
-  // }
+
   generateExcelTemplates(parentId: number) {
-    console.log('Columns data before sending to the backend:', this.columns); 
+    console.log('Columns data before sending to the backend:', this.columns);
     if (this.columns.length === 0) {
-      return; 
+      this.isExporting = false; 
+      return;
     }
     this.columnsService.generateExcelFiles(parentId, this.columns).subscribe(
       (data: Blob) => {
         const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${this.entityName}_Export.xlsx`;
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
+              const url = window.URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = `${this.entityName}_Export.xlsx`;
+              document.body.appendChild(a);
+              a.click();
+              window.URL.revokeObjectURL(url);
+        this.isExporting = false; 
       },
       (error: any) => {
         console.error('Error generating Excel template:', error);
+        this.isExporting = false; 
       }
     );
   }
   
-
-
   saveExcelFiles(data: Blob): void {
     const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
     const url = window.URL.createObjectURL(blob);

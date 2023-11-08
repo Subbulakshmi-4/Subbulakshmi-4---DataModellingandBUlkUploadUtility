@@ -126,33 +126,8 @@ export class CreateEntityComponent {
     this.newEntity.columns[rowIndex].selectedEntity = entityName;
   }
 
-  // fetchSelectedEntityColumns(entityName: string) {
-  //   this.columnsService.getColumnsForEntity(entityName).subscribe(
-  //     (data: any) => {
-  //       if (data && data.result) {
-  //         console.log("data",data.result)
-  //         this.selectedEntityColumns = data.result.map((column: any) => column.entityColumnName);
-  //         // this.selectedEntity = data.result.map((column: any) => column.entityId);
-  //         // this.selectedKeyId = data.result.map((column: any) => column.id);
-  //         // this.selectedKeyId = data.result.map((column: any) => column.id);
-  //         this.entityColumnNames1 = this.selectedEntityColumns;
-  //         this.entityColumnNames2 = this.selectedEntityColumns;
-  //         console.log('selectedEntityColumns', this.selectedEntityColumns);
-  //       } else {
-  //         console.error('Invalid data structure in API response:', data);
-  //       }
-  //     },
-  //     (error) => {
-  //       console.error('Error fetching entity columns:', error);
-  //     }
-  //   );
-  // }
-  // Define a property to hold the selected ID
-// Define a property to hold the selected index, initialize to -1
-// Define a property to hold the selected index
 selectedEntity2Indexs: number | null = null;
 
-// Update the selected ID when the index changes
 updateSelectedId(index: number) {
   if (index !== null && index >= 0 && index < this.selectedColumnIds.length) {
     this.selectedKeyId = this.selectedColumnIds[index];
@@ -168,18 +143,11 @@ updateSelectedId(index: number) {
       (data: any) => {
         if (data && data.result) {
           this.selectedEntityColumns = data.result.map((column: any) => column.entityColumnName);
-          // Store the selected entity ID
-          this.selectedEntity = data.result[0].entityId; // Assuming you want to store the ID of the first column
-          console.log("this.selectedEntity1",this.selectedEntity)
-          // Optionally, you can store the IDs of all columns
+          this.selectedEntity = data.result[0].entityId; 
           this.selectedColumnIds = data.result.map((column: any) => column.id);
-          console.log("this.selectedEntity2",this.selectedColumnIds)
            this.firstColumnId = this.selectedColumnIds[0];
-          console.log('ID of the first column:', this.firstColumnId);
           this.entityColumnNames1 = this.selectedEntityColumns;
-          console.log("this.selectedEntity3",this.entityColumnNames1)
           this.entityColumnNames2 = this.selectedEntityColumns;
-          console.log("this.selectedEntity4",this.entityColumnNames2)
         } else {
           console.error('Invalid data structure in API response:', data);
         }
@@ -199,13 +167,11 @@ updateSelectedId(index: number) {
 onMinDateChange(event: Event, row: any): void {
     const inputElement = event.target as HTMLInputElement;
     this.minDate = inputElement.value;
-    // Update row.dateminValue if needed
 }
 
 onMaxDateChange(event: Event, row: any): void {
     const inputElement = event.target as HTMLInputElement;
     this.maxDate = inputElement.value;
-    // Update row.datemaxValue if needed
 }
 onDataTypeChange(row: any) {
   if (row.datatype === 'int' || row.datatype === 'boolean' || row.datatype === 'char' ||
@@ -230,13 +196,11 @@ closeModal() {
       this.newEntity.columns.splice(index, 1);
     }
   }
-
   // Function to check if a row is valid
   rowValid(index: number): boolean {
     const row = this.newEntity.columns[index];
     return !!row.columnName && !!row.datatype;
   }
-
   hasDuplicateColumnNames(): boolean {
     const columnNames = new Set<string>();
     for (const row of this.newEntity.columns) {
@@ -275,9 +239,7 @@ closeModal() {
     }
   }
   onPrimaryKeyChange(event: Event, row: any): void {
-    // Check if the primary key checkbox is checked
     if (row.primaryKey) {
-        // Reset the defaultValue when primary key is checked
         row.defaultValue = '';
     }
     if(row.minLength){
@@ -303,7 +265,7 @@ closeModal() {
   onDefaultValueInputChange(event: Event, row: any): void {
     const inputElement = event.target as HTMLInputElement;
     if (row.datatype === 'int') {
-      inputElement.value = inputElement.value.replace(/[^0-9]/g, ''); // Allow only numeric characters
+      inputElement.value = inputElement.value.replace(/[^0-9]/g, '');
     }
   }
   

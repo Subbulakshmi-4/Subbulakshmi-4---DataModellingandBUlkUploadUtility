@@ -10,16 +10,13 @@ import { DisplaytableNameComponent } from './displaytable-name/displaytable-name
 import { EntityDetailsComponent } from './entity-details/entity-details.component';
 import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AlertService } from './Services/AlertService';
+import { AlertService } from './Services/alert-service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InputcolumnsComponent } from './ColumnInputs/inputcolumns/inputcolumns.component';
-import { ServerConfigurationComponent } from './server-configuration/server-configuration.component';
 import { ColumnInputServiceService } from './Services/column-input-service.service';
-import { TableListComponent } from './table-list/table-list.component';
-import { ServerConfigService } from '../app/Services/server-config.service';
 import { CreateEntityComponent } from './create-entity/create-entity.component';
 import { LogDetailsComponent } from './log-details/log-details.component';
-import { ToastrService } from './Services/ToastrService';
+import { ToastrService } from './Services/toaster-service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -29,8 +26,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     DisplaytableNameComponent,
     EntityDetailsComponent,
     InputcolumnsComponent,
-    ServerConfigurationComponent,
-    TableListComponent,
     CreateEntityComponent,
     LogDetailsComponent,
   ],

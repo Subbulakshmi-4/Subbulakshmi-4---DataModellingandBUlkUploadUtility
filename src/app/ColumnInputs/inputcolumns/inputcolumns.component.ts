@@ -43,7 +43,7 @@ import { dataTypeValidator } from 'src/app/CustomValidations/data-type-validator
 
 import { numberValidator} from 'src/app/CustomValidations/string-validator/string-validator.component';
 
-import { ToastrService } from 'src/app/Services/ToastrService';
+import { ToastrService } from 'src/app/Services/toaster-service';
 
 import { Location } from '@angular/common';
 

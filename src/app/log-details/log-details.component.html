@@ -65,7 +65,7 @@
               <th scope="col">S.No</th>
               <th scope="col">User Name</th>
               <th scope="col">ErrorMessage</th>
-              <th scope="col">filedata</th>
+              <th scope="col">Error Rows</th>
             </tr>
           </thead>
           <tbody>
@@ -73,18 +73,7 @@
               <th scope="row">{{ i + 1 }}</th>
               <td>{{ logParent.user_Id }}</td>
               <td>{{ child.errorMessage }}</td>
-
-              <td>
-                {{ child.filedata.split(';')[0].split(',')[0] }}, {{ child.filedata.split(';')[0].split(',')[1] }}
-                <span *ngIf="child.filedata.split(';')[0].split(',').length > 2">, etc.</span>
-                <br>
-                {{ child.filedata.split(';')[1].split(',')[0] }}, {{ child.filedata.split(';')[1].split(',')[1] }}
-                <span *ngIf="child.filedata.split(';')[1].split(',').length > 2">, etc.</span>
-                <br>
-                <span *ngIf="child.filedata.split(';').length > 2">etc.</span>
-                
-              </td>
-              
+              <td>{{ child.errorRowNumber}}</td>
             </tr>
           </tbody>
         </table>

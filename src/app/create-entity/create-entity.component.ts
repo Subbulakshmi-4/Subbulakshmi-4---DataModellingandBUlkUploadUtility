@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColumnInputServiceService } from '../Services/column-input-service.service';
-import { ToastrService } from '../Services/ToastrService';
+import { ToastrService } from '../Services/toaster-service';
 import { NgForm } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ColumnsService } from '../Services/Columns.service';
-import { TableColumnDTO } from '../Models/TableColumnDTO.model';
-import { EntityListDto } from '../Models/EntitylistDto.model';
+import { ColumnsService } from '../Services/columns.service';
+import { TableColumnDTO } from '../Models/tablecolumn-dto.model';
+import { EntityListDto } from '../Models/entitylist-dto.model';
 import { EntitylistService } from '../Services/entitylist.service';
 
 

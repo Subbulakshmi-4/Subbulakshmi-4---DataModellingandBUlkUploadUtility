@@ -2,17 +2,17 @@
 
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ColumnsService } from '../Services/Columns.service';
-import { TableColumnDTO } from '../Models/TableColumnDTO.model';
+import { ColumnsService } from '../Services/columns.service';
+import { TableColumnDTO } from '../Models/tablecolumn-dto.model';
 import { Router } from '@angular/router';
 import * as XLSX from 'xlsx'; // Import the xlsx library
-import { AlertService } from '../Services/AlertService'; 
-import { ToastrService } from '../Services/ToastrService';
-import { SharedDataService } from '../Services/SharedData.service';
+import { AlertService } from '../Services/alert-service'; 
+import { ToastrService } from '../Services/toaster-service';
+import { SharedDataService } from '../Services/shared-data.service';
 import { LogDetailsComponent } from '../log-details/log-details.component';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { LogDetailsDTO } from '../Models/LogDetailsDTO';
+import { LogDetailsDTO } from '../Models/logdetails-dto';
 
 @Component({
   selector: 'app-entity-details',

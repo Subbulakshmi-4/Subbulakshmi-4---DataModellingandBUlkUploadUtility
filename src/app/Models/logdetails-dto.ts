@@ -8,6 +8,5 @@ timestamp: string = '';
 logParentID: number = 0;
 userID: number = 0;
 tableData: any[] = [];
-
   }
   

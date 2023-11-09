@@ -133,7 +133,7 @@ export class InputcolumnsComponent implements OnInit{
 
  
 
-    const selectedPrimaryKeys = tableNameArray.controls.reduce(
+    const selectedPrimaryKeys = tableNameArray.controls.reduce(  
 
       (count, control, index) => {
 

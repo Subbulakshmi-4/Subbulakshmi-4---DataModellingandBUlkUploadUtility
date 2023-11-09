@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import * as XLSX from 'xlsx'; // Import the xlsx library
 import { AlertService } from '../Services/alertservice'; 
 import { ToastrService } from '../Services/ToastrService';
-import { SharedDataService } from '../Services/SharedData.service';
+import { SharedDataService } from '../Services/shared-data.service';
 import { LogDetailsComponent } from '../log-details/log-details.component';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';

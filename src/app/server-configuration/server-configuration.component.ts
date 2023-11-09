@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { ColumnsService } from '../Services/Columns.service';
+import { ColumnsService } from '../Services/columns.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { ServerConfigService } from '../Services/server-config.service';

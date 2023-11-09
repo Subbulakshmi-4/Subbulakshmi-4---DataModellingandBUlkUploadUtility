@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { EntityListDto } from '../Models/EntitylistDto.model';
+import { EntityListDto } from '../Models/entitylist-dto.model';
 
 
 @Injectable({ 

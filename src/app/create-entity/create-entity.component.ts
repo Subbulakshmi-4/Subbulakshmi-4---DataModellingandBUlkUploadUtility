@@ -4,7 +4,7 @@ import { ColumnInputServiceService } from '../Services/column-input.service';
 import { ToastrService } from '../Services/ToastrService';
 import { NgForm } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ColumnsService } from '../Services/Columns.service';
+import { ColumnsService } from '../Services/columns.service';
 import { TableColumnDTO } from '../Models/tablecolumn-dto.model';
 import { EntityListDto } from '../Models/entitylist-dto.model';
 import { EntitylistService } from '../Services/entitylist.service';

@@ -10,7 +10,7 @@ import { DisplaytableNameComponent } from './displaytable-name/displaytable-name
 import { EntityDetailsComponent } from './entity-details/entity-details.component';
 import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AlertService } from './Services/alert-service';
+import { AlertService } from './Services/alert-service'; 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InputcolumnsComponent } from './ColumnInputs/inputcolumns/inputcolumns.component';
 import { ColumnInputServiceService } from './Services/column-input-service.service';

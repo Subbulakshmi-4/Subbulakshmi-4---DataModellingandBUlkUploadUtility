@@ -12,7 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ColumnInputServiceService } from './Services/column-input.service';
 import { CreateEntityComponent } from './create-entity/create-entity.component';
 import { LogDetailsComponent } from './log-details/log-details.component';
-import { ToastrService } from './Services/ToastrService';
+import { ToastrService } from './Services/toast.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 

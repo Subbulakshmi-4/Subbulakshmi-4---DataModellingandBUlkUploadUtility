@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EntityListDto } from '../Models/EntitylistDto.model';
+import { EntityListDto } from '../Models/entitylist-dto.model';
 import { EntitylistService } from '../Services/entitylist.service';
 import { Router } from '@angular/router'; // Import Router
 

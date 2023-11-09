@@ -6,7 +6,7 @@ import { NgForm } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColumnsService } from '../Services/Columns.service';
 import { TableColumnDTO } from '../Models/TableColumnDTO.model';
-import { EntityListDto } from '../Models/EntitylistDto.model';
+import { EntityListDto } from '../Models/entitylist-dto.model';
 import { EntitylistService } from '../Services/entitylist.service';
 
 

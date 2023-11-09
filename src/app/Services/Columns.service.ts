@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { TableColumnDTO } from '../Models/TableColumnDTO.model';
+import { TableColumnDTO } from '../Models/tablecolumn-dto.model';
 
 @Injectable({
   providedIn: 'root'

@@ -12,7 +12,7 @@ import { SharedDataService } from '../Services/SharedData.service';
 import { LogDetailsComponent } from '../log-details/log-details.component';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { LogDetailsDTO } from '../Models/LogDetailsDTO';
+import { LogDetailsDTO } from '../Models/logdetails-dto';
 
 @Component({
   selector: 'app-entity-details',

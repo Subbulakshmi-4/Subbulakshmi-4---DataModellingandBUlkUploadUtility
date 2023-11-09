@@ -3,7 +3,7 @@ import { SharedDataService } from '../Services/shared-data.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ColumnsService } from '../Services/columns.service';
 import { TableColumnDTO } from '../Models/tablecolumn-dto.model';
-@Component({
+@Component({ 
   selector: 'app-log-details',
   templateUrl: './log-details.component.html',
   styleUrls: ['./log-details.component.css']

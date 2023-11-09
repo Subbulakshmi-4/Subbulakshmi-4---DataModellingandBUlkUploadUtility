@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { ColumnInputServiceService } from '../Services/column-input-service.service';
+import { ColumnInputServiceService } from '../Services/column-input.service';
 import { ToastrService } from '../Services/ToastrService';
 import { NgForm } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';

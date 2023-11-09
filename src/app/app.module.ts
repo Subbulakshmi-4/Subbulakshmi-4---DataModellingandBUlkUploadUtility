@@ -10,7 +10,7 @@ import { EntityDetailsComponent } from './entity-details/entity-details.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServerConfigurationComponent } from './server-configuration/server-configuration.component';
-import { ColumnInputServiceService } from './Services/column-input-service.service';
+import { ColumnInputServiceService } from './Services/column-input.service';
 import { TableListComponent } from './table-list/table-list.component';
 import { CreateEntityComponent } from './create-entity/create-entity.component';
 import { LogDetailsComponent } from './log-details/log-details.component';

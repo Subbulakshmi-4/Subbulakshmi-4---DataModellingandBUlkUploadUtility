@@ -3,7 +3,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ColumnsService } from '../Services/Columns.service';
-import { TableColumnDTO } from '../Models/TableColumnDTO.model';
+import { TableColumnDTO } from '../Models/tablecolumn-dto.model';
 import { Router } from '@angular/router';
 import * as XLSX from 'xlsx'; // Import the xlsx library
 import { AlertService } from '../Services/AlertService'; 

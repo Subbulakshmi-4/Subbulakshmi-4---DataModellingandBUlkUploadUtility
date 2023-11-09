@@ -9,7 +9,6 @@ import { DisplaytableNameComponent } from './displaytable-name/displaytable-name
 import { EntityDetailsComponent } from './entity-details/entity-details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ServerConfigurationComponent } from './server-configuration/server-configuration.component';
 import { ColumnInputServiceService } from './Services/column-input.service';
 import { CreateEntityComponent } from './create-entity/create-entity.component';
 import { LogDetailsComponent } from './log-details/log-details.component';
@@ -22,7 +21,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppComponent,
     DisplaytableNameComponent,
     EntityDetailsComponent,
-    ServerConfigurationComponent,
     CreateEntityComponent,
     LogDetailsComponent,
   ],

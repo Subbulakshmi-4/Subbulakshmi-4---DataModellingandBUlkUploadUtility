@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { TableColumnDTO } from '../Models/tablecolumn-dto.model';
-import { SharedDataService } from '../Services/SharedData.service';
+import { SharedDataService } from '../Services/shared-data.service';
 import { ColumnsService } from '../Services/columns.service';
 
 

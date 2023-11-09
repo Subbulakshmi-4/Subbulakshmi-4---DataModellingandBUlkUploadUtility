@@ -12,10 +12,10 @@ export interface LogDetailsResult {
     errorCounts: number;
     timestamp: string;
     logParentID: number;
-    userID: number;
+    userID: number; 
   }
   
-  export interface ChildDetails {
+  export interface ChildDetails {   
     // Define the structure of child details here
   }
   

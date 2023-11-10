@@ -25,6 +25,7 @@ export class DisplaytableNameComponent implements OnInit {
     this.entitylistService.getEntityList().subscribe(
       (data: any) => {
         this.tableNames = data.result;
+        this.pagedData = this.tableNames;
       },
       (error) => {
         console.error('Error fetching table names:', error);

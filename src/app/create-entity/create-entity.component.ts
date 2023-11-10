@@ -5,10 +5,8 @@ import { ToastrService } from '../Services/toast.service';
 import { NgForm } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColumnsService } from '../Services/columns.service';
-import { TableColumnDTO } from '../Models/tablecolumn-dto.model';
 import { EntityListDto } from '../Models/entitylist-dto.model';
 import { EntitylistService } from '../Services/entitylist.service';
-
 
 @Component({
   selector: 'app-create-entity',

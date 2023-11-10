@@ -27,7 +27,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let table of tableNames; let odd = odd">
+        <tr *ngFor="let table of pagedData; let odd = odd">
           <td class="center-content" [ngClass]="{'odd-row': odd, 'even-row': !odd}" style="padding-top: 10px">{{ table.entityName }}</td>
           <td class="center-content" [ngClass]="{'odd-row': odd, 'even-row': !odd}">
             <button class="view-button" [ngClass]="{'odd-button': odd, 'even-button': !odd}" [routerLink]="['/entity', table.entityName]">

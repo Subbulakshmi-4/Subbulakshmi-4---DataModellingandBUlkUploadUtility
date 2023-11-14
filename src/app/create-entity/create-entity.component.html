@@ -171,57 +171,34 @@
                                             </div>
                                         </div>
                                         <div *ngIf="row.datatype === 'listofvalue'" class="additional-inputs">
-                                            <label>EntityName</label>
-                                            <select [(ngModel)]="selectedEntity" (change)="onListValueSelected(selectedEntity, i)" [name]="'selectedEntity' + i">
-                                              <option value="">Select an entity</option>
-                                              <option *ngFor="let value of listOfValues" [value]="value.entityName">{{ value.entityName }}</option>
+                                            <label>SelectEntity</label>
+                                            <select [(ngModel)]="selectedEntity" (change)="onListValueSelected(selectedEntity, i)" [name]="'selectedEntity' + i" [disabled]="row.primaryKey">
+                                               <option>{{SelectedEntityName}}</option> 
+                                                <option value="">Select an entity</option>
+                                                <option *ngFor="let value of listOfValues" [value]="value.entityName">{{ value.entityName }}</option>
                                             </select>
-                                          
+                                            <label style="position: relative;inset-block-start: -28px;">{{SelectedEntityName}}</label>
                                             <!-- First Dropdown -->
                                             <div *ngIf="entityColumnNames1.length > 0" class="additional-inputs1">
                                                 <label>Key</label>
                                                 <input type="text" name="selectedEntity1" value="{{ entityColumnNames1[0] }}" readonly>
                                               </div>
-                                              
-                                          
-                                            <!-- Second Dropdown -->
-                                            <!-- <div *ngIf="entityColumnNames2.length > 0" class="additional-inputs2">
-                                                <label>Value</label>
-                                              <select name="selectedEntity2">
-                                                <option value="">Select a column 2</option>
-                                                <option *ngFor="let columnName of entityColumnNames2" [value]="columnName">{{ columnName }}</option>
-                                              </select>
-                                            </div> -->
-                                            <!-- <div *ngIf="entityColumnNames2.length > 0" class="additional-inputs2">
-                                                <label>Value</label>
-                                                <select name="selectedEntity2" [(ngModel)]="selectedEntity2" (change)="onValueSelected()">
-                                                    <option value="">Select a column 2</option>
-                                                    <option *ngFor="let columnName of entityColumnNames2; let i = index" [value]="columnName">{{ columnName }}</option>
-                                                </select>
-                                                <p>Selected Value Index: {{ selectedEntity2Index !== null ? selectedEntity2Index : 'N/A' }}</p>
-                                            </div> -->
                                             <div *ngIf="entityColumnNames2.length > 0" class="additional-inputs2">
                                                 <label>Value</label>
                                                 <select name="selectedEntity2" [(ngModel)]="selectedEntity2Index" (change)="selectedEntity2Index !== null && updateSelectedId(selectedEntity2Index)">
                                                   <option value="-1">Select a column 2</option>
                                                   <option *ngFor="let columnName of entityColumnNames2; let i = index" [value]="i">{{ columnName }}</option>
                                                 </select>
-                                                <p>Selected ID: {{ selectedKeyId !== null ? selectedKeyId : 'N/A' }}</p>
                                               </div>
-                                              
-                                              
-                                              
-                                              
                                           </div>
-                                          
                                     </ng-template>
                                 </td>
                                 <td class="center-content"><input type="text" [(ngModel)]="row.description" placeholder="Description" name="description{{ i }}" />
                                 </td>
                                 <td class="center-content">
-                                    <!-- Delete Row Button -->
-                                    <button class="delete-button" (click)="deleteRow(i)"><i class="fa-solid fa-trash"></i></button>
-                                </td>
+                                    <button class="delete-button" (click)="deleteRow(i, $event)"><i class="fa-solid fa-trash"></i></button>
+                                  </td>
+                                  
                             </tr>
                         </tbody>
                     </table>

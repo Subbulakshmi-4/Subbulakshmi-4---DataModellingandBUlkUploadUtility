@@ -14,19 +14,7 @@ export class SharedDataService {
       console.log(this.data)
       return this.logDetailsData.asObservable();
     }
-    // getData(parentId: number): Observable<Blob> {
-    //   const url = `${this.apiUrl}/${parentId}`;
-    //   // Set responseType to 'blob' to handle binary data
-    //   return this.http.get(url, { responseType: 'blob' });
-    // }
-    getData(parentId: number, entityId: number, entityName: string): Observable<Blob> {
-      const url = `${this.apiUrl}/${parentId}?entityId=${entityId}&entityName=${entityName}`;
-     
-      // Set responseType to 'blob' to handle binary data
-      return this.http.get(url, { responseType: 'blob' });
-    }
-    
-    
+
     
     setLogDetails(data: any) {
       this.logDetailsData.next(data);

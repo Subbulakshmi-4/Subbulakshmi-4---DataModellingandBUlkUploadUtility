@@ -8,7 +8,7 @@ import { ColumnsService } from '../Services/Columns.service';
 import { TableColumnDTO } from '../Models/TableColumnDTO.model';
 import { EntityListDto } from '../Models/EntitylistDto.model';
 import { EntitylistService } from '../Services/entitylist.service';
-
+import { NgZone } from '@angular/core';
 
 @Component({
   selector: 'app-create-entity',
@@ -25,6 +25,7 @@ export class CreateEntityComponent {
   additionalInput2: string = '';
   selectedEntity: string = '';
   selectedEntitys: string = '';
+  SelectedEntityName:string='';
   @Input() selectedEntityColumns: any; // Assuming selectedEntityColumns is an input
   listOfValues: EntityListDto[] = [];
   entityColumnNames1: string[] = []; // Array for the first dropdown
@@ -34,6 +35,7 @@ export class CreateEntityComponent {
   selectedKeyId: number | null = null;
   selectedColumnIds: any;
   firstColumnId: number | null = null; // Initialize firstColumnId with a default value of null
+  cdr: any;
 
 
 
@@ -42,10 +44,9 @@ export class CreateEntityComponent {
               private  columnInputService: ColumnInputServiceService,
               private modalService: NgbModal,
               private columnsService : ColumnsService,
-              private entitylistService :EntitylistService
-    ){
-      
-    }
+              private entitylistService :EntitylistService,
+              private zone: NgZone
+    ){}
     
   selectedDataType: string = 'string'; 
   newEntity: any = {
@@ -108,24 +109,26 @@ export class CreateEntityComponent {
         console.error('Error fetching entity names:', error);
       }
     );
-
   }
 
   showBooleanPopup: boolean = false;
-  onListValueSelected(entityName: string, rowIndex: number) {
-    this.selectedEntity = entityName;
-  // Fetch the columns for the selected entity using your service
-    this.columnsService.getColumnsForEntity(this.selectedEntity).subscribe(columns => {
-      this.entityColumnNames1 = columns.map(column => column.entityColumnName);
-      this.entityColumnNames2 = columns.map(column => column.entityColumnName);
-    });
-    // Fetch columns for the selected entity
-    this.fetchSelectedEntityColumns(entityName);
-    
-    // Update the row's selectedEntity property if needed
-    this.newEntity.columns[rowIndex].selectedEntity = entityName;
-  }
-
+onListValueSelected(entityName: string, rowIndex: number) {
+   this.zone.run(() => {
+      this.selectedEntity = entityName;
+      console.log(this.selectedEntity);
+      this.SelectedEntityName = this.selectedEntity
+      console.log(this.SelectedEntityName)
+      // Fetch columns for the selected entity
+      this.columnsService.getColumnsForEntity(this.selectedEntity).subscribe(columns => {
+         this.entityColumnNames1 = columns.map(column => column.entityColumnName);
+         this.entityColumnNames2 = columns.map(column => column.entityColumnName);
+      });
+      // Fetch columns for the selected entity
+      this.fetchSelectedEntityColumns(entityName);
+      // Update the row's selectedEntity property if needed
+      this.newEntity.columns[rowIndex].selectedEntity = entityName;
+   });
+}
 selectedEntity2Indexs: number | null = null;
 
 updateSelectedId(index: number) {
@@ -190,12 +193,13 @@ onDataTypeChange(row: any) {
 closeModal() {
   this.showModal = false;
 }
-  // Function to delete a row
-  deleteRow(index: number) {
+  deleteRow(index: number, event: Event) {
+    event.preventDefault();
     if (this.newEntity.columns.length > 1) {
       this.newEntity.columns.splice(index, 1);
     }
   }
+  
   // Function to check if a row is valid
   rowValid(index: number): boolean {
     const row = this.newEntity.columns[index];
@@ -289,7 +293,7 @@ submit() {
   const reservedKeywordFound = this.isReservedKeyword(this.newEntity.entityname) || this.newEntity.columns.some((column: { columnName: string; }) => this.isReservedKeyword(column.columnName));
 
   if (reservedKeywordFound) {
-    this.toastrService.showError('Table or column name cannot be a reserved keyword.');
+    this.toastrService.showError('Entity or column name cannot be a reserved keyword.');
     return; 
   }
 
@@ -326,13 +330,13 @@ submit() {
   }
 
   if(!this.isEntityNameValid()){
-    errorMessages.push('Table Name patern is invalid');
-    this.toastrService.showError('Table Name patern is invalid');
+    errorMessages.push('Entity Name pattern is invalid');
+    this.toastrService.showError('Entity Name patern is invalid');
   }
 
   if (!this.newEntity.entityname) {
-    errorMessages.push('Table Name is required.');
-    this.toastrService.showError('Table Name is required.');
+    errorMessages.push('Entity Name is required.');
+    this.toastrService.showError('Entity Name is required.');
   }
 
   if (this.hasDuplicateColumnNames()) {
@@ -385,8 +389,8 @@ submit() {
   this.columnInputService.createTable(backendRequest).subscribe(
     response => {
       // Handle success response if needed
-      console.log('Table created successfully:', response.success);
-      this.toastrService.showSuccess('Table created successfully');
+      console.log('Entity created successfully:', response.success);
+      this.toastrService.showSuccess('Entity created successfully');
       this.router.navigate(['/entity-list']);
     },
     error => {

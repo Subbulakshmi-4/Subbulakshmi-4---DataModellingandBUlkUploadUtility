@@ -7,6 +7,8 @@ export interface TableColumnDTO {
   length: number;
   minLength: number;
   maxLength: number;
+  minRange: number;
+  maxRange: number;
   dateMinValue: string;
   dateMaxValue:string;
   description:String;

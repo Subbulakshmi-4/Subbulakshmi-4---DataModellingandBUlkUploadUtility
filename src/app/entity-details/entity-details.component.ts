@@ -48,6 +48,8 @@ export class EntityDetailsComponent implements OnInit {
               length: columnData.length,
               minLength:columnData.minLength,
               maxLength:columnData.maxLength,
+              minRange:columnData.minRange,
+              maxRange:columnData.maxRange,
               dateMinValue:columnData.dateMinValue,
               dateMaxValue:columnData.dateMaxValue,
               description:columnData.description,
@@ -151,14 +153,17 @@ export class EntityDetailsComponent implements OnInit {
         
         const response = JSON.parse(res);
         if (response.isSuccess) {
-          const logDetails: LogDetailsDTO = JSON.parse(res);;
+          const logDetails: LogDetailsDTO = JSON.parse(res);
           console.log ("loggggg",logDetails);
         this.sharedDataService.setLogDetails(logDetails);
-          this.toastrService.showError(response.errorMessage[0]);
+          this.toastrService.showSuccess(response.errorMessage[0]);
           // Navigate to LogDetailsComponent
           this.router.navigate(['/Log-details']);
         } else {
+          const logDetails: LogDetailsDTO = JSON.parse(res);
+          this.sharedDataService.setLogDetails(logDetails);
           this.toastrService.showError(response.errorMessage[0]);
+          this.router.navigate(['/Log-details']);
         }
       },
       (error: any) => {
@@ -166,6 +171,7 @@ export class EntityDetailsComponent implements OnInit {
         if (errorResponse != null) {
           if (errorResponse.errorMessage[0] != null) {
             this.toastrService.showError(errorResponse.errorMessage[0]);
+            
           } else {
             this.toastrService.showError('An error occurred while uploading the template.');
           }
@@ -226,6 +232,8 @@ export class EntityDetailsComponent implements OnInit {
               length: columnData.length,
               minLength:columnData.minLength,
               maxLength:columnData.maxLength,
+              minRange:columnData.minRange,
+              maxRange:columnData.maxRange,
               dateMinValue:columnData.dateMinValue,
               dateMaxValue:columnData.dateMaxValue,
               description:columnData.description,

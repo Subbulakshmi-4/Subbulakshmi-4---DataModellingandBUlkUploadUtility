@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { SharedDataService } from '../Services/SharedData.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ColumnsService } from '../Services/Columns.service';
+import { TableColumnDTO } from '../Models/TableColumnDTO.model';
+import { Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-log-details',
@@ -9,73 +12,128 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class LogDetailsComponent {
   logParent: any;
+  isExporting: boolean = false;
+  parentId: number | undefined;
   logChildren!: any[];
-  entityName: string = ''; // Initialize entityName variable
+  logChildrenId: [] | undefined;
+  columns: TableColumnDTO[] = [];
+  entityName: string = '';
   private apiUrl = 'https://localhost:7245/api/ExportExcel';
   
-  constructor(private sharedDataService: SharedDataService) { }
-
+  constructor(private sharedDataService: SharedDataService,private columnsService: ColumnsService,private Renderer2:Renderer2) { }
+ 
   ngOnInit(): void {
-    // Subscribe to the shared service to get log details data
+    this.fetchColumnsData;
     this.sharedDataService.getLogDetailsData().subscribe((data: any) => {
       if (data) {
         console.log(data);
-        this.logParent = data.result.logParentDTOs; // Access the logParent object
-        this.logChildren = data.result.childrenDTOs; // Access the childrenDTOs array
-
-        // Extract entity name from logParent.fileName
+        this.logParent = data.result.logParentDTOs; 
+        this.logChildren = data.result.childrenDTOs; 
+        console.log(this.logChildren)
         this.entityName = this.extractEntityName(this.logParent.fileName);
-
-        // Get data for the entity
-        this.getData(this.logParent.parentId); // Assuming parentId is used for API request
+        this.parentId = this.logParent.id
+        const ids = this.logChildren.map(item => item.id);
+        console.log(ids);
       }
     });
   }
 
-  // getData(parentId: number): void {
-  //   this.sharedDataService.getData(parentId).subscribe(
-  //     (data: Blob) => {
-  //       // Handle the binary response data here
-  //       this.saveExcelFile(data);
-  //     },
-  //     error => {
-  //       console.error('Error occurred while fetching data:', error);
-  
-  //       // Log the error response
-  //       if (error instanceof HttpErrorResponse) {
-  //         console.error('Error Response:', error.error);
-  //       }
-  //     }
-  //   );
-  // }
-  getData(parentId: number): void {
-    const entityName = this.extractEntityName(this.logParent.fileName); // Assuming you extract entityName somehow
-    if (entityName) {
-      this.sharedDataService.getData(parentId, entityName).subscribe(
-        (data: Blob) => {
-          // Handle the binary response data here
-          this.saveExcelFile(data);
-        },
-        error => {
-          console.error('Error occurred while fetching data:', error);
-  
-          // Log the error response
-          if (error instanceof HttpErrorResponse) {
-            console.error('Error Response:', error.error);
-          }
-        }
-      );
-    } else {
-      console.error('Entity name not available.');
-    }
+  onButtonClick(): void {
+    const entityName = this.entityName;
+    this.fetchColumnsData(entityName);
+    this.openExportModal();
   }
   
+  openExportModal() {
+    const modal = document.getElementById('exportModal');
+    this.Renderer2.addClass(modal, 'show');
+    this.Renderer2.setStyle(modal, 'display', 'block');
+  }
+
+  closeExportModal() {
+    const modal = document.getElementById('exportModal');
+    this.Renderer2.removeClass(modal, 'show');
+    this.Renderer2.setStyle(modal, 'display', 'none');
+  }
+
+  exportData() {
+    const entityName = this.entityName;
+    const parentId = this.parentId;
+    if (parentId !== undefined) {
+      this.fetchColumnsData(entityName);
+      this.generateExcelTemplates(parentId);
+      this.closeExportModal();
+    } else {
+      console.error('parentId is undefined. Unable to generate Excel template.');
+    }
+  }
+
+  fetchColumnsData(entityName: string): void {
+    this.columnsService.getColumnsForEntitys(entityName).subscribe(
+      (data: any) => {
+        if (data.isSuccess) {
+          this.columns = data.result.map((columnData: any) => {
+            const column: TableColumnDTO = {
+              entityname: this.entityName,
+              id: columnData.id,
+              entityColumnName: columnData.entityColumnName,
+              entityId: columnData.entityid,
+              datatype: columnData.datatype,
+              length: columnData.length,
+              description: columnData.description,
+              isNullable: columnData.isNullable,
+              defaultValue: columnData.defaultValue,
+              ColumnPrimaryKey: columnData.columnPrimaryKey,
+              True: columnData.true,
+              False: columnData.false,
+              minLength:columnData.minLength,
+              maxLength:columnData.maxLength,
+              minRange: columnData.minRange,
+              maxRange:columnData.maxRange,
+              dateMinValue:columnData.dateMinValue,
+              dateMaxValue:columnData.dateMaxValue
+            };
+            
+            console.log(column)
+            return column;
+          });
+        } else {
+          console.error('Error fetching columns data:', data.errorMessage);
+        }
+      },
+      (error) => {
+        console.error('Error fetching columns data:', error);
+      }
+    );
+  }
+
+  generateExcelTemplates(parentId: number) {
+    console.log('Columns data before sending to the backend:', this.columns);
+    if (this.columns.length === 0) {
+      this.isExporting = false; 
+      return;
+    }
+    this.columnsService.generateExcelFiles(parentId, this.columns).subscribe(
+      (data: Blob) => {
+        const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+              const url = window.URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = `${this.entityName}_Export.xlsx`;
+              document.body.appendChild(a);
+              a.click();
+              window.URL.revokeObjectURL(url);
+        this.isExporting = false; 
+      },
+      (error: any) => {
+        console.error('Error generating Excel template:', error);
+        this.isExporting = false; 
+      }
+    );
+  }
   
-  saveExcelFile(data: Blob): void {
-    // Create a Blob from the binary data
+  saveExcelFiles(data: Blob): void {
     const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-  
-    // Create a download link and trigger a download
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -85,18 +143,11 @@ export class LogDetailsComponent {
     window.URL.revokeObjectURL(url);
   }
   
-
-  // Function to extract entity name from a string
   extractEntityName(fullFileName: string): string {
-    // Split the fullFileName using underscore as separator and get the first part
     const parts = fullFileName.split('_');
     if (parts.length > 0) {
-      return parts[0]; // Return the first part as the entity name
+      return parts[0]; 
     }
-    return ''; // Return an empty string if extraction fails
-  }
-
-  generateErrorExcelTemplate() {
-    // Your function logic here
+    return ''; 
   }
 }

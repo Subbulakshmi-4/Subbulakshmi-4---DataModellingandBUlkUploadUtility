@@ -48,6 +48,8 @@
                     <!-- <th class="center-header">Length</th> -->
                     <th class="center-header">MinLength</th>
                     <th class="center-header">MaxLength</th>
+                    <th class="center-header">MinRange</th>
+                    <th class="center-header">MaxRange</th>
                     <th class="center-header">DateMinValue</th>
                     <th class="center-header">DateMaxValue</th>
                     <th class="center-header">NotNull</th>
@@ -80,7 +82,7 @@
                         [(ngModel)]="row.minLength"
                         [disabled]="true"
                     />
-                </td>
+                    </td>
                 <td class="center-content">
                     <input
                         type="text"
@@ -88,7 +90,20 @@
                         [disabled]="true"
                     />
                 </td>
-                
+                <td class="center-content">
+                    <input
+                        type="number"
+                        [(ngModel)]="row.minRange"
+                        [disabled]="true"
+                    />
+                    </td>
+                <td class="center-content">
+                    <input
+                        type="text"
+                        [(ngModel)]="row.maxRange"
+                        [disabled]="true"
+                    />
+                </td>
                 <td class="center-content">
                     <input
                         type="text"

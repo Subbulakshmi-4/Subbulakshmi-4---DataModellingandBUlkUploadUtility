@@ -1,153 +1,64 @@
-<!-- <div>
-  <h2>Log Parent Details</h2>
-  <p>Timestamp: {{ logParent.timestamp }}</p>
-  <p>Record Count: {{ logParent.recordCount }}</p>
-  <p>Pass Count: {{ logParent.passCount }}</p>
-  <p>Fail Count: {{ logParent.failCount }}</p>
-  <p>User ID: {{ logParent.user_Id }}</p>
-  <p>File Name: {{ logParent.fileName }}</p>
-  <p>Entity ID: {{ logParent.entity_Id }}</p>
-</div>
-
-<div>
-  <h2>Log Children Details</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Parent ID</th>
-        <th>Error Message</th>
-        <th>File Data</th>
-        <th>Parent Log ID</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let child of logChildren">
-        <td>{{ child.id }}</td>
-        <td>{{ child.parentID }}</td>
-        <td>{{ child.errorMessage }}</td>
-        <td>{{ child.filedata }}</td>
-        <td>{{ child.parentLogID }}</td>
-      </tr>
-    </tbody>
-  </table>
-</div> -->
 <header>
-
   <div class="container">
-
     <div class="row">
-
       <div class="col-3">
-
         <div
-
           class="card"
-
           style="inline-size: 15rem; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1)"
-
         >
-
           <div class="card-body">
-
             <h5 class="card-title">EntityName</h5>
-
             <h6>{{  entityName }}</h6>
-
           </div>
-
         </div>
-
       </div>
-
       <div class="col-3">
-
         <div
-
           class="card"
-
           style="inline-size: 15rem; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1)"
-
         >
-
           <div class="card-body">
-
             <h5 class="card-title">TotalCounts</h5>
-
             <h6>{{ logParent.recordCount }}</h6>
-
           </div>
-
         </div>
-
       </div>
-
       <div class="col-3">
-
         <div
-
           class="card"
-
           style="inline-size: 15rem; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1)"
-
         >
-
           <div class="card-body">
-
             <h5 class="card-title">SuccessCounts</h5>
-
             <h6>{{ logParent.passCount }}</h6>
-
           </div>
-
         </div>
-
       </div>
-
       <div class="col-3">
-
         <div
-
           class="card"
-
           style="inline-size: 15rem; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1)"
-
         >
-
           <div class="card-body">
-
             <h5 class="card-title">ErrorCounts</h5>
-
             <h6>{{0  || logParent.failCount }}</h6>
-
           </div>
-
         </div>
-
       </div>
-
     </div>
-
   </div>
-
 </header>
-
 <body style="margin-block-start: -20px;">
-
   <div class="container">
-
     <div class="row">
-
       <div class="col-12">
-        <div style="text-align:start;margin-block-start:15px;">
+        <div class="Back-button">
           <button class="btn btn-info" routerLink="/entity-list" >Back</button>
         </div>
         <div style="text-align: end;margin-block-start:15px;">
-          <button class="btn btn-info" (click)="getData(logParent.id)" >Export</button>
+          <button class="btn btn-info" (click)="onButtonClick()" >Export</button>
         </div>
-
         <br />
-
         <table class="table table-striped table-hover" style="margin-block-start: -5px;">
           <thead>
             <tr>
@@ -155,7 +66,6 @@
               <th scope="col">User Name</th>
               <th scope="col">ErrorMessage</th>
               <th scope="col">filedata</th>
-              <!-- <th scope="col">parentLogID</th> -->
             </tr>
           </thead>
           <tbody>
@@ -163,16 +73,35 @@
               <th scope="row">{{ i + 1 }}</th>
               <td>{{ logParent.user_Id }}</td>
               <td>{{ child.errorMessage }}</td>
-             
               <td>
-                {{ child.filedata.split(';')[0] }}<br>{{ child.filedata.split(';')[1] }}
-               <span *ngIf="child.filedata.split(';').length > 2"><br> etc.</span>
+                {{ child.filedata.split(';')[0].split(',')[0] }}, {{ child.filedata.split(';')[0].split(',')[1] }}
+                <span *ngIf="child.filedata.split(';')[0].split(',').length > 2">, etc.</span>
+                <br>
+                {{ child.filedata.split(';')[1].split(',')[0] }}, {{ child.filedata.split(';')[1].split(',')[1] }}
+                <span *ngIf="child.filedata.split(';')[1].split(',').length > 2">, etc.</span>
+                <br>
+                <span *ngIf="child.filedata.split(';').length > 2">etc.</span>
               </td>
-              
             </tr>
-
           </tbody>
         </table>
       </div>
     </div>
   </div>
+  <div class="modal" tabindex="-1" role="dialog" id="exportModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title white-text">Export Data</h5>
+        </div>
+        <div class="modal-body">
+          <p>Do you want to export the error data in Excel?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="exportData()">Yes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeExportModal()">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

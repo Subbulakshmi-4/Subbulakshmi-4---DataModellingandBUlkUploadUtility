@@ -265,7 +265,22 @@ closeModal() {
       row.defaultValue = '';
     }
 }
-  
+validateNumeric(event: any) {
+  const keyCode = event.keyCode;
+  if (
+      [46, 8, 9, 27, 13, 110, 190].indexOf(keyCode) !== -1 ||
+      (keyCode === 65 && (event.ctrlKey || event.metaKey)) ||
+      (keyCode === 67 && (event.ctrlKey || event.metaKey)) ||
+      (keyCode === 86 && (event.ctrlKey || event.metaKey)) ||
+      (keyCode === 88 && (event.ctrlKey || event.metaKey))
+  ) {
+      return;
+  }
+  if ((keyCode < 48 || keyCode > 57) && (keyCode < 96 || keyCode > 105)) {
+      event.preventDefault();
+  }
+}
+
   onDefaultValueInputChange(event: Event, row: any): void {
     const inputElement = event.target as HTMLInputElement;
     if (row.datatype === 'int') {

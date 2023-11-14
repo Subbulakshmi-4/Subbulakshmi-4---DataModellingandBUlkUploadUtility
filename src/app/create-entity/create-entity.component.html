@@ -80,19 +80,38 @@
                                   <!-- String MinLenght and MaxLength input -->
                                 <td class="center-content" *ngIf="row.datatype === 'string'">
                                     <div class="input-group">
-                                        <input type="number" [(ngModel)]="row.minLength" (input)="onInput($event)" placeholder="MinLength" id="minLength{{i}}" (change)="onPrimaryKeyChange($event, row)" name="minLength{{i}}" />
+                                        <input
+                                            type="number"
+                                            [(ngModel)]="row.minLength"
+                                            (input)="onInput($event)"
+                                            (keydown)="validateNumeric($event)"
+                                            placeholder="MinLength"
+                                            id="minLength{{i}}"
+                                            (change)="onPrimaryKeyChange($event, row)"
+                                            name="minLength{{i}}"
+                                        />
                                     </div>
                                     <div class="input-group">
-                                        <input type="number" [(ngModel)]="row.maxLength" (input)="onInput($event)"placeholder="MaxLength" id="maxLength{{i}}" (change)="onPrimaryKeyChange($event, row)" name="maxLength{{i}}" />
+                                        <input
+                                            type="number"
+                                            [(ngModel)]="row.maxLength"
+                                            (input)="onInput($event)"
+                                            (keydown)="validateNumeric($event)"
+                                            placeholder="MaxLength"
+                                            id="maxLength{{i}}"
+                                            (change)="onPrimaryKeyChange($event, row)"
+                                            name="maxLength{{i}}"
+                                        />
                                     </div>
                                 </td>
+                                
                                <!-- Number MinValue and MaxValue input -->
                                 <td class="center-content" *ngIf="row.datatype === 'int'">
                                     <div class="input-group">
-                                        <input type="number" [(ngModel)]="row.MinRange" id="MinRange{{i}}" placeholder="MinRange" (input)="onInput($event)" (change)="onPrimaryKeyChange($event, row)" name="minValue{{i}}" />
+                                        <input type="number" [(ngModel)]="row.MinRange" id="MinRange{{i}}" placeholder="MinRange" (keydown)="validateNumeric($event)" (input)="onInput($event)" (change)="onPrimaryKeyChange($event, row)" name="minValue{{i}}" />
                                     </div>
                                     <div class="input-group">
-                                        <input type="number" [(ngModel)]="row.MaxRange" id="MaxRange{{i}}" placeholder="MaxRange" (input)="onInput($event)" (change)="onPrimaryKeyChange($event, row)" name="maxValue{{i}}" />
+                                        <input type="number" [(ngModel)]="row.MaxRange" id="MaxRange{{i}}" placeholder="MaxRange" (keydown)="validateNumeric($event)" (input)="onInput($event)" (change)="onPrimaryKeyChange($event, row)" name="maxValue{{i}}" />
                                     </div>
                                 </td>
                                  <!-- Number MinValue and MaxValue input -->

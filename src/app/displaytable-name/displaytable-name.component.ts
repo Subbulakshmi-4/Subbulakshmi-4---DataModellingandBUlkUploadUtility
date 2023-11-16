@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EntitylistService } from '../Services/entitylist.service';
 import { Router } from '@angular/router'; // Import Router
 import { EntityListDto } from '../Models/EntitylistDto.model';
+import {SharedDataService} from '../Services/SharedData.service'
  
 @Component({
   selector: 'app-displaytable-name',
@@ -16,26 +17,73 @@ export class DisplaytableNameComponent implements OnInit {
   pagedData: any[] = [];
   currentPage = 1;
   itemsPerPage = 5; // Number of items per page
- 
+  hasValues: { [key: string]: boolean } = {};
+
   searchText = ''; // Variable to store user input for search
  
-  constructor(private entitylistService: EntitylistService, private router: Router) {} // Inject Router
+  constructor(private entitylistService: EntitylistService, private router: Router,private shareddata:SharedDataService) {} // Inject Router
  
+  // ngOnInit(): void {
+  //   this.entitylistService.getEntityList().subscribe(
+  //     (data: any) => {
+  //       this.tableNames = data.result;
+  //       this.pagedData = this.tableNames;
+  //       console.log(this.pagedData)
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching table names:', error);
+  //       this.errorMessage = 'No Data Available';  // Update error message
+  //     }
+  //   );
+ 
+  //   this.setPage(this.currentPage); // Initialize the first page
+  //   this.shareddata.checkTablesHaveValues(this.pagedData.map(table => table.entityName))
+  //     .subscribe(
+  //       (tablesWithValues: { [key: string]: boolean }) => {
+  //         console.log('Tables with values:', tablesWithValues);
+  //         Object.entries(tablesWithValues).forEach(([tableName, hasValues]) => {
+  //           console.log(`${tableName} has values: ${hasValues}`);
+  //         });
+  //       },
+  //       (error) => {
+  //         console.error('Error checking tables for values:', error);
+  //       }
+  //     );
+  // }
   ngOnInit(): void {
     this.entitylistService.getEntityList().subscribe(
       (data: any) => {
         this.tableNames = data.result;
         this.pagedData = this.tableNames;
+        console.log('Fetched table names:', this.pagedData);
+  
+        // Make the second API call inside this block
+        const tableNames = this.pagedData.map(table => table.entityName);
+        console.log('Table names for the second API call:', tableNames);
+        this.shareddata.checkTablesHaveValues(this.pagedData.map(table => table.entityName))
+        .subscribe(
+          (tablesWithValues: { [key: string]: boolean }) => {
+            console.log('Tables with values:', tablesWithValues);
+            this.hasValues = tablesWithValues;  // Assign the values to the component property
+          },
+          (error) => {
+            console.error('Error checking tables for values:', error);
+          }
+        );
       },
       (error) => {
         console.error('Error fetching table names:', error);
         this.errorMessage = 'No Data Available';  // Update error message
       }
     );
- 
+   
     this.setPage(this.currentPage); // Initialize the first page
   }
- 
+  
+  editTable(entityName: string) {
+    // Implement your editTable logic here
+    console.log(`Editing table: ${entityName}`);
+  }
   setPage(page: number) {
     const startIndex = (page - 1) * this.itemsPerPage;
     const endIndex = Math.min(startIndex + this.itemsPerPage, this.tableNames.length);

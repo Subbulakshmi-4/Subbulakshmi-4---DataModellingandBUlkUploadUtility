@@ -10,11 +10,15 @@ export class SharedDataService {
     data:any[]=[
     ];
     private apiUrl = 'https://localhost:7245/api/ExportExcel';
+    private ListOfTableURL = 'https://localhost:7093/api/entity/has-values';
     getLogDetailsData() {
       console.log(this.data)
       return this.logDetailsData.asObservable();
     }
 
+   checkTablesHaveValues(tableNames: string[]): Observable<{ [key: string]: boolean }> {
+    return this.http.post<{ [key: string]: boolean }>(`${this.ListOfTableURL}`, tableNames);
+  }
     
     setLogDetails(data: any) {
       this.logDetailsData.next(data);

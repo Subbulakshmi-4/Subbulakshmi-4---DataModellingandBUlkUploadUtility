@@ -21,6 +21,7 @@
         <tr>
           <th class="center-header">Entity Name</th>
           <th class="center-header">View</th>
+          <th class="center-header">Edit</th>
         </tr>
       </thead>
       <tbody>
@@ -28,9 +29,18 @@
           <td class="center-content" [ngClass]="{'odd-row': odd, 'even-row': !odd}" style="padding-block-start: 10px">{{ table.entityName }}</td>
           <td class="center-content" [ngClass]="{'odd-row': odd, 'even-row': !odd}">
             <button class="view-button" [ngClass]="{'odd-button': odd, 'even-button': !odd}" [routerLink]="['/entity', table.entityName]">
-              View
+              <i class="fa-solid fa-eye"></i>
             </button>
-          </td>
+            </td>
+            <td class="center-content" [ngClass]="{'odd-row': odd, 'even-row': !odd}">
+              <button *ngIf="hasValues !== undefined && hasValues[table.entityName] !== undefined" 
+                      [ngClass]="{'odd-button': odd, 'even-button': !odd}"
+                      [disabled]="hasValues[table.entityName]" 
+                      class="edit-button" 
+                      (click)="editTable(table.entityName)">
+                      <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+            </td>
         </tr>
       </tbody>
     </table>

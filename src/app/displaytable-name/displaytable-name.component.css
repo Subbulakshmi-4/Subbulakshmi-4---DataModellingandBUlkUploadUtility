@@ -172,3 +172,17 @@ color: #00419C; /* Change font color on hover */
 border: 2px solid #00419C; /* Add border on hover */
 }
 
+.edit-button {
+  background-color: white;
+  color: #00419C;
+  inline-size: 172px;
+  block-size: 45px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  border-radius: 20px;
+  padding: 5px 18px;
+  }
+  .edit-button:hover {
+    background-color: #00419C; /* Change background color on hover */
+    color: white; /* Change font color on hover */
+    }

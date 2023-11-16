@@ -9,6 +9,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 export class ColumnInputServiceService {
   private apiUrl = 'https://localhost:7245'; 
 
+  
   constructor(private http: HttpClient) { }
   
   getDataFromBackend(): Observable<any> {

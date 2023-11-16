@@ -265,6 +265,7 @@ closeModal() {
       row.defaultValue = '';
     }
 }
+
 validateNumeric(event: any) {
   const keyCode = event.keyCode;
   if (

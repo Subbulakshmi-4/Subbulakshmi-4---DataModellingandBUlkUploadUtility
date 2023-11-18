@@ -68,7 +68,10 @@ export class LogDetailsComponent {
               minRange: columnData.minRange,
               maxRange:columnData.maxRange,
               dateMinValue:columnData.dateMinValue,
-              dateMaxValue:columnData.dateMaxValue
+              dateMaxValue:columnData.dateMaxValue,
+              ListEntityId:columnData.ListEntityId,
+              ListEntityKey:columnData.ListEntityKey,
+              ListEntityValue:columnData.ListEntityValue
             };
             return column;
           });

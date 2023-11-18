@@ -1,5 +1,3 @@
-// entity-details.component.ts
-
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ColumnsService } from '../Services/Columns.service';
@@ -58,6 +56,9 @@ export class EntityDetailsComponent implements OnInit {
               ColumnPrimaryKey: columnData.columnPrimaryKey, 
               True: columnData.true, 
               False: columnData.false, 
+              ListEntityId:columnData.ListEntityId,
+              ListEntityKey:columnData.ListEntityKey,
+              ListEntityValue:columnData.ListEntityValue
             };
             console.log(column);
             return column;
@@ -242,6 +243,9 @@ export class EntityDetailsComponent implements OnInit {
               ColumnPrimaryKey: columnData.columnPrimaryKey, 
               True: columnData.true, 
               False: columnData.false,
+              ListEntityId:columnData.ListEntityId,
+              ListEntityKey:columnData.ListEntityKey,
+              ListEntityValue:columnData.ListEntityValue
             };
             return column;
           });

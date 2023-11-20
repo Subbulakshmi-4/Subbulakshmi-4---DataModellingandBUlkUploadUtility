@@ -57,6 +57,9 @@
                     <th class="center-header">Description</th>
                     <th class="center-header">True</th>
                     <th class="center-header">False</th>
+                    <th class="center-header">SelectedEntityID</th>
+                    <th class="center-header">SelectedEntityKey</th>
+                    <th class="center-header">SelectedEntityValue</th>
                 </tr>
             <!-- </thead> -->
             <tbody>
@@ -159,6 +162,27 @@
                           disabled
                       />
                   </td>
+                  <td class="center-content">
+                    <input
+                        type="text"
+                        [(ngModel)]="row.ListEntityId"
+                        disabled
+                    />
+                </td>
+                <td class="center-content">
+                    <input
+                        type="text"
+                        [(ngModel)]="row.ListEntityKey"
+                        disabled
+                    />
+                </td>
+                <td class="center-content">
+                    <input
+                        type="text"
+                        [(ngModel)]="row.ListEntityValue"
+                        disabled
+                    />
+                </td>
                 </tr>
             </tbody>
         </table>

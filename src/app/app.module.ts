@@ -16,6 +16,7 @@ import { CreateEntityComponent } from './create-entity/create-entity.component';
 import { LogDetailsComponent } from './log-details/log-details.component';
 import { ToastrService } from './Services/ToastrService';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { EditEntityComponent } from './edit-entity/edit-entity.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     TableListComponent,
     CreateEntityComponent,
     LogDetailsComponent,
+    EditEntityComponent,
   ],
   imports: [
     BrowserAnimationsModule,

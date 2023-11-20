@@ -67,6 +67,8 @@ export class LogDetailsComponent {
       console.error('parentId is undefined. Unable to generate Excel template.');
     }
   }
+  
+
 
   fetchColumnsData(entityName: string): void {
     this.columnsService.getColumnsForEntitys(entityName).subscribe(

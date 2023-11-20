@@ -36,9 +36,6 @@ export class CreateEntityComponent {
   selectedColumnIds: any;
   firstColumnId: number | null = null; // Initialize firstColumnId with a default value of null
   cdr: any;
-
-
-
   constructor( private toastrService : ToastrService,
               private router: Router,
               private  columnInputService: ColumnInputServiceService,
@@ -71,7 +68,6 @@ export class CreateEntityComponent {
         ListEntityId:this.selectedEntity,
         ListEntityKey:this.firstColumnId,
         ListEntityValue:this.selectedKeyId
-
       }
     ]
   };

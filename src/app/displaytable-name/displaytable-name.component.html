@@ -37,6 +37,7 @@
                       [ngClass]="{'odd-button': odd, 'even-button': !odd}"
                       [disabled]="hasValues[table.entityName]" 
                       class="edit-button" 
+                      [routerLink]="['/Edit-Entity', table.entityName]"
                       (click)="editTable(table.entityName)">
                       <i class="fa-solid fa-pen-to-square"></i>
               </button>

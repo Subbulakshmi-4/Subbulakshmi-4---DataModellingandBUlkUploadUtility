@@ -7,9 +7,6 @@ import { Observable, catchError, throwError } from 'rxjs';
 })
 
 export class ColumnInputServiceService {
-  //private apiUrl = 'https://localhost:7245'; 
-        //https://localhost:7254/create-table
-
    private ApiUrlGateWay = 'https://localhost:7093';
 
   constructor(private http: HttpClient) { }
@@ -19,7 +16,6 @@ export class ColumnInputServiceService {
   }
 
   createTable(request: any): Observable<any> {
-    // return this.http.post<any>(`${this.apiUrl}/api/dynamic/create-table`, request)
     return this.http.post<any>(`${this.ApiUrlGateWay}/create-table`, request)
       .pipe(
         catchError(error => {

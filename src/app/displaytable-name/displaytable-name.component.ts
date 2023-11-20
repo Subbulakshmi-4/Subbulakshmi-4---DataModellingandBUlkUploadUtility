@@ -121,9 +121,6 @@ export class DisplaytableNameComponent implements OnInit {
   }
  
   createTable() {
-    // ... Your existing createTable code ...
- 
-    // Navigate to the "createtable" route when the button is clicked
     console.log("forchecking")
     this.router.navigate(['/createtable']);
   }

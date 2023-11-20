@@ -9,7 +9,6 @@ export class ServerConfigService {
 
   submitServerConfig(serverConfig: any) {
     const url = 'https://localhost:7245/api/entitylist/listtables'; // Replace with your API endpoint
-
     return this.http.post(url, serverConfig);
   }
 }

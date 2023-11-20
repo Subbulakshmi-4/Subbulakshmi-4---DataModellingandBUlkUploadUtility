@@ -65,13 +65,15 @@
               <th scope="col">S.No</th>
               <th scope="col">User Name</th>
               <th scope="col">ErrorMessage</th>
-              <th scope="col">Error Rows</th>
+
+              <th scope="col">ErrorRowNumber</th>
+
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let child of logChildren;let i = index">
               <th scope="row">{{ i + 1 }}</th>
-              <td>{{ logParent.user_Id }}</td>
+              <td>admin@gmail.com</td>
               <td>{{ child.errorMessage }}</td>
               <td>{{ child.errorRowNumber}}</td>
             </tr>

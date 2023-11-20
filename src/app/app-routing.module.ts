@@ -4,6 +4,7 @@
 import { DisplaytableNameComponent } from './displaytable-name/displaytable-name.component';
 import { CreateEntityComponent } from './create-entity/create-entity.component';
 import { LogDetailsComponent } from './log-details/log-details.component';
+import { EditEntityComponent } from './edit-entity/edit-entity.component';
 
 
 
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'entity-list', component: DisplaytableNameComponent }, 
   { path: 'entity/:entityName', component: EntityDetailsComponent },
   {path:'createentity',component:CreateEntityComponent},
-  {path:'Log-details',component:LogDetailsComponent}
+  {path:'Log-details',component:LogDetailsComponent},
+  {path:'Edit-Entity/:entityName',component:EditEntityComponent}
 ];
 
 

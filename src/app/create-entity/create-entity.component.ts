@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColumnInputServiceService } from '../Services/column-input-service.service';
 import { ToastrService } from '../Services/ToastrService';
@@ -36,6 +36,7 @@ export class CreateEntityComponent {
   selectedColumnIds: any;
   firstColumnId: number | null = null; // Initialize firstColumnId with a default value of null
   cdr: any;
+  minMaxDatesSelected: boolean = false;
   constructor( private toastrService : ToastrService,
               private router: Router,
               private  columnInputService: ColumnInputServiceService,
@@ -163,14 +164,21 @@ updateSelectedId(index: number) {
       console.log(this.selectedEntity2Index)
     }
   }
-onMinDateChange(event: Event, row: any): void {
-    const inputElement = event.target as HTMLInputElement;
-    this.minDate = inputElement.value;
+  preventInput(event: Event): void {
+    event.preventDefault();
 }
-
+onMinDateChange(event: Event, row: any): void {
+  const inputElement = event.target as HTMLInputElement;
+  this.minDate = inputElement.value;
+  this.updateMinMaxDatesStatus();
+}
 onMaxDateChange(event: Event, row: any): void {
-    const inputElement = event.target as HTMLInputElement;
-    this.maxDate = inputElement.value;
+  const inputElement = event.target as HTMLInputElement;
+  this.maxDate = inputElement.value;
+  this.updateMinMaxDatesStatus();
+}
+updateMinMaxDatesStatus(): void {
+  this.minMaxDatesSelected = !!this.minDate && !!this.maxDate;
 }
 onDataTypeChange(row: any) {
   if (row.datatype === 'int' || row.datatype === 'boolean' || row.datatype === 'char' ||
@@ -195,8 +203,6 @@ closeModal() {
       this.newEntity.columns.splice(index, 1);
     }
   }
-  
-  // Function to check if a row is valid
   rowValid(index: number): boolean {
     const row = this.newEntity.columns[index];
     return !!row.columnName && !!row.datatype;
@@ -211,7 +217,6 @@ closeModal() {
     }
     return false; 
   }
-
      onInput(event: Event): void {
         const inputElement = event.target as HTMLInputElement;
         const inputValue = inputElement.value;
@@ -222,7 +227,6 @@ closeModal() {
             inputElement.value = '';
         }
     }
-
   // Function to check if there's exactly one primary key
   hasExactlyOnePrimaryKey(): boolean {
     let primaryKeyCount = 0;
@@ -301,14 +305,13 @@ validateNumeric(event: any) {
   }
   
 submit() {
+  console.log('Form is valid:', this.entityForm.valid);
   const errorMessages: string[] = [];
   const reservedKeywordFound = this.isReservedKeyword(this.newEntity.entityname) || this.newEntity.columns.some((column: { columnName: string; }) => this.isReservedKeyword(column.columnName));
-
   if (reservedKeywordFound) {
     this.toastrService.showError('Entity or column name cannot be a reserved keyword.');
     return; 
   }
-
   for (const column of this.newEntity.columns) {
     if (column.datatype === 'int' && column.MaxRange !== null && column.MinRange !== null && column.MinRange !== '' && column.MaxRange !== '') {
         const minRange = parseInt(column.MinRange);

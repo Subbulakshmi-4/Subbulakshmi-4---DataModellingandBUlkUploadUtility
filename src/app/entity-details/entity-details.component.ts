@@ -22,6 +22,8 @@ export class EntityDetailsComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef; // Add this line
   entityName!: string;
   columns: TableColumnDTO[] = [];
+   defaultValueForEntityId: number = 0; // Replace 0 with your desired default integer value
+
   // logDetails: LogDetailsDTO = new LogDetailsDTO();
 
   constructor(private route: ActivatedRoute, private columnsService: ColumnsService, private router: Router, private toastrService: ToastrService,  private sharedDataService: SharedDataService   ) {}
@@ -35,13 +37,14 @@ export class EntityDetailsComponent implements OnInit {
     this.columnsService.getColumnsForEntity(this.entityName).subscribe(
       (data: any) => {
         if (data.isSuccess) {
+          console.log("Data Before Mapping",data)
           this.columns = data.result.map((columnData: any) => {
-            console.log('API Response - isPrimaryKey:', columnData.columnPrimaryKey);
+          console.log("columndata",columnData)
             const column: TableColumnDTO = {
               entityname: this.entityName,
               id: columnData.id,
               entityColumnName: columnData.entityColumnName,
-              entityId:columnData.entityid,
+              entityId: columnData.entityId,
               datatype: columnData.datatype,
               length: columnData.length,
               minLength:columnData.minLength,
@@ -56,13 +59,15 @@ export class EntityDetailsComponent implements OnInit {
               ColumnPrimaryKey: columnData.columnPrimaryKey, 
               True: columnData.true, 
               False: columnData.false, 
-              ListEntityId:columnData.ListEntityId,
-              ListEntityKey:columnData.ListEntityKey,
-              ListEntityValue:columnData.ListEntityValue
+              ListEntityId:columnData.listEntityId,
+              ListEntityKey:columnData.listEntityKey,
+              ListEntityValue:columnData.listEntityValue
+              
             };
-            console.log(column);
+            console.log("column",column);
             return column;
           });
+          
         } else {
           console.error('Error fetching columns data:', data.errorMessage);
           // Handle the error as needed
@@ -74,8 +79,7 @@ export class EntityDetailsComponent implements OnInit {
       }
     );
 
-    console.log(this.columns)
-
+    console.log( "value",this.columns)
     this.setPage(this.currentPage); // Initialize the first page
   }
   
@@ -222,13 +226,14 @@ export class EntityDetailsComponent implements OnInit {
     this.columnsService.getColumnsForEntity(this.entityName).subscribe(
       (data: any) => {
         if (data.isSuccess) {
+          console.log('fetch data', data);
           this.columns = data.result.map((columnData: any) => {
-            console.log('API Response - isPrimaryKey:', columnData.columnPrimaryKey);
+            console.log('fetch columndata', columnData);
             const column: TableColumnDTO = {
               entityname: this.entityName,
               id: columnData.id,
               entityColumnName: columnData.entityColumnName,
-              entityId: columnData.entityid,
+              entityId: columnData.entityid !== undefined ? columnData.entityid : this.defaultValueForEntityId,
               datatype: columnData.datatype,
               length: columnData.length,
               minLength:columnData.minLength,
@@ -243,10 +248,11 @@ export class EntityDetailsComponent implements OnInit {
               ColumnPrimaryKey: columnData.columnPrimaryKey, 
               True: columnData.true, 
               False: columnData.false,
-              ListEntityId:columnData.ListEntityId,
-              ListEntityKey:columnData.ListEntityKey,
-              ListEntityValue:columnData.ListEntityValue
+              ListEntityId:columnData.listEntityId,
+              ListEntityKey:columnData.listEntityKey,
+              ListEntityValue:columnData.listEntityValue
             };
+            console.log("fetch column",column)
             return column;
           });
         } else {

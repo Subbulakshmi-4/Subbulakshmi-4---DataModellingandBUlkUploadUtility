@@ -305,7 +305,6 @@ validateNumeric(event: any) {
   }
   
 submit() {
-  console.log('Form is valid:', this.entityForm.valid);
   const errorMessages: string[] = [];
   const reservedKeywordFound = this.isReservedKeyword(this.newEntity.entityname) || this.newEntity.columns.some((column: { columnName: string; }) => this.isReservedKeyword(column.columnName));
   if (reservedKeywordFound) {
@@ -344,15 +343,14 @@ submit() {
     }
   }
 
-  if(!this.isEntityNameValid()){
-    errorMessages.push('Entity Name pattern is invalid');
-    this.toastrService.showError('Entity Name patern is invalid');
-  }
-
   if (!this.newEntity.entityname) {
     errorMessages.push('Entity Name is required.');
     this.toastrService.showError('Entity Name is required.');
-  }
+} else if (!this.isEntityNameValid()) {
+    errorMessages.push('Entity Name pattern is invalid');
+    this.toastrService.showError('Entity Name pattern is invalid');
+}
+
 
   if (this.hasDuplicateColumnNames()) {
     errorMessages.push('Duplicate column names are not allowed.');

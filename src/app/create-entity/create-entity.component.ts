@@ -123,7 +123,7 @@ onListValueSelected(entityName: string, rowIndex: number) {
       // Fetch columns for the selected entity
       this.fetchSelectedEntityColumns(entityName);
       // Update the row's selectedEntity property if needed
-      this.newEntity.columns[rowIndex].selectedEntity = entityName;
+     // this.newEntity.columns[rowIndex].selectedEntity = entityName;
    });
 }
 selectedEntity2Indexs: number | null = null;
@@ -142,8 +142,10 @@ updateSelectedId(index: number) {
     this.columnsService.getColumnsForEntity(entityName).subscribe(
       (data: any) => {
         if (data && data.result) {
+          console.log("data", data)
           this.selectedEntityColumns = data.result.map((column: any) => column.entityColumnName);
           this.selectedEntity = data.result[0].entityId; 
+          console.log("id", this.selectedEntity)
           this.selectedColumnIds = data.result.map((column: any) => column.id);
            this.firstColumnId = this.selectedColumnIds[0];
           this.entityColumnNames1 = this.selectedEntityColumns;

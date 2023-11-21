@@ -17,7 +17,7 @@ export interface TableColumnDTO {
   ColumnPrimaryKey: boolean; 
   True: string; 
   False: string; 
-  ListEntityId:string,
-  ListEntityKey:string,
-  ListEntityValue:string
+  ListEntityId:number;
+  ListEntityKey:number;
+  ListEntityValue:number;
 }

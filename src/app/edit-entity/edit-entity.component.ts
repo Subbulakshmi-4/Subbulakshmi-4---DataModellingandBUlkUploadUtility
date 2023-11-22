@@ -288,7 +288,6 @@ validateMinMax(row: any) {
       row.minLength = null;
       row.maxLength = null;
   }
-  // Additional validation logic if needed.
 }
 validateMinMaxRange(row: any) {
   if (row.minRange > row.maxRange) {
@@ -340,7 +339,7 @@ validateDefaultDate(row: any) {
     );
   }
   
-  onValueSelected() {
+onValueSelected() {
     if (this.selectedEntity2 !== null) {
       this.selectedEntity2Index = this.entityColumnNames2.indexOf(this.selectedEntity2);
       console.log(this.selectedEntity2Index)

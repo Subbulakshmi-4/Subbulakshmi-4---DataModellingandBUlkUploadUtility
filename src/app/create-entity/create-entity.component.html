@@ -293,22 +293,23 @@
                       <option value="false">False</option>
                     </select>
                     <div class="input-group">
-                       <!-- Default Date Input -->
-<div class="input-group">
-    <label for="defaultValue{{i}}">Default Date</label>
-    <input
-        *ngIf="row.datatype === 'date'"
-        type="date"
-        [(ngModel)]="row.defaultValue"
-        id="defaultValue{{i}}"
-        name="defaultValue{{i}}"
-        [min]="minDate"
-        [max]="maxDate"
-        (change)="onDefaultValueInputChange($event, row)"
-        [disabled]="!minMaxDatesSelected"
-        (keydown)="preventInput($event)" (keypress)="preventInput($event)"
-    />
-</div>
+                      <!-- Default Date Input -->
+                      <div class="input-group">
+                        <label for="defaultValue{{ i }}">Default Date</label>
+                        <input
+                          *ngIf="row.datatype === 'date'"
+                          type="date"
+                          [(ngModel)]="row.defaultValue"
+                          id="defaultValue{{ i }}"
+                          name="defaultValue{{ i }}"
+                          [min]="minDate"
+                          [max]="maxDate"
+                          (change)="onDefaultValueInputChange($event, row)"
+                          [disabled]="!minMaxDatesSelected"
+                          (keydown)="preventInput($event)"
+                          (keypress)="preventInput($event)"
+                        />
+                      </div>
 
                       <!-- <input *ngIf="row.datatype === 'date'" type="date" [(ngModel)]="row.defaultValue" id="defaultValue{{i}}" name="defaultValue{{i}}" [min]="minDate" [max]="maxDate" (keydown)="preventInput($event)" (keypress)="preventInput($event)"/> -->
                     </div>

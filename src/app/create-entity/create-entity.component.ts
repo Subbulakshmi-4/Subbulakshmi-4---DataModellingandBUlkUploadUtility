@@ -52,7 +52,7 @@ export class CreateEntityComponent {
     columns: [
       {
         columnName: '',
-        datatype: 'string',
+        datatype: 'char',
         length: 0,
         isNullable: false,
         true:'',
@@ -77,7 +77,7 @@ export class CreateEntityComponent {
   addNewRow() {
     this.newEntity.columns.push({
       columnName: '',
-      datatype: 'string',
+      datatype: 'char',
       length: 0,
       isNullable: false,
       true:'',
@@ -182,17 +182,25 @@ onMaxDateChange(event: Event, row: any): void {
 updateMinMaxDatesStatus(): void {
   this.minMaxDatesSelected = !!this.minDate && !!this.maxDate;
 }
-onDataTypeChange(row: any) {
+
+onDataTypeChange(row: any): void {
+  row.length = "";
+  this.showModal = false;
+  this.showAdditionalInputs = false;
+  if (row.datatype === 'boolean') {
+    this.showModal = true;
+    this.showAdditionalInputs = true;
+  }
   if (row.datatype === 'int' || row.datatype === 'boolean' || row.datatype === 'char' ||
       row.datatype === 'date' || row.datatype === 'bytea' || row.datatype === 'timestamp') {
       row.length = "";
     }
-    if(row.datatype === 'boolean' ){
-      this.showModal = true;
-      this.showAdditionalInputs = true;
+    if (row.datatype === 'string' || row.datatype === 'int') {
+      row.enableprimaryKey = true; // Enable the Primary Key checkbox
+      row.primaryKey = false; // Reset the Primary Key checkbox
     } else {
-      this.showModal = false;
-      this.showAdditionalInputs = false;
+      row.enableprimaryKey = false; // Disable the Primary Key checkbox for other data types
+      row.primaryKey = false; // Reset the Primary Key checkbox
     }
 }
 

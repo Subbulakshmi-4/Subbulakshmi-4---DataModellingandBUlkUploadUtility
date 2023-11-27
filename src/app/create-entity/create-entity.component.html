@@ -236,9 +236,7 @@
                     (input)="onInput($event)"
                   />
                 </td>
-
                 <td class="center-content">
-                  <!-- Toggle Switch for Not Null -->
                   <label class="toggle-switch">
                     <input
                       type="checkbox"
@@ -248,6 +246,7 @@
                     <span class="slider"></span>
                   </label>
                 </td>
+
                 <td class="center-content">
                   <!-- Toggle Switch for Primary Key -->
                   <label class="toggle-switch">
@@ -255,7 +254,7 @@
                       type="checkbox"
                       [(ngModel)]="row.primaryKey"
                       name="primaryKey{{ i }}"
-                      (change)="onPrimaryKeyChange($event, row)"
+                      [disabled]="!row.enableprimaryKey"
                     />
                     <span class="slider"></span>
                   </label>
@@ -310,7 +309,6 @@
                           (keypress)="preventInput($event)"
                         />
                       </div>
-
                       <!-- <input *ngIf="row.datatype === 'date'" type="date" [(ngModel)]="row.defaultValue" id="defaultValue{{i}}" name="defaultValue{{i}}" [min]="minDate" [max]="maxDate" (keydown)="preventInput($event)" (keypress)="preventInput($event)"/> -->
                     </div>
                     <br />

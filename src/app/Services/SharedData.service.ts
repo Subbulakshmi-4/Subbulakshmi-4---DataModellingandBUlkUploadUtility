@@ -5,12 +5,14 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class SharedDataService {
+  
   constructor(private http: HttpClient) {}
   private logDetailsData = new BehaviorSubject<any>(null);
   data: any[] = [];
   private EditApiURL = 'https://localhost:7093';
   private ListOfTableURL = 'https://localhost:7093/api/entity/has-values';
   private EntityIdURL = 'https://localhost:7093';
+  private baseUrl= 'https://localhost:7093';
   getLogDetailsData() {
     console.log(this.data);
     return this.logDetailsData.asObservable();
@@ -33,6 +35,10 @@ export class SharedDataService {
   }
   getEntityIdByName(entityName: string): Observable<any> {
     const url = `${this.EntityIdURL}/getEntityIdByName/${entityName}`;
+    return this.http.get(url);
+  }
+  getEntityData(listEntityId: number, listEntityKey: number, listEntityValue: number): Observable<any> {
+    const url = `${this.baseUrl}/getEntityData?listEntityId=${listEntityId}&listEntityKey=${listEntityKey}&listEntityValue=${listEntityValue}`;
     return this.http.get(url);
   }
 }

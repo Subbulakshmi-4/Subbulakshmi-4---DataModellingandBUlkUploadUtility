@@ -208,7 +208,6 @@ onDataTypeChange(row: any): void {
       row.false = '';
     }
 }
-
 closeModal() {
   this.showModal = false;
 }

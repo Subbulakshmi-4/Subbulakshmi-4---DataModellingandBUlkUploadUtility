@@ -308,6 +308,7 @@
                       *ngIf="row.datatype === 'boolean'"
                       class="additional-inputs"
                     >
+                    <div *ngIf="row.datatype === 'boolean'">
                       <div class="input-group">
                         <input
                           type="text"
@@ -328,6 +329,7 @@
                           [disabled]="row.primaryKey"
                         />
                       </div>
+                    </div>
                     </div>
                     <div
                       *ngIf="row.datatype === 'listofvalue'"

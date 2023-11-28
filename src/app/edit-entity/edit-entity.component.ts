@@ -45,7 +45,8 @@ export class EditEntityComponent implements OnInit {
   entityColumnNames2: string[] = []; // Array for the second dropdown
   selectedEntity2: string | null = null;
   selectedEntity2Index: number | null = null;
-  selectedKeyId: number | null = null;
+  selectedEntityKeyId: number | null = null;
+  selectedKeyvalueId :number | null = null;
   selectedColumnIds: any;
   firstColumnId: number | null = null; // Initialize firstColumnId with a default value of null
   cdr: any;
@@ -130,7 +131,6 @@ export class EditEntityComponent implements OnInit {
                 }
               );
           });
-
           // Rest of your code
           this.columns = data.result.map((columnData: any) => {
             const column: TableColumnDTO = {
@@ -184,10 +184,10 @@ export class EditEntityComponent implements OnInit {
     this.sharedDataService.getEntityIdByName(entityName).subscribe(
       (response: any) => {
         if (response.isSuccess) {
-          this.selectedKeyId = response.result;
-          console.log(this.selectedKeyId);
+          this.selectedEntityKeyId = response.result;
+          console.log(this.selectedEntityKeyId);
           this.columns.forEach((column) => {
-            column.entityId = this.selectedKeyId || 0;
+            column.entityId = this.selectedEntityKeyId || 0;
           });
         } else {
           console.error('Error fetching entityId:', response.errorMessage);
@@ -274,7 +274,7 @@ export class EditEntityComponent implements OnInit {
         dateMaxValue: '',
         ListEntityId: this.selectedEntity,
         ListEntityKey: this.firstColumnId,
-        ListEntityValue: this.selectedKeyId,
+        ListEntityValue: this.selectedKeyvalueId,
       },
     ],
   };
@@ -331,10 +331,10 @@ export class EditEntityComponent implements OnInit {
 
   updateSelectedId(index: number) {
     if (index !== null && index >= 0 && index < this.selectedColumnIds.length) {
-      this.selectedKeyId = this.selectedColumnIds[index];
-      console.log(this.selectedKeyId);
+      this.selectedKeyvalueId = this.selectedColumnIds[index];
+      console.log(this.selectedKeyvalueId);
     } else {
-      this.selectedKeyId = null; // Handle the case when the index is out of range
+      this.selectedKeyvalueId = null; // Handle the case when the index is out of range
     }
   }
   validateMinMax(row: any) {
@@ -695,12 +695,12 @@ export class EditEntityComponent implements OnInit {
         dateMaxValue: column.dateMaxValue,
         ListEntityId: parseInt(this.selectedEntity) || 0,
         ListEntityKey: this.firstColumnId || 0,
-        ListEntityValue: this.selectedKeyId || 0,
+        ListEntityValue: this.selectedKeyvalueId || 0,
       }));
 
       const backendRequest = {
         entityName: this.entityName,
-        entityId: this.selectedKeyId || 0, // Include EntityId in the request
+        entityId: this.selectedEntityKeyId || 0, // Include EntityId in the request
         update: {
           propertiesList: filteredColumns,
         },

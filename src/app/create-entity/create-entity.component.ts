@@ -203,7 +203,6 @@ onDataTypeChange(row: any): void {
       row.primaryKey = false; // Reset the Primary Key checkbox
     }
 }
-
 closeModal() {
   this.showModal = false;
 }

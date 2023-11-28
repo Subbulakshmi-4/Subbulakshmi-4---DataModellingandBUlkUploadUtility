@@ -203,8 +203,11 @@ onDataTypeChange(row: any): void {
       row.enableprimaryKey = false; // Disable the Primary Key checkbox for other data types
       row.primaryKey = false; // Reset the Primary Key checkbox
     }
+    if (row.datatype !== 'boolean') {
+      row.true = '';
+      row.false = '';
+    }
 }
-
 closeModal() {
   this.showModal = false;
 }
@@ -353,7 +356,13 @@ submit() {
       this.toastrService.showError('Max Date must be after Min Date.');
     }
   }
-
+  for (let i = 0; i < this.newEntity.columns.length; i++) {
+    const row = this.newEntity.columns[i];
+    if (row.datatype === 'boolean') {
+      const trueValue = row.true;
+      const falseValue = row.false;
+    }
+  }
   if (!this.newEntity.entityname) {
     errorMessages.push('Entity Name is required.');
     this.toastrService.showError('Entity Name is required.');

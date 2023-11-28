@@ -64,35 +64,28 @@
               >
                 <td class="center-content">
                   <input
-                    type="text"
-                    [(ngModel)]="row.columnName"
-                    placeholder="Column Name"
-                    name="columnName{{ i }}"
-                    required
-                    pattern="^[a-zA-Z][a-zA-Z0-9]*$"
-                    #columnNameInput="ngModel"
-                  />
-                  <!-- Validation error messages -->
-                  <div
-                    *ngIf="
-                      columnNameInput.invalid &&
-                      (columnNameInput.dirty || columnNameInput.touched)
-                    "
-                  >
-                    <div
-                      class="error"
-                      *ngIf="columnNameInput?.errors?.['required']"
-                    >
-                      Column Name is required.
-                    </div>
-                    <div
-                      class="error"
-                      *ngIf="columnNameInput?.errors?.['pattern']"
-                    >
-                      It should start with a letter and contain only letters and
-                      numbers.
-                    </div>
+                  type="text"
+                  [(ngModel)]="row.columnName"
+                  placeholder="Column Name"
+                  name="columnName{{ i }}"
+                  required
+                  pattern="^[A-Z][a-zA-Z0-9]*$"
+                  #columnNameInput="ngModel"
+                />
+                <!-- Validation error messages -->
+                <div
+                  *ngIf="
+                    columnNameInput.invalid &&
+                    (columnNameInput.dirty || columnNameInput.touched)
+                  "
+                >
+                  <div class="error" *ngIf="columnNameInput?.errors?.['required']">
+                    Column Name is required.
                   </div>
+                  <div class="error" *ngIf="columnNameInput?.errors?.['pattern']">
+                    It should start with an uppercase letter and contain only letters and numbers.
+                  </div>
+                </div>
                 </td>
                 <td class="center-content">
                   <select
@@ -294,7 +287,6 @@
                     <div class="input-group">
                       <!-- Default Date Input -->
                       <div class="input-group">
-                        <label for="defaultValue{{ i }}">Default Date</label>
                         <input
                           *ngIf="row.datatype === 'date'"
                           type="date"
@@ -347,8 +339,9 @@
                         (change)="onListValueSelected(selectedEntity, i)"
                         [name]="'selectedEntity' + i"
                         [disabled]="row.primaryKey"
+                        name="selectedEntity{{i}}"
                       >
-                        <option>{{ SelectedEntityName }}</option>
+                        <!-- <option>{{ SelectedEntityName }}</option> -->
                         <option value="">Select an entity</option>
                         <option
                           *ngFor="let value of listOfValues"
@@ -361,7 +354,6 @@
                         style="position: relative; inset-block-start: -28px"
                         >{{ SelectedEntityName }}</label
                       >
-                      <!-- First Dropdown -->
                       <div
                         *ngIf="entityColumnNames1.length > 0"
                         class="additional-inputs1"
@@ -369,7 +361,7 @@
                         <label>Key</label>
                         <input
                           type="text"
-                          name="selectedEntity1"
+                          name="selectedEntity1{{i}}"
                           value="{{ entityColumnNames1[0] }}"
                           readonly
                         />
@@ -380,7 +372,7 @@
                       >
                         <label>Value</label>
                         <select
-                          name="selectedEntity2"
+                          name="selectedEntity2{{i}}"
                           [(ngModel)]="selectedEntity2Index"
                           (change)="
                             selectedEntity2Index !== null &&

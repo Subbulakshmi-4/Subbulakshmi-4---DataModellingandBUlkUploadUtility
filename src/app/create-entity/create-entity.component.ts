@@ -66,9 +66,9 @@ export class CreateEntityComponent {
         MaxRange:'',
         dateminValue:"",
         datemaxValue:"",
-        ListEntityId:this.selectedEntity,
-        ListEntityKey:this.firstColumnId,
-        ListEntityValue:this.selectedKeyId
+        ListEntityId:0,
+        ListEntityKey:0,
+        ListEntityValue:0
       }
     ]
   };
@@ -91,11 +91,12 @@ export class CreateEntityComponent {
       MaxRange:'',
       dateminValue:"",
       datemaxValue:"",
-      ListEntityId:this.selectedEntity,
-      ListEntityKey:this.firstColumnId,
-      ListEntityValue:this.selectedKeyId
+      ListEntityId:0,
+      ListEntityKey:0,
+      ListEntityValue:0
     });
     this.entityForm.form.updateValueAndValidity();
+    console.log(this.newEntity)
   }
   ngOnInit(): void {
     this.entitylistService.getEntityList().subscribe(

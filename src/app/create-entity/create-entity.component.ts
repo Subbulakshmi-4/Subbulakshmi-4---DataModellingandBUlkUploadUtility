@@ -11,6 +11,7 @@ import { NgZone } from '@angular/core';
 
 
 
+
 @Component({
   selector: 'app-create-entity',
   templateUrl: './create-entity.component.html',
@@ -102,6 +103,14 @@ export class CreateEntityComponent {
     console.log(this.newEntity)
   }
   ngOnInit(): void {
+    const storedFormData = localStorage.getItem('formData');
+    if (storedFormData) {
+      this.newEntity = JSON.parse(storedFormData);
+      const deletionTimeout = 10 * 60 * 1000; 
+      setTimeout(() => {
+        localStorage.removeItem('formData');
+      }, deletionTimeout);
+    }
     this.entitylistService.getEntityList().subscribe(
       (data: any) => {
         this.listOfValues = data.result;
@@ -323,6 +332,7 @@ validateNumeric(event: any) {
   }
   
 submit() {
+  localStorage.setItem('formData', JSON.stringify(this.newEntity));
   const errorMessages: string[] = [];
   const reservedKeywordFound = this.isReservedKeyword(this.newEntity.entityname) || this.newEntity.columns.some((column: { columnName: string; }) => this.isReservedKeyword(column.columnName));
   if (reservedKeywordFound) {
@@ -436,6 +446,7 @@ submit() {
       this.toastrService.showError('Error creating table: ' + error);
     }
   );
+  localStorage.removeItem('formData');
   }
 }
 }

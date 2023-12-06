@@ -93,6 +93,7 @@
                                                     id="minLength{{i}}"
                                                     (change)="onPrimaryKeyChange($event, row)"
                                                     name="minLength{{i}}"
+                                                    (change)="validateMinMax(row)"
                                                 />
                                             </div>
                                             <br>
@@ -106,7 +107,7 @@
                                                     id="maxLength{{i}}"
                                                     (change)="onPrimaryKeyChange($event, row)"
                                                     name="maxLength{{i}}"
-                                                    (ngModelChange)="validateMinMax(row)"
+                                                    (change)="validateMinMax(row)"
                                                 />
                                             </div>
                                         </td>
@@ -181,23 +182,6 @@
                                             </div>
                                         </div>
                                         <h6>Exist EntityValues</h6>
-                                        <!-- <div *ngIf="row.datatype === 'listofvalue'" class="additional-inputs">
-                                            <label>Select Entity Key</label>
-                                           
-                                            <select [(ngModel)]="EntityentityName"  [(ngModel)]="selectedEntity"  name="EntityentityName">
-                                                <option *ngFor="let value of listOfValues" [value]="EntityentityName">{{ EntityentityName}}</option>
-                                              </select>
-                                          
-                                            <label>Key</label>
-                                            <select [(ngModel)]="entityKeyColumnName" name="entityKeyColumnName">
-                                                <option  [value]="entityKeyColumnName">{{ entityKeyColumnName }}</option>
-                                              </select>
-                                          
-                                            <label>Value</label>
-                                            <select [(ngModel)]="entityValueColumnName" name="entityValueColumnName">
-                                              <option [value]="entityValueColumnName">{{ entityValueColumnName }}</option>
-                                            </select>
-                                        </div> -->
                                         <div *ngIf="row.datatype === 'listofvalue'" class="additional-inputs">
                                             <label>Select Entity Key</label>
                                             <input [(ngModel)]="EntityentityName" name="EntityentityName" type="text" placeholder="Enter Entity Name" readonly>

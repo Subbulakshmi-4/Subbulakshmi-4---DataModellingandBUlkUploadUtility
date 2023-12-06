@@ -74,6 +74,7 @@ export class EditEntityComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+  
     this.route.params.subscribe((params) => {
       this.entityName = params['entityName'];
       console.log(this.entityName);
@@ -337,24 +338,36 @@ export class EditEntityComponent implements OnInit {
       this.selectedKeyvalueId = null; // Handle the case when the index is out of range
     }
   }
-  validateMinMax(row: any) {
-    if (row.minLength > row.maxLength) {
-      this.toastrService.showError('Min value must be smaller than Max value');
-      row.minLength = null;
-      row.maxLength = null;
-    }
-  }
   showDropdowns() {
     this.initiallyHidden = false;
   }
   showSecondSet() {
     this.secondSetVisible = true;
   }
+  validateMinMax(row: any) {
+    if (row.minLength >= row.maxLength) {
+      this.toastrService.showError('Min value must be smaller than Max value');
+      row.minLength = null;
+      row.maxLength = null;
+    }
+    else if(row.minLength === row.maxLength){
+      this.toastrService.showError('Minimum length must be different from Maximum length')
+      row.minLength = null;
+      row.maxLength = null;
+    }
+  }
   validateMinMaxRange(row: any) {
-    if (row.minRange > row.maxRange) {
+    if (row.minRange >= row.maxRange) {
       this.toastrService.showError(
         'Min value must be smaller than Max value',
         'Validation Error'
+      );
+      row.minRange = null;
+      row.maxRange = null;
+    }
+    else if (row.minRange === row.maxRange) {
+      this.toastrService.showError(
+        'Minimum Range must be different from Maximum Range'
       );
       row.minRange = null;
       row.maxRange = null;

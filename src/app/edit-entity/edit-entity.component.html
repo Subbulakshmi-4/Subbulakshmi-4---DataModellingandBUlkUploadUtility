@@ -95,6 +95,7 @@
                                                     name="minLength{{i}}"
                                                 />
                                             </div>
+                                            <br>
                                             <div class="input-group">
                                                 <input
                                                     type="number"
@@ -114,6 +115,7 @@
                                     <div class="input-group">
                                         <input type="number" [(ngModel)]="row.minRange" id="minRange{{i}}" placeholder="minRange" (keydown)="validateNumeric($event)" (input)="onInput($event)" (change)="validateMinMaxRange(row)" name="minValue{{i}}" />
                                     </div>
+                                    <br>
                                     <div class="input-group">
                                         <input type="number" [(ngModel)]="row.maxRange" id="maxRange{{i}}" placeholder="maxRange" (keydown)="validateNumeric($event)" (input)="onInput($event)" (change)="validateMinMaxRange(row)" name="maxValue{{i}}" />
                                     </div>
@@ -124,6 +126,7 @@
                                         <label for="minValue{{i}}">Min Date</label>
                                         <input *ngIf="row.datatype === 'date'" type="date" [(ngModel)]="row.dateMinValue" id="minValue{{i}}" name="minValue{{i}}" [min]="minDate" [max]="maxDate" (change)="onMinDateChange($event, row)" />
                                     </div>
+                                    <br>
                                     <!-- Max Date Input -->
                                     <div class="input-group">
                                         <label for="maxValue{{i}}">Max Date</label>
@@ -177,8 +180,8 @@
                                                 <input type="text" placeholder="False" [(ngModel)]="row.False" id="input2" name="False{{i}}" [disabled]="row.ColumnPrimaryKey" />
                                             </div>
                                         </div>
-                                        <h6>UpdateEntity</h6>
-                                        <div *ngIf="row.datatype === 'listofvalue'" class="additional-inputs">
+                                        <h6>Exist EntityValues</h6>
+                                        <!-- <div *ngIf="row.datatype === 'listofvalue'" class="additional-inputs">
                                             <label>Select Entity Key</label>
                                            
                                             <select [(ngModel)]="EntityentityName"  [(ngModel)]="selectedEntity"  name="EntityentityName">
@@ -194,9 +197,20 @@
                                             <select [(ngModel)]="entityValueColumnName" name="entityValueColumnName">
                                               <option [value]="entityValueColumnName">{{ entityValueColumnName }}</option>
                                             </select>
+                                        </div> -->
+                                        <div *ngIf="row.datatype === 'listofvalue'" class="additional-inputs">
+                                            <label>Select Entity Key</label>
+                                            <input [(ngModel)]="EntityentityName" name="EntityentityName" type="text" placeholder="Enter Entity Name" readonly>
+                                        
+                                            <label>Key</label>
+                                            <input [(ngModel)]="entityKeyColumnName" name="entityKeyColumnName" type="text" placeholder="Enter Key" readonly>
+                                        
+                                            <label>Value</label>
+                                            <input [(ngModel)]="entityValueColumnName" name="entityValueColumnName" type="text" placeholder="Enter Value" readonly>
                                         </div>
+                                        
                                         <br>
-                                        <!-- <h6>UpdateEntity</h6>
+                                        <h6>UpdateEntity</h6>
                                         <div *ngIf="row.datatype === 'listofvalue'" class="additional-inputs">
                                             <label>SelectEntity</label>
                                             <select [(ngModel)]="selectedEntity" (change)="onListValueSelected(selectedEntity, i)" [name]="'selectedEntity' + i" [disabled]="row.ColumnPrimaryKey">
@@ -220,10 +234,6 @@
                                               </select>
                                             </div>
                                           </div>
-                                          
-                                          
-                                           -->
-                                          
                                     </ng-template>
                                 </td>
                                 <td class="center-content"><input type="text" [(ngModel)]="row.description" placeholder="Description" name="description{{ i }}" />

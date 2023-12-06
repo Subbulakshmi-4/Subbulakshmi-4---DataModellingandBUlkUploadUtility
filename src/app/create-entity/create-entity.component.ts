@@ -5,10 +5,11 @@ import { ToastrService } from '../Services/ToastrService';
 import { NgForm } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColumnsService } from '../Services/Columns.service';
-import { TableColumnDTO } from '../Models/TableColumnDTO.model';
 import { EntityListDto } from '../Models/EntitylistDto.model';
 import { EntitylistService } from '../Services/entitylist.service';
 import { NgZone } from '@angular/core';
+
+
 
 @Component({
   selector: 'app-create-entity',
@@ -37,6 +38,8 @@ export class CreateEntityComponent {
   firstColumnId: number | null = null; // Initialize firstColumnId with a default value of null
   cdr: any;
   minMaxDatesSelected: boolean = false;
+  showPopup: boolean | undefined;
+  
   constructor( private toastrService : ToastrService,
               private router: Router,
               private  columnInputService: ColumnInputServiceService,
@@ -66,9 +69,9 @@ export class CreateEntityComponent {
         MaxRange:'',
         dateminValue:"",
         datemaxValue:"",
-        ListEntityId:this.selectedEntity,
-        ListEntityKey:this.firstColumnId,
-        ListEntityValue:this.selectedKeyId
+        ListEntityId:0,
+        ListEntityKey:0,
+        ListEntityValue:0
       }
     ]
   };
@@ -91,11 +94,12 @@ export class CreateEntityComponent {
       MaxRange:'',
       dateminValue:"",
       datemaxValue:"",
-      ListEntityId:this.selectedEntity,
-      ListEntityKey:this.firstColumnId,
-      ListEntityValue:this.selectedKeyId
+      ListEntityId:0,
+      ListEntityKey:0,
+      ListEntityValue:0
     });
     this.entityForm.form.updateValueAndValidity();
+    console.log(this.newEntity)
   }
   ngOnInit(): void {
     this.entitylistService.getEntityList().subscribe(
@@ -191,6 +195,7 @@ onDataTypeChange(row: any): void {
     this.showModal = true;
     this.showAdditionalInputs = true;
   }
+
   if (row.datatype === 'int' || row.datatype === 'boolean' || row.datatype === 'char' ||
       row.datatype === 'date' || row.datatype === 'bytea' || row.datatype === 'timestamp') {
       row.length = "";
@@ -201,6 +206,10 @@ onDataTypeChange(row: any): void {
     } else {
       row.enableprimaryKey = false; // Disable the Primary Key checkbox for other data types
       row.primaryKey = false; // Reset the Primary Key checkbox
+    }
+    if (row.datatype !== 'boolean') {
+      row.true = '';
+      row.false = '';
     }
 }
 closeModal() {
@@ -351,7 +360,13 @@ submit() {
       this.toastrService.showError('Max Date must be after Min Date.');
     }
   }
-
+  for (let i = 0; i < this.newEntity.columns.length; i++) {
+    const row = this.newEntity.columns[i];
+    if (row.datatype === 'boolean') {
+      const trueValue = row.true;
+      const falseValue = row.false;
+    }
+  }
   if (!this.newEntity.entityname) {
     errorMessages.push('Entity Name is required.');
     this.toastrService.showError('Entity Name is required.');

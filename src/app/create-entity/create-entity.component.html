@@ -101,7 +101,7 @@
                     <option value="date">Date</option>
                     <option value="timestamp">Timestamp</option>
                     <option value="bytea">ByteA</option>
-                    <option value="listofvalue">List of Value</option>
+                    <option  value="listofvalue">List of Value</option>
                   </select>
                 </td>
                 <!-- String MinLenght and MaxLength input -->
@@ -200,7 +200,7 @@
                   *ngIf="
                     row.datatype !== 'int' &&
                     row.datatype !== 'date' &&
-                    row.datatype !== 'string'
+                    row.datatype !== 'string' 
                   "
                 >
                   <input
@@ -215,7 +215,8 @@
                       row.datatype === 'char' ||
                       row.datatype === 'date' ||
                       row.datatype === 'bytea' ||
-                      row.datatype === 'timestamp'
+                      row.datatype === 'timestamp' ||
+                      row.datatype === 'listofvalue'
                     "
                     [class.disabled-input]="
                       row.datatype === 'int' ||
@@ -333,68 +334,67 @@
                     </div>
                     </div>
                     <div
-                      *ngIf="row.datatype === 'listofvalue'"
-                      class="additional-inputs"
+                    *ngIf="row.datatype === 'listofvalue'"
+                    class="additional-inputs"
+                  >
+                    <label>SelectEntity</label>
+                    <select
+                      [(ngModel)]="selectedEntity"
+                      (change)="onListValueSelected(selectedEntity, i)"
+                      [name]="'selectedEntity' + i"
+                      [disabled]="row.primaryKey"
                     >
-                      <label>SelectEntity</label>
-                      <select
-                        [(ngModel)]="selectedEntity"
-                        (change)="onListValueSelected(selectedEntity, i)"
-                        [name]="'selectedEntity' + i"
-                        [disabled]="row.primaryKey"
-                        name="selectedEntity{{i}}"
+                      <!-- <option>{{ SelectedEntityName }}</option> -->
+                      <option value="">Select an entity</option>
+                      <option
+                        *ngFor="let value of listOfValues"
+                        [value]="value.entityName"
                       >
-                        <!-- <option>{{ SelectedEntityName }}</option> -->
-                        <option value="">Select an entity</option>
+                        {{ value.entityName }}
+                      </option>
+                    </select>
+                    <label
+                      style="position: relative; inset-block-start: -28px"
+                      >{{ SelectedEntityName }}</label
+                    >
+                    <div
+                      *ngIf="entityColumnNames1.length > 0"
+                      class="additional-inputs1"
+                    >
+                      <label>Key</label>
+                      <input
+                        type="text"
+                        name="selectedEntity1{{i}}"
+                        value="{{ entityColumnNames1[0] }}"
+                        readonly
+                      />
+                    </div>
+                    <div
+                      *ngIf="entityColumnNames2.length > 0"
+                      class="additional-inputs2"
+                    >
+                      <label>Value</label>
+                      <select
+                        name="selectedEntity2{{i}}"
+                        [(ngModel)]="selectedEntity2Index"
+                        (change)="
+                          selectedEntity2Index !== null &&
+                            updateSelectedId(selectedEntity2Index)
+                        "
+                      >
+                        <option value="-1">Select a column 2</option>
                         <option
-                          *ngFor="let value of listOfValues"
-                          [value]="value.entityName"
+                          *ngFor="
+                            let columnName of entityColumnNames2;
+                            let i = index
+                          "
+                          [value]="i"
                         >
-                          {{ value.entityName }}
+                          {{ columnName }}
                         </option>
                       </select>
-                      <label
-                        style="position: relative; inset-block-start: -28px"
-                        >{{ SelectedEntityName }}</label
-                      >
-                      <div
-                        *ngIf="entityColumnNames1.length > 0"
-                        class="additional-inputs1"
-                      >
-                        <label>Key</label>
-                        <input
-                          type="text"
-                          name="selectedEntity1{{i}}"
-                          value="{{ entityColumnNames1[0] }}"
-                          readonly
-                        />
-                      </div>
-                      <div
-                        *ngIf="entityColumnNames2.length > 0"
-                        class="additional-inputs2"
-                      >
-                        <label>Value</label>
-                        <select
-                          name="selectedEntity2{{i}}"
-                          [(ngModel)]="selectedEntity2Index"
-                          (change)="
-                            selectedEntity2Index !== null &&
-                              updateSelectedId(selectedEntity2Index)
-                          "
-                        >
-                          <option value="-1">Select a column 2</option>
-                          <option
-                            *ngFor="
-                              let columnName of entityColumnNames2;
-                              let i = index
-                            "
-                            [value]="i"
-                          >
-                            {{ columnName }}
-                          </option>
-                        </select>
-                      </div>
                     </div>
+                  </div>
                   </ng-template>
                 </td>
                 <td class="center-content">

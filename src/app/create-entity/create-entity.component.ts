@@ -5,10 +5,11 @@ import { ToastrService } from '../Services/ToastrService';
 import { NgForm } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColumnsService } from '../Services/Columns.service';
-import { TableColumnDTO } from '../Models/TableColumnDTO.model';
 import { EntityListDto } from '../Models/EntitylistDto.model';
 import { EntitylistService } from '../Services/entitylist.service';
 import { NgZone } from '@angular/core';
+
+
 
 @Component({
   selector: 'app-create-entity',
@@ -37,6 +38,8 @@ export class CreateEntityComponent {
   firstColumnId: number | null = null; // Initialize firstColumnId with a default value of null
   cdr: any;
   minMaxDatesSelected: boolean = false;
+  showPopup: boolean | undefined;
+  
   constructor( private toastrService : ToastrService,
               private router: Router,
               private  columnInputService: ColumnInputServiceService,
@@ -192,6 +195,7 @@ onDataTypeChange(row: any): void {
     this.showModal = true;
     this.showAdditionalInputs = true;
   }
+
   if (row.datatype === 'int' || row.datatype === 'boolean' || row.datatype === 'char' ||
       row.datatype === 'date' || row.datatype === 'bytea' || row.datatype === 'timestamp') {
       row.length = "";

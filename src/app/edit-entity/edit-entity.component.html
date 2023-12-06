@@ -95,6 +95,7 @@
                                                     name="minLength{{i}}"
                                                 />
                                             </div>
+                                            <br>
                                             <div class="input-group">
                                                 <input
                                                     type="number"
@@ -114,6 +115,7 @@
                                     <div class="input-group">
                                         <input type="number" [(ngModel)]="row.minRange" id="minRange{{i}}" placeholder="minRange" (keydown)="validateNumeric($event)" (input)="onInput($event)" (change)="validateMinMaxRange(row)" name="minValue{{i}}" />
                                     </div>
+                                    <br>
                                     <div class="input-group">
                                         <input type="number" [(ngModel)]="row.maxRange" id="maxRange{{i}}" placeholder="maxRange" (keydown)="validateNumeric($event)" (input)="onInput($event)" (change)="validateMinMaxRange(row)" name="maxValue{{i}}" />
                                     </div>
@@ -124,6 +126,7 @@
                                         <label for="minValue{{i}}">Min Date</label>
                                         <input *ngIf="row.datatype === 'date'" type="date" [(ngModel)]="row.dateMinValue" id="minValue{{i}}" name="minValue{{i}}" [min]="minDate" [max]="maxDate" (change)="onMinDateChange($event, row)" />
                                     </div>
+                                    <br>
                                     <!-- Max Date Input -->
                                     <div class="input-group">
                                         <label for="maxValue{{i}}">Max Date</label>

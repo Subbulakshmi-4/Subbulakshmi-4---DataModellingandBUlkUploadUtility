@@ -259,8 +259,8 @@
     border: none;
     border-radius: 20px;
     padding: 5px 18px;
-    width: 172px;
-    height: 45px;
+    inline-size: 172px;
+    block-size: 45px;
     font-family: 'Poppins', sans-serif;
     font-weight: bold;
     font-size: 14px;

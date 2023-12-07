@@ -56,7 +56,9 @@ export class EditEntityComponent implements OnInit {
   entityValueColumnName: string = '';
   initiallyHidden: boolean = true;
   secondSetVisible: boolean = false;
-// Inside your subscription block
+  minMaxDatesSelected: boolean = false;
+// In your component
+dateErrorMap: Map<number, boolean> = new Map<number, boolean>();
 
 
  
@@ -322,14 +324,12 @@ export class EditEntityComponent implements OnInit {
             (column) => column.entityColumnName
           );
         });
-      // Fetch columns for the selected entity
       this.fetchSelectedEntityColumns(entityName);
-      // Update the row's selectedEntity property if needed
       this.NewEntity.columns[rowIndex].selectedEntity = entityName;
     });
   }
   selectedEntity2Indexs: number | null = null;
-
+ 
   updateSelectedId(index: number) {
     if (index !== null && index >= 0 && index < this.selectedColumnIds.length) {
       this.selectedKeyvalueId = this.selectedColumnIds[index];
@@ -356,6 +356,32 @@ export class EditEntityComponent implements OnInit {
       row.maxLength = null;
     }
   }
+
+onDataTypeChange(row: any) {
+  if (row.datatype === 'string') {
+      row.minRange = null;
+      row.maxRange = null;
+  } else if (row.datatype === 'int') {
+      row.minLength = null;
+      row.maxLength = null;
+  }
+}
+  // In your component
+  validateDateRange(row: any, index: number) {
+    const minDate = new Date(row.dateMinValue);
+    const maxDate = new Date(row.dateMaxValue);
+    const defaultDate = new Date(row.defaultValue);
+  
+    if (defaultDate < minDate || defaultDate > maxDate) {
+      this.dateErrorMap.set(index, true);
+    } else {
+      this.dateErrorMap.set(index, false);
+    }
+  }
+
+preventInput(event: Event): void {
+  event.preventDefault();
+}
   validateMinMaxRange(row: any) {
     if (row.minRange >= row.maxRange) {
       this.toastrService.showError(
@@ -372,6 +398,8 @@ export class EditEntityComponent implements OnInit {
       row.minRange = null;
       row.maxRange = null;
     }
+    row.minRange = row.minRange ?? 0;
+    row.maxRange = row.maxRange ?? 0;
   }
   calculateDefaultDate(dateMinValue: string, dateMaxValue: string): string {
     const defaultDate = new Date(
@@ -387,6 +415,8 @@ export class EditEntityComponent implements OnInit {
       );
     }
   }
+
+
   validateDefaultDate(row: any) {
     if (row.datatype === 'date') {
       const defaultDate = new Date(row.defaultValue);
@@ -535,7 +565,9 @@ export class EditEntityComponent implements OnInit {
       event.preventDefault();
     }
   }
-
+  updateMinMaxDatesStatus(): void {
+    this.minMaxDatesSelected = !!this.minDate && !!this.maxDate;
+  }
   onDefaultValueInputChange(event: Event, row: any): void {
     const inputElement = event.target as HTMLInputElement;
     if (row.datatype === 'int') {

@@ -181,29 +181,33 @@
                 </td>
                 <!-- Number MinValue and MaxValue input -->
                 <td class="center-content" *ngIf="row.datatype === 'date'">
-                 <!-- Inside the date input fields -->
-                <input
-                *ngIf="row.datatype === 'date'"
-                type="date"
-                [(ngModel)]="row.dateMinValue"
-                id="minValue{{i}}"
-                name="minValue{{i}}"
-                [min]="minDate"
-                [max]="maxDate"
-                (input)="onMinDateChange($event, row); validateDateRange(row, i)"
-                />
-                <div style="margin-block-start: 10px"></div>
-                <!-- ... (similarly for the max date) -->
-                <input
-                *ngIf="row.datatype === 'date'"
-                type="date"
-                [(ngModel)]="row.dateMaxValue"
-                id="maxValue{{i}}"
-                name="maxValue{{i}}"
-                [min]="minDate"
-                [max]="maxDate"
-                (input)="onMaxDateChange($event, row); validateDateRange(row, i)"
-                />
+                  <!-- Inside the date input fields -->
+                  <input
+                    *ngIf="row.datatype === 'date'"
+                    type="date"
+                    [(ngModel)]="row.dateMinValue"
+                    id="minValue{{ i }}"
+                    name="minValue{{ i }}"
+                    [min]="minDate"
+                    [max]="maxDate"
+                    (input)="
+                      onMinDateChange($event, row); validateDateRange(row, i)
+                    "
+                  />
+                  <div style="margin-block-start: 10px"></div>
+                  <!-- ... (similarly for the max date) -->
+                  <input
+                    *ngIf="row.datatype === 'date'"
+                    type="date"
+                    [(ngModel)]="row.dateMaxValue"
+                    id="maxValue{{ i }}"
+                    name="maxValue{{ i }}"
+                    [min]="minDate"
+                    [max]="maxDate"
+                    (input)="
+                      onMaxDateChange($event, row); validateDateRange(row, i)
+                    "
+                  />
                 </td>
                 <td class="center-content">
                   <!-- Toggle Switch for Not Null -->
@@ -217,12 +221,12 @@
                   </label>
                 </td>
                 <td class="center-content">
-                  <!-- Toggle Switch for Primary Key -->
                   <label class="toggle-switch">
                     <input
                       type="checkbox"
                       [(ngModel)]="row.ColumnPrimaryKey"
-                      name="primaryKey{{ i }}"
+                      name="ColumnPrimaryKey{{ i }}"
+                      [disabled]="!isStringOrNumber(row.datatype)"
                       (change)="onPrimaryKeyChange($event, row)"
                     />
                     <span class="slider"></span>
@@ -263,26 +267,26 @@
                       <option value="false">False</option>
                     </select>
                     <div class="input-group">
-                      <!-- <input *ngIf="row.datatype === 'date'" type="date" [(ngModel)]="row.defaultValue" id="defaultValue{{i}}" name="defaultValue{{i}}" [min]="minDate" [max]="maxDate" /> -->
-                      <!-- Inside the date input fields -->
-                     <!-- Inside the date input fields -->
-                    <input
-                    *ngIf="row.datatype === 'date'"
-                    type="date"
-                    [(ngModel)]="row.defaultValue"
-                    id="defaultValue{{ i }}"
-                    name="defaultValue{{ i }}"
-                    [min]="minDate"
-                    [max]="maxDate"
-                    (change)="onDefaultValueInputChange($event, row); validateDateRange(row, i)"
-                    />
-
+                      <input
+                        *ngIf="row.datatype === 'date'"
+                        type="date"
+                        [(ngModel)]="row.defaultValue"
+                        id="defaultValue{{ i }}"
+                        name="defaultValue{{ i }}"
+                        [min]="minDate"
+                        [max]="maxDate"
+                        (change)="
+                          onDefaultValueInputChange($event, row);
+                          validateDateRange(row, i)
+                        "
+                      />
                     </div>
                     <!-- Add this after the date input fields -->
                     <div *ngIf="dateErrorMap.get(i)" class="error">
-                     Default Date must be within the selected Min and Max Dates.
-                     </div>
-  
+                      Default Date must be within the selected Min and Max
+                      Dates.
+                    </div>
+
                     <div style="margin-block-start: 10px"></div>
                     <div
                       *ngIf="row.datatype === 'boolean'"

@@ -99,7 +99,6 @@
                     <option value="boolean">Boolean</option>
                     <option value="char">Char</option>
                     <option value="date">Date</option>
-                    <option value="timestamp">Timestamp</option>
                     <option value="bytea">ByteA</option>
                     <option  value="listofvalue">List of Value</option>
                   </select>
@@ -240,9 +239,7 @@
                     <span class="slider"></span>
                   </label>
                 </td>
-
                 <td class="center-content">
-                  <!-- Toggle Switch for Primary Key -->
                   <label class="toggle-switch">
                     <input
                       type="checkbox"
@@ -309,7 +306,6 @@
                       *ngIf="row.datatype === 'boolean'"
                       class="additional-inputs"
                     >
-
                       <div class="input-group">
                         <input
                           type="text"
@@ -320,7 +316,6 @@
                           [disabled]="row.primaryKey"
                         />
                       </div>
-                      
                       <div class="input-group">
                         <input
                           type="text"

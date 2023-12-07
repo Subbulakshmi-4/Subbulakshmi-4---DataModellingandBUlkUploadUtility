@@ -106,14 +106,17 @@
                     <option value="listofvalue">List of Value</option>
                   </select>
                 </td>
-                <td class="center-content" *ngIf="row.datatype === 'boolean'">
-                  <input disabled />
+                <td class="center-content " *ngIf="row.datatype === 'boolean'">
+                  <input class="booleanDW" disabled />
                 </td>
                 <td class="center-content" *ngIf="row.datatype === 'char'">
-                  <input disabled />
+                  <input class="booleanDW" disabled />
+                </td>
+                <td class="center-content" *ngIf="row.datatype === 'bytea'">
+                  <input class="booleanDW" disabled />
                 </td>
                 <td class="center-content" *ngIf="row.datatype === 'timestamp'">
-                  <input disabled />
+                  <input class="booleanDW" disabled />
                 </td>
                 <td
                   class="center-content"
@@ -182,7 +185,7 @@
                 <!-- Number MinValue and MaxValue input -->
                 <td class="center-content" *ngIf="row.datatype === 'date'">
                   <!-- Inside the date input fields -->
-                  <input
+                  <input class="booleanDW"
                     *ngIf="row.datatype === 'date'"
                     type="date"
                     [(ngModel)]="row.dateMinValue"
@@ -197,6 +200,7 @@
                   <div style="margin-block-start: 10px"></div>
                   <!-- ... (similarly for the max date) -->
                   <input
+                  class="booleanDW"
                     *ngIf="row.datatype === 'date'"
                     type="date"
                     [(ngModel)]="row.dateMaxValue"
@@ -261,6 +265,7 @@
                       [(ngModel)]="row.defaultValue"
                       name="defaultValue{{ i }}"
                       [disabled]="row.ColumnPrimaryKey"
+                      class="booleanDW"
                     >
                       <option value="false">UnSelect</option>
                       <option value="true">True</option>

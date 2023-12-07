@@ -324,3 +324,7 @@
     font-size: 14px; /* Adjust the font size */
     margin-block-start: 5px; /* Add some top margin for spacing */
   }
+
+  .booleanDW{
+    margin-left : -30px
+  }

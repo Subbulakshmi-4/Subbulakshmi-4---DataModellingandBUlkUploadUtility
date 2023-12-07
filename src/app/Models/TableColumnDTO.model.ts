@@ -20,4 +20,7 @@ export interface TableColumnDTO {
   ListEntityId:number;
   ListEntityKey:number;
   ListEntityValue:number;
+  S_ListEntityId?: string | null;
+  S_ListEntityKey?: string | null;
+  S_ListEntityValue?: string | null;
 }

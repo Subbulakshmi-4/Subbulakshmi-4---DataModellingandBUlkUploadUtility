@@ -61,7 +61,10 @@ export class EntityDetailsComponent implements OnInit {
               False: columnData.false, 
               ListEntityId:columnData.listEntityId,
               ListEntityKey:columnData.listEntityKey,
-              ListEntityValue:columnData.listEntityValue
+              ListEntityValue:columnData.listEntityValue,
+              S_ListEntityId:columnData.s_ListEntityId,
+              S_ListEntityKey:columnData.s_ListEntityKey,
+              S_ListEntityValue:columnData.s_ListEntityValue
               
             };
             console.log("column",column);
@@ -250,7 +253,10 @@ export class EntityDetailsComponent implements OnInit {
               False: columnData.false,
               ListEntityId:columnData.listEntityId,
               ListEntityKey:columnData.listEntityKey,
-              ListEntityValue:columnData.listEntityValue
+              ListEntityValue:columnData.listEntityValue,
+              S_ListEntityId:columnData.s_ListEntityId,
+              S_ListEntityKey:columnData.s_ListEntityKey,
+              S_ListEntityValue:columnData.s_ListEntityValue
             };
             console.log("fetch column",column)
             return column;

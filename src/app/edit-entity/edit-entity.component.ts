@@ -364,8 +364,10 @@ onDataTypeChange(row: any) {
   } else if (row.datatype === 'int') {
       row.minLength = null;
       row.maxLength = null;
-  }
+  } 
 }
+
+
   // In your component
   validateDateRange(row: any, index: number) {
     const minDate = new Date(row.dateMinValue);
@@ -526,8 +528,12 @@ preventInput(event: Event): void {
       event.preventDefault();
     }
   }
+  isStringOrNumber(datatype: string): boolean {
+    return ['string', 'int'].includes(datatype);
+  }
+  
   onPrimaryKeyChange(event: Event, row: any): void {
-    if (row.primaryKey) {
+    if (row.ColumnPrimaryKey) {
       row.defaultValue = '';
     }
     if (row.minLength) {
@@ -548,8 +554,12 @@ preventInput(event: Event): void {
     if (row.dateMaxValue) {
       row.defaultValue = '';
     }
+    const isStringOrNumber = ['string', 'int'].includes(row.datatype);
+    if (row.ColumnPrimaryKey && isStringOrNumber) {
+      row.defaultValue = '';
+    }
   }
-
+ 
   validateNumeric(event: any) {
     const keyCode = event.keyCode;
     if (

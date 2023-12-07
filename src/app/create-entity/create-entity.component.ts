@@ -270,25 +270,7 @@ closeModal() {
     }
   }
   onPrimaryKeyChange(event: Event, row: any): void {
-    if (row.primaryKey) {
-        row.defaultValue = '';
-    }
-    if(row.minLength){
-      row.defaultValue = '';
-    }
-    if(row.maxLength){
-      row.defaultValue = '';
-    }
-    if(row.MinRange){
-      row.defaultValue = '';
-    }
-    if(row.MaxRange){
-      row.defaultValue = '';
-    }
-    if(row.dateminValue){
-      row.defaultValue = '';
-    }
-    if(row.datemaxValue){
+    if (row.primaryKey || row.minLength || row.maxLength || row.MinRange || row.MaxRange || row.dateminValue || row.datemaxValue) {
       row.defaultValue = '';
     }
 }

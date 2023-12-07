@@ -246,6 +246,7 @@
                       [(ngModel)]="row.primaryKey"
                       name="primaryKey{{ i }}"
                       [disabled]="!row.enableprimaryKey"
+                      (change)="onPrimaryKeyChange($event, row)"
                     />
                     <span class="slider"></span>
                   </label>

@@ -56,7 +56,9 @@ export class EditEntityComponent implements OnInit {
   entityValueColumnName: string = '';
   initiallyHidden: boolean = true;
   secondSetVisible: boolean = false;
-// Inside your subscription block
+  minMaxDatesSelected: boolean = false;
+// In your component
+dateErrorMap: Map<number, boolean> = new Map<number, boolean>();
 
 
  
@@ -74,6 +76,7 @@ export class EditEntityComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+  
     this.route.params.subscribe((params) => {
       this.entityName = params['entityName'];
       console.log(this.entityName);
@@ -321,14 +324,12 @@ export class EditEntityComponent implements OnInit {
             (column) => column.entityColumnName
           );
         });
-      // Fetch columns for the selected entity
       this.fetchSelectedEntityColumns(entityName);
-      // Update the row's selectedEntity property if needed
       this.NewEntity.columns[rowIndex].selectedEntity = entityName;
     });
   }
   selectedEntity2Indexs: number | null = null;
-
+ 
   updateSelectedId(index: number) {
     if (index !== null && index >= 0 && index < this.selectedColumnIds.length) {
       this.selectedKeyvalueId = this.selectedColumnIds[index];
@@ -337,21 +338,54 @@ export class EditEntityComponent implements OnInit {
       this.selectedKeyvalueId = null; // Handle the case when the index is out of range
     }
   }
-  validateMinMax(row: any) {
-    if (row.minLength > row.maxLength) {
-      this.toastrService.showError('Min value must be smaller than Max value');
-      row.minLength = null;
-      row.maxLength = null;
-    }
-  }
   showDropdowns() {
     this.initiallyHidden = false;
   }
   showSecondSet() {
     this.secondSetVisible = true;
   }
+  validateMinMax(row: any) {
+    if (row.minLength >= row.maxLength) {
+      this.toastrService.showError('Min value must be smaller than Max value');
+      row.minLength = null;
+      row.maxLength = null;
+    }
+    else if(row.minLength === row.maxLength){
+      this.toastrService.showError('Minimum length must be different from Maximum length')
+      row.minLength = null;
+      row.maxLength = null;
+    }
+  }
+
+onDataTypeChange(row: any) {
+  if (row.datatype === 'string') {
+      row.minRange = null;
+      row.maxRange = null;
+  } else if (row.datatype === 'int') {
+      row.minLength = null;
+      row.maxLength = null;
+  } 
+}
+
+
+  // In your component
+  validateDateRange(row: any, index: number) {
+    const minDate = new Date(row.dateMinValue);
+    const maxDate = new Date(row.dateMaxValue);
+    const defaultDate = new Date(row.defaultValue);
+  
+    if (defaultDate < minDate || defaultDate > maxDate) {
+      this.dateErrorMap.set(index, true);
+    } else {
+      this.dateErrorMap.set(index, false);
+    }
+  }
+
+preventInput(event: Event): void {
+  event.preventDefault();
+}
   validateMinMaxRange(row: any) {
-    if (row.minRange > row.maxRange) {
+    if (row.minRange >= row.maxRange) {
       this.toastrService.showError(
         'Min value must be smaller than Max value',
         'Validation Error'
@@ -359,6 +393,15 @@ export class EditEntityComponent implements OnInit {
       row.minRange = null;
       row.maxRange = null;
     }
+    else if (row.minRange === row.maxRange) {
+      this.toastrService.showError(
+        'Minimum Range must be different from Maximum Range'
+      );
+      row.minRange = null;
+      row.maxRange = null;
+    }
+    row.minRange = row.minRange ?? 0;
+    row.maxRange = row.maxRange ?? 0;
   }
   calculateDefaultDate(dateMinValue: string, dateMaxValue: string): string {
     const defaultDate = new Date(
@@ -374,6 +417,8 @@ export class EditEntityComponent implements OnInit {
       );
     }
   }
+
+
   validateDefaultDate(row: any) {
     if (row.datatype === 'date') {
       const defaultDate = new Date(row.defaultValue);
@@ -483,8 +528,12 @@ export class EditEntityComponent implements OnInit {
       event.preventDefault();
     }
   }
+  isStringOrNumber(datatype: string): boolean {
+    return ['string', 'int'].includes(datatype);
+  }
+  
   onPrimaryKeyChange(event: Event, row: any): void {
-    if (row.primaryKey) {
+    if (row.ColumnPrimaryKey) {
       row.defaultValue = '';
     }
     if (row.minLength) {
@@ -505,8 +554,12 @@ export class EditEntityComponent implements OnInit {
     if (row.dateMaxValue) {
       row.defaultValue = '';
     }
+    const isStringOrNumber = ['string', 'int'].includes(row.datatype);
+    if (row.ColumnPrimaryKey && isStringOrNumber) {
+      row.defaultValue = '';
+    }
   }
-
+ 
   validateNumeric(event: any) {
     const keyCode = event.keyCode;
     if (
@@ -522,7 +575,9 @@ export class EditEntityComponent implements OnInit {
       event.preventDefault();
     }
   }
-
+  updateMinMaxDatesStatus(): void {
+    this.minMaxDatesSelected = !!this.minDate && !!this.maxDate;
+  }
   onDefaultValueInputChange(event: Event, row: any): void {
     const inputElement = event.target as HTMLInputElement;
     if (row.datatype === 'int') {

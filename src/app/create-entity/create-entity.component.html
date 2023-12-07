@@ -99,7 +99,6 @@
                     <option value="boolean">Boolean</option>
                     <option value="char">Char</option>
                     <option value="date">Date</option>
-                    <option value="timestamp">Timestamp</option>
                     <option value="bytea">ByteA</option>
                     <option  value="listofvalue">List of Value</option>
                   </select>
@@ -177,7 +176,6 @@
                       (keypress)="preventInput($event)"
                     />
                   </div>
-
                   <!-- Max Date Input -->
                   <div class="input-group">
                     <label for="maxValue{{ i }}">Max Date</label>
@@ -240,15 +238,14 @@
                     <span class="slider"></span>
                   </label>
                 </td>
-
                 <td class="center-content">
-                  <!-- Toggle Switch for Primary Key -->
                   <label class="toggle-switch">
                     <input
                       type="checkbox"
                       [(ngModel)]="row.primaryKey"
                       name="primaryKey{{ i }}"
                       [disabled]="!row.enableprimaryKey"
+                      (change)="onPrimaryKeyChange($event, row)"
                     />
                     <span class="slider"></span>
                   </label>
@@ -309,7 +306,6 @@
                       *ngIf="row.datatype === 'boolean'"
                       class="additional-inputs"
                     >
-
                       <div class="input-group">
                         <input
                           type="text"
@@ -320,7 +316,6 @@
                           [disabled]="row.primaryKey"
                         />
                       </div>
-                      
                       <div class="input-group">
                         <input
                           type="text"
